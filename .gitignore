@@ -30,3 +30,6 @@
 *.exe
 *.out
 *.app
+
+# dadbod neovim connections
+connections.json
