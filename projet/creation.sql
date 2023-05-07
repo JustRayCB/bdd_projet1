@@ -12,6 +12,8 @@
     - DossierContientPathologie
     - Pathologie 
 */
+CREATE DATABASE projetINFOH303_2223 if not exists;
+use projetINFOH303_2223;
 
 CREATE TABLE Phramacien  (
     INAMI INT PRIMARY KEY,
