@@ -26,6 +26,7 @@
 -- DROP TABLE IF EXISTS Specialisation;
 -- DROP TABLE IF EXISTS Medicament;
 -- DROP TABLE IF EXISTS SystemeAnatomique;
+-- SHOW TABLES;
 
 
 -- WARNING: Un patient peut avoir plusieurs DOSSIERS, 
