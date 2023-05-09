@@ -1,19 +1,3 @@
-/* Toutes les tables:
-    - Patient
-    - Pharmacien
-    - Médecin
-    - Spécialisations (de médecin)
-    - Prescription
-    - Traitement
-    - MédecinDonneTraitement
-    - Médicament
-    - TraitementContientMédicament
-    - PhramacienDélivreMédicament
-    - DossierContientPathologie
-    - Pathologie
- TODO: Table Dossier
-*/
-
 -- Drop all tables if exists 
 -- DROP TABLE IF EXISTS DossierContientPathologie;
 -- DROP TABLE IF EXISTS PharmacienDelivreMedicament;
@@ -64,6 +48,7 @@ CREATE TABLE Specialisation (
 );
 
 
+-- NOTE: SpecialisationSpecialiseSysAnatomique à besoin de Spécialisation et SystemeAnatomique
 CREATE TABLE SpecialisationSpecialiseSysAnatomique (
     SpecialisationNom VARCHAR(50),
     SystemeAnatomiqueNom VARCHAR(50),
