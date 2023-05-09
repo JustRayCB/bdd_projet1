@@ -23,11 +23,15 @@
 -- DROP TABLE IF EXISTS Medecin;
 -- DROP TABLE IF EXISTS Pharmacien;
 -- DROP TABLE IF EXISTS Pathologie;
+-- DROP TABLE IF EXISTS SpecialisationSpecialiseSysAnatomique;
 -- DROP TABLE IF EXISTS Specialisation;
--- DROP TABLE IF EXISTS Medicament;
 -- DROP TABLE IF EXISTS SystemeAnatomique;
--- SHOW TABLES;
+-- DROP TABLE IF EXISTS Medicament;
+-- ALTER TABLE SpecialisationSpecialiseSysA DROP FOREIGN KEY SpecialisationSpecialiseSysA_ibfk_1;
+-- ALTER TABLE SpecialisationSpecialiseSysA DROP FOREIGN KEY SpecialisationSpecialiseSysA_ibfk_2;
+-- ALTER TABLE Specialisation DROP FOREIGN KEY Specialisation_ibfk_1;
 
+-- SHOW TABLES;
 
 -- WARNING: Un patient peut avoir plusieurs DOSSIERS, 
 --          mais un seul DOSSIER peut être lié à un patient
@@ -55,19 +59,25 @@ CREATE TABLE Medicament(
 -- NOTE: Spécialisation à besoin de SystemeAnatomique
 CREATE TABLE Specialisation (
     Nom VARCHAR(50) NOT NULL PRIMARY KEY,
-    Systeme VARCHAR(50) DEFAULT NULL,
-    FOREIGN KEY(Systeme) REFERENCES SystemeAnatomique(Nom) ON DELETE SET NULL
+    SystemeAnatomiqueNom VARCHAR(50),
+    FOREIGN KEY(SystemeAnatomiqueNom) REFERENCES SystemeAnatomique(Nom) ON DELETE CASCADE
 );
 
--- SHOW TABLES;
+
+CREATE TABLE SpecialisationSpecialiseSysAnatomique (
+    SpecialisationNom VARCHAR(50),
+    SystemeAnatomiqueNom VARCHAR(50),
+    PRIMARY KEY (SpecialisationNom, SystemeAnatomiqueNom),
+    FOREIGN KEY (SpecialisationNom) REFERENCES Specialisation(Nom) ON DELETE CASCADE,
+    FOREIGN KEY (SystemeAnatomiqueNom) REFERENCES SystemeAnatomique(Nom) ON DELETE CASCADE
+);
+
 
 -- NOTE: Pathologie à besoin de Spécialisation
 CREATE TABLE Pathologie (
     Nom VARCHAR(50) NOT NULL PRIMARY KEY,
     SpecialisationNom VARCHAR(50),
-    Systeme VARCHAR(50),
-    FOREIGN KEY (SpecialisationNom) REFERENCES Specialisation(Nom) ON DELETE SET NULL,
-    FOREIGN KEY (Systeme) REFERENCES SystemeAnatomique(Nom) ON DELETE SET NULL
+    FOREIGN KEY (SpecialisationNom) REFERENCES Specialisation(Nom) ON DELETE SET NULL
 );
 
 CREATE TABLE Pharmacien (
@@ -83,8 +93,8 @@ CREATE TABLE Medecin (
     Nom VARCHAR(50) NOT NULL,
     NumTel INT NOT NULL,
     Mail VARCHAR(50) DEFAULT NULL,
-    SpecialisationNom VARCHAR(50) NOT NULL,
-    FOREIGN KEY (SpecialisationNom) REFERENCES Specialisation(Nom)
+    SpecialisationNom VARCHAR(50),
+    FOREIGN KEY (SpecialisationNom) REFERENCES Specialisation(Nom) ON DELETE SET NULL
 );
 
 
@@ -98,10 +108,10 @@ CREATE TABLE Dossier (
     DateNaissance DATE NOT NULL,
     Mail VARCHAR(50) DEFAULT NULL,
     NumTel INT DEFAULT NULL,
-    PharmacienINAMI INT NOT NULL,
-    MedecinINAMI INT NOT NULL,
-    FOREIGN KEY (PharmacienINAMI) REFERENCES Pharmacien(INAMI),
-    FOREIGN KEY (MedecinINAMI) REFERENCES Medecin(INAMI)
+    PharmacienINAMI INT DEFAULT NULL,
+    MedecinINAMI INT DEFAULT NULL,
+    FOREIGN KEY (PharmacienINAMI) REFERENCES Pharmacien(INAMI) ON DELETE SET NULL,
+    FOREIGN KEY (MedecinINAMI) REFERENCES Medecin(INAMI) ON DELETE SET NULL
 );
 
 -- NOTE: Prescription à besoin de Médecin, Medicament et Dossier
@@ -153,5 +163,3 @@ CREATE TABLE DossierContientPathologie (
     FOREIGN KEY (PathologieNom) REFERENCES Pathologie(Nom) ON DELETE CASCADE,
     PRIMARY KEY (DID, PathologieNom)
 );
-
-
