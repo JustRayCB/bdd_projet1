@@ -1,5 +1,5 @@
 
--- SHOW TABLES;
+SHOW TABLES;
 create database if not exists projetINFOH303_2223;
 USE projetINFOH303_2223;
 
@@ -17,9 +17,7 @@ CREATE TABLE Medicament(
 
 -- NOTE: Spécialisation à besoin de SystemeAnatomique
 CREATE TABLE Specialisation (
-    Nom VARCHAR(50) NOT NULL PRIMARY KEY,
-    SystemeAnatomiqueNom VARCHAR(50),
-    FOREIGN KEY(SystemeAnatomiqueNom) REFERENCES SystemeAnatomique(Nom) ON DELETE CASCADE
+    Nom VARCHAR(50) NOT NULL PRIMARY KEY
 );
 
 
