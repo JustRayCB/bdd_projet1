@@ -39,17 +39,17 @@ CREATE TABLE Pathologie (
 );
 
 CREATE TABLE Pharmacien (
-    INAMI INT NOT NULL PRIMARY KEY,
+    INAMI VARCHAR(20) NOT NULL PRIMARY KEY,
     Nom VARCHAR(50) NOT NULL,
-    NumTel INT NOT NULL,
+    NumTel VARCHAR(20) NOT NULL,
     Mail VARCHAR(50) DEFAULT NULL
 );
 
 -- NOTE: Médecin à besoin de Spécialisation 
 CREATE TABLE Medecin (
-    INAMI INT NOT NULL PRIMARY KEY,
+    INAMI VARCHAR(20) NOT NULL PRIMARY KEY,
     Nom VARCHAR(50) NOT NULL,
-    NumTel INT NOT NULL,
+    NumTel VARCHAR(20) NOT NULL,
     Mail VARCHAR(50) DEFAULT NULL,
     SpecialisationNom VARCHAR(50),
     FOREIGN KEY (SpecialisationNom) REFERENCES Specialisation(Nom) ON DELETE SET NULL
@@ -65,9 +65,9 @@ CREATE TABLE Dossier (
     Genre VARCHAR(1) NOT NULL,
     DateNaissance DATE NOT NULL,
     Mail VARCHAR(50) DEFAULT NULL,
-    NumTel INT DEFAULT NULL,
-    PharmacienINAMI INT DEFAULT NULL,
-    MedecinINAMI INT DEFAULT NULL,
+    NumTel VARCHAR(20) DEFAULT NULL,
+    PharmacienINAMI VARCHAR(20) DEFAULT NULL,
+    MedecinINAMI VARCHAR(20) DEFAULT NULL,
     FOREIGN KEY (PharmacienINAMI) REFERENCES Pharmacien(INAMI) ON DELETE SET NULL,
     FOREIGN KEY (MedecinINAMI) REFERENCES Medecin(INAMI) ON DELETE SET NULL
 );
@@ -75,7 +75,7 @@ CREATE TABLE Dossier (
 -- NOTE: Prescription à besoin de Médecin, Medicament et Dossier
 CREATE TABLE Prescription (
     ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    MedecinINAMI INT DEFAULT NULL,
+    MedecinINAMI VARCHAR(20) DEFAULT NULL,
     DossierID INT NOT NULL,
     PharmacienNom INT DEFAULT NULL,
     MedecinNom INT DEFAULT NULL,
@@ -92,7 +92,7 @@ CREATE TABLE Prescription (
 
 -- NOTE: MédecinPrescritPrescription à besoin de Médecin et Prescription
 CREATE TABLE MedecinPrescritPrescription (
-    MedecinINAMI INT NOT NULL,
+    MedecinINAMI VARCHAR(20) NOT NULL,
     PrescriptionID INT NOT NULL,
     DateDebutTraitement DATE NOT NULL,
     DuréeTraitement INT NOT NULL,
@@ -104,7 +104,7 @@ CREATE TABLE MedecinPrescritPrescription (
 
 -- NOTE: PharmacienDélivreMédicament à besoin de Pharmacien et Médicament
 CREATE TABLE PharmacienDelivreMedicament(
-    PharmacienINAMI INT NOT NULL,
+    PharmacienINAMI VARCHAR(20) NOT NULL,
     MedicamentID INT NOT NULL,
     FOREIGN KEY (PharmacienINAMI) REFERENCES Pharmacien(INAMI) ON DELETE CASCADE,
     FOREIGN KEY (MedicamentID) REFERENCES Medicament(ID) ON DELETE CASCADE,

@@ -4,6 +4,7 @@
 #include <pugixml.hpp>
 #include <sstream>
 #include <string>
+#include <vector>
 
 Database::Database() {
     connection_properties["hostName"] = "tcp://localhost:3306/projetINFOH303_2223";
@@ -63,6 +64,8 @@ void Database::init() const {
      **/
     loadSpecialites();
     loadPathologies();
+    loadPharmaciens();
+    loadMedecins();
 }
 
 void Database::loadSpecialites() const {
@@ -108,7 +111,7 @@ void Database::insertSystemeAnatomique(const std::string &nom) const {
                   << " inside SystemeAnatomique " << std::endl;
         return;
     }
-    if (nom == "None") { return; }
+    if (nom == "None" or nom == "") { return; }
     std::cout << "Insert Systeme anatomique" << std::endl;
     sql::PreparedStatement *stmt =
         con->prepareStatement("INSERT INTO SystemeAnatomique (Nom) VALUES (?)");
@@ -124,7 +127,7 @@ void Database::insertSpecialisation(const std::string &nom) const {
                   << " inside Specialisation " << std::endl;
         return;
     }
-    if (nom == "None") { return; }
+    if (nom == "None" or nom == "") { return; }
     std::cout << "Insert specialisation" << std::endl;
     sql::PreparedStatement *stmt =
         con->prepareStatement("INSERT INTO Specialisation (Nom) VALUES (?)");
@@ -186,12 +189,164 @@ void Database::insertPathologie(const std::string &nom, const std::string &speci
                   << " Inside Pathologie" << std::endl;
         return;
     }
-    if (nom == "None") { return; }
+    if (nom == "None" or nom == "") { return; }
     // std::cout << "Insert pathologie" << std::endl;
     sql::PreparedStatement *stmt =
         con->prepareStatement("INSERT INTO Pathologie (Nom, SpecialisationNom) VALUES (?, ?)");
     stmt->setString(1, nom);
     stmt->setString(2, specialisation);
+    stmt->execute();
+    delete stmt;
+}
+
+void Database::loadPharmaciens() const {
+    std::cout << "Loading pharmaciens.xml ..." << std::endl;
+    std::cout << std::endl;
+
+    std::string specialitesPath = "../data/pharmaciens.xml";
+    pugi::xml_document doc;
+    if (!doc.load_file(specialitesPath.c_str())) {
+        std::cout << "Erreur lors du chargement du fichier XML." << std::endl;
+        return;
+    }
+
+    for (pugi::xml_node specialiteNode : doc.children("pharmacien")) {
+        // Extraire le nom de la spécialité
+        pugi::xml_node inamiNode = specialiteNode.child("inami");
+        pugi::xml_node nameNode = specialiteNode.child("nom");
+        pugi::xml_node mailNode = specialiteNode.child("mail");
+        pugi::xml_node telNode = specialiteNode.child("tel");
+        std::string inami = "None";
+        std::string name = "None";
+        std::string mail = "None";
+        std::string tel = "None";
+        if (inamiNode) {
+            inami = inamiNode.text().as_string();
+            strip(inami);
+        }
+        if (mailNode) {
+            mail = mailNode.text().as_string();
+            strip(mail);
+        }
+        if (nameNode) {
+            name = nameNode.text().as_string();
+            strip(name);
+        }
+        if (telNode) {
+            tel = telNode.text().as_string();
+            strip(tel);
+        }
+        // std::cout << "Inami: " << inami << " Name: " << name << " Mail: " << mail << " Tel: " <<
+        // tel
+        //           << std::endl;
+        insertPharmacien(inami, name, mail, tel);
+    }
+
+    std::cout << std::endl;
+    std::cout << "fini" << std::endl;
+    return;
+}
+
+void Database::insertPharmacien(const std::string &inami, const std::string &nom,
+                                const std::string &email, const std::string &tel) const {
+    bool exists = checkIfExists("Pharmacien", "Inami", inami);
+    std::vector<std::string> args = {inami, nom, tel, email};
+    if (exists) {
+        std::cout << inami << " exist "
+                  << " Inside Pharmacien" << std::endl;
+        return;
+    }
+    if (inami == "None" or inami == "") { return; }
+    // std::cout << "Insert pharmacien" << std::endl;
+    sql::PreparedStatement *stmt = con->prepareStatement(
+        "INSERT INTO Pharmacien (INAMI, Nom, NumTel, Mail) VALUES (?, ?, ?, ?)");
+
+    for (size_t i = 0; i < 4; i++) {
+        if (i == 3 and email == "") { // email
+            stmt->setNull(i + 1, sql::DataType::VARCHAR);
+        } else {
+            stmt->setString(i + 1, args[i]);
+        }
+    }
+    stmt->execute();
+    delete stmt;
+}
+
+void Database::loadMedecins() const {
+    std::cout << "Loading medecins.xml ..." << std::endl;
+    std::cout << std::endl;
+
+    std::string specialitesPath = "../data/medecins.xml";
+    pugi::xml_document doc;
+    if (!doc.load_file(specialitesPath.c_str())) {
+        std::cout << "Erreur lors du chargement du fichier XML." << std::endl;
+        return;
+    }
+
+    for (pugi::xml_node specialiteNode : doc.children("medecin")) {
+        // Extraire le nom de la spécialité
+        pugi::xml_node inamiNode = specialiteNode.child("inami");
+        pugi::xml_node mailNode = specialiteNode.child("mail");
+        pugi::xml_node nameNode = specialiteNode.child("nom");
+        pugi::xml_node specNode = specialiteNode.child("specialite");
+        pugi::xml_node telNode = specialiteNode.child("telephone");
+        std::string inami = "None";
+        std::string name = "None";
+        std::string mail = "None";
+        std::string specialite = "None";
+        std::string tel = "None";
+        if (inamiNode) {
+            inami = inamiNode.text().as_string();
+            strip(inami);
+        }
+        if (mailNode) {
+            mail = mailNode.text().as_string();
+            strip(mail);
+        }
+        if (nameNode) {
+            name = nameNode.text().as_string();
+            strip(name);
+        }
+        if (specNode) {
+            specialite = specNode.text().as_string();
+            strip(specialite);
+        }
+        if (telNode) {
+            tel = telNode.text().as_string();
+            strip(tel);
+        }
+        std::cout << "Inami: " << inami << " Name: " << name << " Mail: " << mail << " Tel: " << tel
+                  << " Specialite : " << specialite << std::endl;
+        insertSpecialisation(specialite);
+        insertMedecin(inami, name, mail, tel, specialite);
+    }
+
+    std::cout << std::endl;
+    std::cout << "fini2" << std::endl;
+    return;
+}
+
+void Database::insertMedecin(const std::string &inami, const std::string &nom,
+                             const std::string &email, const std::string &tel,
+                             const std::string &specilisation) const {
+    bool exists = checkIfExists("Medecin", "INAMI", inami);
+    std::vector<std::string> args = {inami, nom, tel, email, specilisation};
+    if (exists) {
+        std::cout << inami << " exist "
+                  << " Inside Medecin" << std::endl;
+        return;
+    }
+    if (inami == "None" or inami == "") { return; }
+    std::cout << "Insert medecin" << std::endl;
+    sql::PreparedStatement *stmt = con->prepareStatement(
+        "INSERT INTO Medecin (INAMI, Nom, NumTel, Mail, SpecialisationNom) VALUES (?, ?, ?, ?, ?)");
+    for (size_t i = 0; i < 5; i++) {
+        if (i == 3 and email == "") { // email
+            stmt->setNull(i + 1, sql::DataType::VARCHAR);
+        } else {
+            stmt->setString(i + 1, args[i]);
+        }
+    }
     stmt->execute();
     delete stmt;
 }

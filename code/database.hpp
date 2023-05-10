@@ -37,17 +37,20 @@ private:
      * and insert the data into the database
      */
     void loadSpecialites() const;
+
     /**
      * @brief: Insert an anatomic system into the SystemAnatomique table
      *
      * @param nom: The name of the anatomic system
      **/
     void insertSystemeAnatomique(const std::string &nom) const;
+
     /**
      * @brief: Insert a specialites into the Specialisation table
      * @param nom: The name of the specialisation
      **/
     void insertSpecialisation(const std::string &nom) const;
+
     /**
      * @brief: Insert a specialisation and an anatomic system into the
      *  SpecialisationSpecialiseSysAnatomique table
@@ -73,6 +76,41 @@ private:
     void insertPathologie(const std::string &nom, const std::string &specialisation) const;
 
     /**
+     * @brief : Load the pharmaciens.xml file
+     * and insert the data into the database
+     */
+    void loadPharmaciens() const;
+
+    /**
+     * @brief: Insert a pharmacist into the Pharamacien table
+     *
+     * @param inami: Inami of the pharmacist
+     * @param nom: Name of the pharmacist
+     * @param email: Mail of the pharmacist
+     * @param tel: Phone number of the pharmacist
+     **/
+    void insertPharmacien(const std::string &inami, const std::string &nom,
+                          const std::string &email, const std::string &tel) const;
+
+    /**
+     * @brief : Load the medecins.xml file
+     * and insert the data into the database
+     */
+    void loadMedecins() const;
+
+    /**
+     * @brief: Insert a doctor into the Medecin table
+     *
+     * @param inami: Inami of the doctor
+     * @param nom: Name of the doctor
+     * @param email: Mail of the doctor
+     * @param tel: Phone number of the doctor
+     * @param specialisation: Specialisation of the doctor
+     **/
+    void insertMedecin(const std::string &inami, const std::string &nom, const std::string &email,
+                       const std::string &tel, const std::string &specilisation) const;
+
+    /**
      * @brief: Check if a value exist in a table
      *
      * @param table: The name of the table to check
@@ -91,6 +129,10 @@ private:
     bool checkIfExists2(const std::string &table, const std::string &column1,
                         const std::string &column2, const std::string &value1,
                         const std::string &value2) const;
+
+    /**
+     * @brief: Remove space before and after a string
+     **/
     void strip(std::string &str) const;
 };
 
