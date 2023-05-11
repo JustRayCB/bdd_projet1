@@ -79,8 +79,7 @@ CREATE TABLE Prescription (
     DossierID INT NOT NULL,
     PharmacienNom INT DEFAULT NULL,
     MedecinNom INT DEFAULT NULL,
-    MedicamentNom VARCHAR(50) DEFAULT NULL, -- Celui choisi par le médecin
-    MedicamentID INT DEFAULT NULL, -- Celui choisi par le pharmacien
+    MedicamentID INT DEFAULT NULL, -- Medicament  prescrit
     FOREIGN KEY (MedecinINAMI) REFERENCES Medecin(INAMI) ON DELETE SET NULL,
     FOREIGN KEY (DossierID) REFERENCES Dossier(ID) ON DELETE CASCADE,
     FOREIGN KEY(MedicamentID) REFERENCES Medicament(ID) ON DELETE SET NULL
@@ -94,7 +93,7 @@ CREATE TABLE Prescription (
 CREATE TABLE MedecinPrescritPrescription (
     MedecinINAMI VARCHAR(20) NOT NULL,
     PrescriptionID INT NOT NULL,
-    DateDebutTraitement DATE NOT NULL,
+    DatePrescription DATE NOT NULL,
     DuréeTraitement INT NOT NULL,
     FOREIGN KEY (MedecinINAMI) REFERENCES Medecin(INAMI) ON DELETE CASCADE,
     FOREIGN KEY (PrescriptionID) REFERENCES Prescription(ID) ON DELETE CASCADE,
@@ -105,10 +104,13 @@ CREATE TABLE MedecinPrescritPrescription (
 -- NOTE: PharmacienDélivreMédicament à besoin de Pharmacien et Médicament
 CREATE TABLE PharmacienDelivreMedicament(
     PharmacienINAMI VARCHAR(20) NOT NULL,
+    PrescriptionID INT NOT NULL,
     MedicamentID INT NOT NULL,
+    DateDelivrance DATE NOT NULL,
     FOREIGN KEY (PharmacienINAMI) REFERENCES Pharmacien(INAMI) ON DELETE CASCADE,
     FOREIGN KEY (MedicamentID) REFERENCES Medicament(ID) ON DELETE CASCADE,
-    PRIMARY KEY (PharmacienINAMI, MedicamentID)
+    FOREIGN KEY (PrescriptionID) REFERENCES Prescription(ID) ON DELETE CASCADE,
+    PRIMARY KEY (PharmacienINAMI, PrescriptionID)
 );
 
 
