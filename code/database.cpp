@@ -67,6 +67,7 @@ void Database::init() const {
     loadPharmaciens();
     loadMedecins();
     loadMedicaments();
+    loadPatients();
 }
 
 void Database::loadSpecialites() const {
@@ -396,6 +397,92 @@ void Database::insertMedicament(const std::string &dci, const std::string &nom,
     sql::PreparedStatement *stmt = con->prepareStatement(
         "INSERT INTO Medicament (DCI, Nom, Conditionnement) VALUES (?, ?, ?)");
     for (size_t i = 0; i < args.size(); i++) { stmt->setString(i + 1, args[i]); }
+    stmt->execute();
+    delete stmt;
+}
+
+void Database::loadPatients() const {
+    std::cout << "Loading patients.xml ..." << std::endl;
+    std::cout << std::endl;
+
+    std::string specialitesPath = "../data/patient.xml";
+    pugi::xml_document doc;
+    if (!doc.load_file(specialitesPath.c_str())) {
+        std::cout << "Erreur lors du chargement du fichier XML." << std::endl;
+        return;
+    }
+
+    for (pugi::xml_node specialiteNode : doc.children("patient")) {
+        // Extraire le nom de la spécialité
+        enum { NISS, BIRTH, SEX, MEDECIN, PHARMACIEN, MAIL, NOM, PRENOM, TEL };
+        pugi::xml_node nissNode = specialiteNode.child("NISS");
+        pugi::xml_node birthNode = specialiteNode.child("date_de_naissance");
+        pugi::xml_node sexNode = specialiteNode.child("genre");
+        pugi::xml_node medecinNode = specialiteNode.child("inami_medecin");
+        pugi::xml_node pharmacienNode = specialiteNode.child("inami_pharmacien");
+        pugi::xml_node mailNode = specialiteNode.child("mail");
+        pugi::xml_node nomNode = specialiteNode.child("nom");
+        pugi::xml_node prenomNode = specialiteNode.child("prenom");
+        pugi::xml_node telNode = specialiteNode.child("telephone");
+        std::vector<pugi::xml_node> nodes = {nissNode,    birthNode,      sexNode,
+                                             medecinNode, pharmacienNode, mailNode,
+                                             nomNode,     prenomNode,     telNode};
+        std::vector<std::string> args = {"None", "None", "None", "None", "None",
+                                         "None", "None", "None", "None"};
+        for (size_t i = 0; i < nodes.size(); i++) {
+            if (nodes[i]) {
+                args[i] = nodes[i].text().as_string();
+                strip(args[i]);
+            }
+        }
+        std::cout << "NISS: " << args[NISS] << " Nom: " << args[NOM] << " Prenom: " << args[PRENOM]
+                  << std::endl;
+        insertPatient(args.at(NISS), args.at(NOM), args.at(PRENOM), args.at(SEX), args.at(BIRTH),
+                      args.at(MAIL), args.at(TEL), args.at(PHARMACIEN), args.at(MEDECIN));
+    }
+
+    std::cout << std::endl;
+    std::cout << "fini2" << std::endl;
+    return;
+}
+
+void Database::insertPatient(const std::string &niss, const std::string &nom,
+                             const std::string &prenom, const std::string &sexe,
+                             const std::string &dateNaissance, const std::string &mail,
+                             const std::string &tel, const std::string &pharmacien,
+                             const std::string &medecin) const {
+    std::vector<std::string> args = {niss, nom, prenom,     sexe,   dateNaissance,
+                                     mail, tel, pharmacien, medecin};
+    if (checkIfExists("Dossier", "Niss", niss)) {
+        std::cout << niss << " exist "
+                  << " Inside Dossier" << std::endl;
+        return;
+    }
+    if (niss == "None" or niss == "") { return; }
+    // std::cout << "Insert patient" << std::endl;
+    sql::PreparedStatement *stmt = con->prepareStatement(
+        "INSERT INTO Dossier (Niss, Nom, Prenom, Genre, DateNaissance, Mail, NumTel, "
+        "PharmacienINAMI, MedecinINAMI) VALUES (?, ?, ?, ?, STR_TO_DATE(?, '%m/%d/%Y'), ?, ?, ?, "
+        "?)");
+    for (size_t i = 0; i < args.size(); i++) {
+        if (i == 7 and not checkIfExists("Pharmacien", "INAMI", pharmacien)) {
+            stmt->setNull(i + 1, sql::DataType::VARCHAR);
+        } else if (i == 8 and not checkIfExists("Medecin", "INAMI", medecin)) {
+            stmt->setNull(i + 1, sql::DataType::VARCHAR);
+        } else if ((i == 5 and args[i] == "") or (i == 6 and args[i] == "")) {
+            stmt->setNull(i + 1, sql::DataType::VARCHAR);
+        } else if (i == 3) {
+            if (args[i] == "1") {
+                stmt->setString(i + 1, "M");
+            } else if (args[i] == "2") {
+                stmt->setString(i + 1, "F");
+            } else {
+                stmt->setString(i + 1, "X");
+            }
+        } else {
+            stmt->setString(i + 1, args[i]);
+        }
+    }
     stmt->execute();
     delete stmt;
 }

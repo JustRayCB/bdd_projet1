@@ -59,7 +59,7 @@ CREATE TABLE Medecin (
 -- NOTE: Dossier à besoin de Medecin et pharmacien
 CREATE TABLE Dossier (
     ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    Niss INT NOT NULL,
+    Niss VARCHAR(20) NOT NULL,
     Nom VARCHAR(50) NOT NULL,
     Prenom VARCHAR(50) NOT NULL,
     Genre VARCHAR(1) NOT NULL,

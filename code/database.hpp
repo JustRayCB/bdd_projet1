@@ -127,6 +127,16 @@ private:
                           const std::string &conditionnement) const;
 
     /**
+     * @brief : Load the patient.xml file
+     * and insert the data into the database
+     */
+    void loadPatients() const;
+
+    void insertPatient(const std::string &niss, const std::string &nom, const std::string &prenom,
+                       const std::string &sexe, const std::string &dateNaissance,
+                       const std::string &mail, const std::string &tel,
+                       const std::string &pharmacien, const std::string &medecin) const;
+    /**
      * @brief: Check if a value exist in a table
      *
      * @param table: The name of the table to check

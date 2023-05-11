@@ -10,7 +10,7 @@ int main() {
     try {
         Database db;
         db.showTables();
-        db.init();
+        db.init(); // to fill the database tables with the data from the files in the data folder
     } catch (sql::SQLException &e) {
         cout << "# ERR: SQLException in " << __FILE__;
         cout << "(" << __FUNCTION__ << ") on line " << __LINE__ << endl;
