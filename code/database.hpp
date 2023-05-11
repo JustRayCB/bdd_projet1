@@ -111,6 +111,22 @@ private:
                        const std::string &tel, const std::string &specilisation) const;
 
     /**
+     * @brief : Load the medicaments.csv file
+     * and insert the data into the database
+     */
+    void loadMedicaments() const;
+
+    /**
+     * @brief: Insert a medicament into the Medicament table
+     *
+     * @param dci: DCI of the medicament
+     * @param nom: Name of the medicament
+     * @param conditionnement: Conditionnement of the medicament
+     **/
+    void insertMedicament(const std::string &dci, const std::string &nom,
+                          const std::string &conditionnement) const;
+
+    /**
      * @brief: Check if a value exist in a table
      *
      * @param table: The name of the table to check
@@ -129,6 +145,11 @@ private:
     bool checkIfExists2(const std::string &table, const std::string &column1,
                         const std::string &column2, const std::string &value1,
                         const std::string &value2) const;
+
+    bool checkIfExists3(const std::string &table, const std::string &column1,
+                        const std::string &column2, const std::string &column3,
+                        const std::string &value1, const std::string &value2,
+                        const std::string &value3) const;
 
     /**
      * @brief: Remove space before and after a string

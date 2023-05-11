@@ -66,6 +66,7 @@ void Database::init() const {
     loadPathologies();
     loadPharmaciens();
     loadMedecins();
+    loadMedicaments();
 }
 
 void Database::loadSpecialites() const {
@@ -261,7 +262,7 @@ void Database::insertPharmacien(const std::string &inami, const std::string &nom
     sql::PreparedStatement *stmt = con->prepareStatement(
         "INSERT INTO Pharmacien (INAMI, Nom, NumTel, Mail) VALUES (?, ?, ?, ?)");
 
-    for (size_t i = 0; i < 4; i++) {
+    for (size_t i = 0; i < args.size(); i++) {
         if (i == 3 and email == "") { // email
             stmt->setNull(i + 1, sql::DataType::VARCHAR);
         } else {
@@ -340,13 +341,61 @@ void Database::insertMedecin(const std::string &inami, const std::string &nom,
     std::cout << "Insert medecin" << std::endl;
     sql::PreparedStatement *stmt = con->prepareStatement(
         "INSERT INTO Medecin (INAMI, Nom, NumTel, Mail, SpecialisationNom) VALUES (?, ?, ?, ?, ?)");
-    for (size_t i = 0; i < 5; i++) {
+    for (size_t i = 0; i < args.size(); i++) {
         if (i == 3 and email == "") { // email
             stmt->setNull(i + 1, sql::DataType::VARCHAR);
         } else {
             stmt->setString(i + 1, args[i]);
         }
     }
+    stmt->execute();
+    delete stmt;
+}
+
+void Database::loadMedicaments() const {
+    std::string pathologiesPath = "../data/medicaments.csv";
+    std::cout << "Loading medicaments.csv ..." << std::endl;
+    std::cout << std::endl;
+    std::ifstream file(pathologiesPath);
+    enum { DCI, NOMCOMMERCIALE, SYSA, CONDITIONNEMENT };
+    std::string line;
+    std::vector<std::string> args = {"", "", "", ""};
+    int i = 0;
+    while (std::getline(file, line)) {
+        if (i == 0) {
+        } else {
+            std::istringstream iss(line);
+            for (size_t i = 0; i < args.size(); i++) {
+                std::getline(iss, args[i], ',');
+                strip(args[i]);
+            }
+            // std::cout << "Pathologie: " << nomPathologie << " Specialisation: " <<
+            // nomSpecialisation
+            //           << std::endl;
+            std::cout << "DCI: " << args[DCI] << " Nom: " << args[NOMCOMMERCIALE]
+                      << " Conditionnement: " << args[CONDITIONNEMENT] << std::endl;
+            insertMedicament(args[DCI], args[NOMCOMMERCIALE], args[CONDITIONNEMENT]);
+        }
+        i++;
+    }
+    return;
+}
+
+void Database::insertMedicament(const std::string &dci, const std::string &nom,
+                                const std::string &conditionnement) const {
+    bool exists =
+        checkIfExists3("Medicament", "DCI", "Conditionnement", "Nom", dci, conditionnement, nom);
+    std::vector<std::string> args = {dci, nom, conditionnement};
+    if (exists) {
+        std::cout << dci << " exist "
+                  << " Inside Medicament" << std::endl;
+        return;
+    }
+    if (dci == "None" or dci == "") { return; }
+    // std::cout << "Insert medicament" << std::endl;
+    sql::PreparedStatement *stmt = con->prepareStatement(
+        "INSERT INTO Medicament (DCI, Nom, Conditionnement) VALUES (?, ?, ?)");
+    for (size_t i = 0; i < args.size(); i++) { stmt->setString(i + 1, args[i]); }
     stmt->execute();
     delete stmt;
 }
@@ -376,6 +425,26 @@ bool Database::checkIfExists2(const std::string &table, const std::string &colum
         "SELECT COUNT(*) FROM " + table + " WHERE " + column1 + " = ? AND " + column2 + " = ?");
     stmt->setString(1, value1);
     stmt->setString(2, value2);
+    sql::ResultSet *res = stmt->executeQuery();
+    res->next();
+    int count = res->getInt(1);
+    delete stmt;
+    delete res;
+
+    return count > 0;
+}
+
+bool Database::checkIfExists3(const std::string &table, const std::string &column1,
+                              const std::string &column2, const std::string &column3,
+                              const std::string &value1, const std::string &value2,
+                              const std::string &value3) const {
+    // std::cout << "Check if exists with 3 columns" << std::endl;
+    // std::cout << "Checking if data exists in table: " << table << std::endl;
+    sql::PreparedStatement *stmt =
+        con->prepareStatement("SELECT COUNT(*) FROM " + table + " WHERE " + column1 + " = ? AND " +
+                              column2 + " = ? AND " + column3 + " = ?");
+    std::vector<std::string> args = {value1, value2, value3};
+    for (size_t i = 0; i < args.size(); i++) { stmt->setString(i + 1, args[i]); }
     sql::ResultSet *res = stmt->executeQuery();
     res->next();
     int count = res->getInt(1);
