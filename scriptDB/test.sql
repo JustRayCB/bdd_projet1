@@ -7,6 +7,9 @@ SELECT * FROM Pharmacien; -- 270
 SELECT * FROM Medecin; -- 274
 SELECT * FROM Medicament; -- 1540
 SELECT * FROM Dossier; -- 274
+SELECT * FROM DossierContientPathologie; -- 970
+describe Pathologie;
+describe Specialisation;
 describe Dossier
 
 

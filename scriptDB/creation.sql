@@ -58,8 +58,7 @@ CREATE TABLE Medecin (
 
 -- NOTE: Dossier à besoin de Medecin et pharmacien
 CREATE TABLE Dossier (
-    ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    Niss VARCHAR(20) NOT NULL,
+    Niss VARCHAR(20) NOT NULL PRIMARY KEY,
     Nom VARCHAR(50) NOT NULL,
     Prenom VARCHAR(50) NOT NULL,
     Genre VARCHAR(1) NOT NULL,
@@ -76,12 +75,12 @@ CREATE TABLE Dossier (
 CREATE TABLE Prescription (
     ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     MedecinINAMI VARCHAR(20) DEFAULT NULL,
-    DossierID INT NOT NULL,
+    DossierID VARCHAR(20) NOT NULL,
     PharmacienNom INT DEFAULT NULL,
     MedecinNom INT DEFAULT NULL,
     MedicamentID INT DEFAULT NULL, -- Medicament  prescrit
     FOREIGN KEY (MedecinINAMI) REFERENCES Medecin(INAMI) ON DELETE SET NULL,
-    FOREIGN KEY (DossierID) REFERENCES Dossier(ID) ON DELETE CASCADE,
+    FOREIGN KEY (DossierID) REFERENCES Dossier(Niss) ON DELETE CASCADE,
     FOREIGN KEY(MedicamentID) REFERENCES Medicament(ID) ON DELETE SET NULL
     -- FOREIGN KEY (MedicamentNom) REFERENCES Medicament(Nom) ON DELETE SET NULL
     -- FOREIGN KEY (MedecinNom) REFERENCES Medecin(Nom) ON DELETE SET NULL,
@@ -116,10 +115,10 @@ CREATE TABLE PharmacienDelivreMedicament(
 
 -- NOTE: Dossier à besoin Dossier et de Pathologie
 CREATE TABLE DossierContientPathologie (
-    DID INT NOT NULL,
+    DossierID VARCHAR(20) NOT NULL,
     PathologieNom VARCHAR(50) NOT NULL,
     DateDiagnostique DATE NOT NULL,
-    FOREIGN KEY (DID) REFERENCES Dossier(ID) ON DELETE CASCADE,
+    FOREIGN KEY (DossierID) REFERENCES Dossier(Niss) ON DELETE CASCADE,
     FOREIGN KEY (PathologieNom) REFERENCES Pathologie(Nom) ON DELETE CASCADE,
-    PRIMARY KEY (DID, PathologieNom)
+    PRIMARY KEY (DossierID, PathologieNom, DateDiagnostique)
 );

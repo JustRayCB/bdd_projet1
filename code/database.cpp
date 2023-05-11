@@ -1,4 +1,5 @@
 #include "database.hpp"
+#include <ctime>
 #include <fstream>
 #include <ostream>
 #include <pugixml.hpp>
@@ -68,6 +69,7 @@ void Database::init() const {
     loadMedecins();
     loadMedicaments();
     loadPatients();
+    loadDiagnostics();
 }
 
 void Database::loadSpecialites() const {
@@ -212,12 +214,12 @@ void Database::loadPharmaciens() const {
         return;
     }
 
-    for (pugi::xml_node specialiteNode : doc.children("pharmacien")) {
+    for (pugi::xml_node pharmacienNode : doc.children("pharmacien")) {
         // Extraire le nom de la spécialité
-        pugi::xml_node inamiNode = specialiteNode.child("inami");
-        pugi::xml_node nameNode = specialiteNode.child("nom");
-        pugi::xml_node mailNode = specialiteNode.child("mail");
-        pugi::xml_node telNode = specialiteNode.child("tel");
+        pugi::xml_node inamiNode = pharmacienNode.child("inami");
+        pugi::xml_node nameNode = pharmacienNode.child("nom");
+        pugi::xml_node mailNode = pharmacienNode.child("mail");
+        pugi::xml_node telNode = pharmacienNode.child("tel");
         std::string inami = "None";
         std::string name = "None";
         std::string mail = "None";
@@ -285,13 +287,13 @@ void Database::loadMedecins() const {
         return;
     }
 
-    for (pugi::xml_node specialiteNode : doc.children("medecin")) {
+    for (pugi::xml_node medecinNode : doc.children("medecin")) {
         // Extraire le nom de la spécialité
-        pugi::xml_node inamiNode = specialiteNode.child("inami");
-        pugi::xml_node mailNode = specialiteNode.child("mail");
-        pugi::xml_node nameNode = specialiteNode.child("nom");
-        pugi::xml_node specNode = specialiteNode.child("specialite");
-        pugi::xml_node telNode = specialiteNode.child("telephone");
+        pugi::xml_node inamiNode = medecinNode.child("inami");
+        pugi::xml_node mailNode = medecinNode.child("mail");
+        pugi::xml_node nameNode = medecinNode.child("nom");
+        pugi::xml_node specNode = medecinNode.child("specialite");
+        pugi::xml_node telNode = medecinNode.child("telephone");
         std::string inami = "None";
         std::string name = "None";
         std::string mail = "None";
@@ -412,18 +414,18 @@ void Database::loadPatients() const {
         return;
     }
 
-    for (pugi::xml_node specialiteNode : doc.children("patient")) {
+    for (pugi::xml_node patientNode : doc.children("patient")) {
         // Extraire le nom de la spécialité
         enum { NISS, BIRTH, SEX, MEDECIN, PHARMACIEN, MAIL, NOM, PRENOM, TEL };
-        pugi::xml_node nissNode = specialiteNode.child("NISS");
-        pugi::xml_node birthNode = specialiteNode.child("date_de_naissance");
-        pugi::xml_node sexNode = specialiteNode.child("genre");
-        pugi::xml_node medecinNode = specialiteNode.child("inami_medecin");
-        pugi::xml_node pharmacienNode = specialiteNode.child("inami_pharmacien");
-        pugi::xml_node mailNode = specialiteNode.child("mail");
-        pugi::xml_node nomNode = specialiteNode.child("nom");
-        pugi::xml_node prenomNode = specialiteNode.child("prenom");
-        pugi::xml_node telNode = specialiteNode.child("telephone");
+        pugi::xml_node nissNode = patientNode.child("NISS");
+        pugi::xml_node birthNode = patientNode.child("date_de_naissance");
+        pugi::xml_node sexNode = patientNode.child("genre");
+        pugi::xml_node medecinNode = patientNode.child("inami_medecin");
+        pugi::xml_node pharmacienNode = patientNode.child("inami_pharmacien");
+        pugi::xml_node mailNode = patientNode.child("mail");
+        pugi::xml_node nomNode = patientNode.child("nom");
+        pugi::xml_node prenomNode = patientNode.child("prenom");
+        pugi::xml_node telNode = patientNode.child("telephone");
         std::vector<pugi::xml_node> nodes = {nissNode,    birthNode,      sexNode,
                                              medecinNode, pharmacienNode, mailNode,
                                              nomNode,     prenomNode,     telNode};
@@ -485,6 +487,88 @@ void Database::insertPatient(const std::string &niss, const std::string &nom,
     }
     stmt->execute();
     delete stmt;
+}
+
+void Database::loadDiagnostics() const {
+
+    std::cout << "Loading diagnostiques.xml ..." << std::endl;
+    std::cout << std::endl;
+
+    std::string specialitesPath = "../data/diagnostiques.xml";
+    pugi::xml_document doc;
+    if (!doc.load_file(specialitesPath.c_str())) {
+        std::cout << "Erreur lors du chargement du fichier XML." << std::endl;
+        return;
+    }
+
+    for (pugi::xml_node diagnosticNode : doc.children("diagnostique")) {
+        enum { NISS, DATE, BIRTH, PATHO, SPECIALITE };
+        pugi::xml_node nissNode = diagnosticNode.child("NISS");
+        pugi::xml_node dateNode = diagnosticNode.child("date_diagnostic");
+        pugi::xml_node birthNode = diagnosticNode.child("naissance");
+        pugi::xml_node pathoNode = diagnosticNode.child("pathology");
+        pugi::xml_node specialiteNode = diagnosticNode.child("specialite");
+        std::vector<pugi::xml_node> nodes = {nissNode, dateNode, birthNode, pathoNode,
+                                             specialiteNode};
+        std::vector<std::string> args = {"None", "None", "None", "None", "None"};
+        for (size_t i = 0; i < nodes.size(); i++) {
+            if (nodes[i]) {
+                args[i] = nodes[i].text().as_string();
+                strip(args[i]);
+            }
+        }
+        std::cout << "NISS: " << args[NISS] << " Date: " << args[DATE] << " Patho: " << args[PATHO]
+                  << " Specialite: " << args[SPECIALITE] << std::endl;
+        insertDiagnostic(args.at(NISS), args.at(PATHO), args.at(DATE), args.at(SPECIALITE),
+                         args.at(BIRTH));
+    }
+
+    std::cout << std::endl;
+    std::cout << "fini Diagnositques" << std::endl;
+    return;
+}
+
+void Database::insertDiagnostic(const std::string &niss, const std::string &pathologie,
+                                const std::string &date, const std::string &specialite,
+                                const std::string &birth) const {
+    std::vector<std::string> args = {niss, pathologie, date};
+    if (checkIfExists3("DossierContientPathologie", "DossierID", "PathologieNom",
+                       "DateDiagnostique", niss, pathologie, date)) {
+        std::cout << niss << " exist " << pathologie << " exist "
+                  << " Inside DossierContientPathologie" << std::endl;
+        return;
+    }
+    if (niss == "None" or niss == "") { return; }
+    if (pathologie == "None" or pathologie == "") { return; }
+    if (not isDate1MoreRecent(date, birth)) {
+        std::cout << "Diagnostic birth is more recent than date" << std::endl;
+        return;
+    }
+    if (not checkIfExists("Dossier", "Niss", niss)) {
+        std::cout << "Dossier does not exist " << std::endl;
+        return;
+    }
+    insertSpecialisation(specialite);
+    insertPathologie(pathologie, specialite);
+
+    sql::PreparedStatement *stmt = con->prepareStatement(
+        "INSERT INTO DossierContientPathologie (DossierID, PathologieNom, DateDiagnostique) "
+        "VALUES (?, ?, STR_TO_DATE(?, '%m/%d/%Y'))");
+    for (size_t i = 0; i < args.size(); i++) { stmt->setString(i + 1, args[i]); }
+    stmt->execute();
+    delete stmt;
+}
+
+bool Database::isDate1MoreRecent(const std::string &date1, const std::string &date2) const {
+
+    struct tm tm1 = {};
+    struct tm tm2 = {};
+    time_t t1, t2;
+    strptime(date1.c_str(), "%m/%d/%Y", &tm1);
+    strptime(date2.c_str(), "%m/%d/%Y", &tm2);
+    t1 = mktime(&tm1);
+    t2 = mktime(&tm2);
+    return t1 >= t2;
 }
 
 bool Database::checkIfExists(const std::string &table, const std::string &column,

@@ -132,10 +132,40 @@ private:
      */
     void loadPatients() const;
 
+    /**
+     * @brief: Insert a patient into the Patient table
+     *
+     * @param niss: NISS of the patient
+     * @param nom: Name of the patient
+     * @param prenom: First name of the patient
+     * @param sexe: Gender of the patient
+     * @param dateNaissance: Date of birth of the patient
+     * @param mail: Mail of the patient
+     * @param tel: Phone number of the patient
+     * @param pharmacien: Inami of the pharmacist of the patient
+     * @param medecin: Inami of the doctor of the patient
+     * */
     void insertPatient(const std::string &niss, const std::string &nom, const std::string &prenom,
                        const std::string &sexe, const std::string &dateNaissance,
                        const std::string &mail, const std::string &tel,
                        const std::string &pharmacien, const std::string &medecin) const;
+
+    /**
+     * @brief : Load the diagnostiques.xml file
+     * and insert the data into the database
+     */
+    void loadDiagnostics() const;
+
+    /**
+     * @brief: Insert a diagnostic into the DossierContientPathologie table
+     *
+     * @param niss: NISS of the Patient
+     * @param pathologie: Name of the pathology
+     * @param date: Date of the diagnostic
+     **/
+    void insertDiagnostic(const std::string &niss, const std::string &pathologie,
+                          const std::string &date, const std::string &specialite,
+                          const std::string &birth) const;
     /**
      * @brief: Check if a value exist in a table
      *
@@ -165,6 +195,8 @@ private:
      * @brief: Remove space before and after a string
      **/
     void strip(std::string &str) const;
+
+    bool isDate1MoreRecent(const std::string &date1, const std::string &date2) const;
 };
 
 #endif // !DEBUG
