@@ -71,17 +71,22 @@ CREATE TABLE Dossier (
     FOREIGN KEY (MedecinINAMI) REFERENCES Medecin(INAMI) ON DELETE SET NULL
 );
 
+-- TODO: Il manque MedecinPrescritPrescription, PharmacienDelivreMedicament, Prescription
+-- Tous ceci avec le dernier fichier dossier_patient.csv
+
 -- NOTE: Prescription à besoin de Médecin, Medicament et Dossier
 CREATE TABLE Prescription (
     ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    MedecinINAMI VARCHAR(20) DEFAULT NULL,
+    MedecinINAMI VARCHAR(20) NOT NULL,
     DossierID VARCHAR(20) NOT NULL,
-    PharmacienNom INT DEFAULT NULL,
-    MedecinNom INT DEFAULT NULL,
-    MedicamentID INT DEFAULT NULL, -- Medicament  prescrit
-    FOREIGN KEY (MedecinINAMI) REFERENCES Medecin(INAMI) ON DELETE SET NULL,
-    FOREIGN KEY (DossierID) REFERENCES Dossier(Niss) ON DELETE CASCADE,
-    FOREIGN KEY(MedicamentID) REFERENCES Medicament(ID) ON DELETE SET NULL
+    PharmacienNom VARCHAR(50) NOT NULL,
+    MedecinNom VARCHAR(50) NOT NULL,
+    MedicamentNom VARCHAR(50) NOT NULL, -- Medicament  prescrit
+    DatePrescription DATE NOT NULL,
+    DureeTraitement INT NOT NULL,
+    FOREIGN KEY (MedecinINAMI) REFERENCES Medecin(INAMI) ON DELETE CASCADE,
+    FOREIGN KEY (DossierID) REFERENCES Dossier(Niss) ON DELETE CASCADE
+    -- FOREIGN KEY(MedicamentID) REFERENCES Medicament(ID) ON DELETE SET NULL
     -- FOREIGN KEY (MedicamentNom) REFERENCES Medicament(Nom) ON DELETE SET NULL
     -- FOREIGN KEY (MedecinNom) REFERENCES Medecin(Nom) ON DELETE SET NULL,
     -- FOREIGN KEY (PharmacienINAMI) REFERENCES Pharmacien(INAMI) ON DELETE SET NULL,
@@ -89,15 +94,16 @@ CREATE TABLE Prescription (
 
 
 -- NOTE: MédecinPrescritPrescription à besoin de Médecin et Prescription
-CREATE TABLE MedecinPrescritPrescription (
-    MedecinINAMI VARCHAR(20) NOT NULL,
-    PrescriptionID INT NOT NULL,
-    DatePrescription DATE NOT NULL,
-    DuréeTraitement INT NOT NULL,
-    FOREIGN KEY (MedecinINAMI) REFERENCES Medecin(INAMI) ON DELETE CASCADE,
-    FOREIGN KEY (PrescriptionID) REFERENCES Prescription(ID) ON DELETE CASCADE,
-    PRIMARY KEY (MedecinINAMI, PrescriptionID)
-);
+
+-- CREATE TABLE MedecinPrescritPrescription (
+--     MedecinINAMI VARCHAR(20) NOT NULL,
+--     PrescriptionID INT NOT NULL,
+--     DatePrescription DATE NOT NULL,
+--     DuréeTraitement INT NOT NULL,
+--     FOREIGN KEY (MedecinINAMI) REFERENCES Medecin(INAMI) ON DELETE CASCADE,
+--     FOREIGN KEY (PrescriptionID) REFERENCES Prescription(ID) ON DELETE CASCADE,
+--     PRIMARY KEY (MedecinINAMI, PrescriptionID)
+-- );
 
 
 -- NOTE: PharmacienDélivreMédicament à besoin de Pharmacien et Médicament

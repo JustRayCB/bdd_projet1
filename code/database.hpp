@@ -163,9 +163,35 @@ private:
      * @param pathologie: Name of the pathology
      * @param date: Date of the diagnostic
      **/
-    void insertDiagnostic(const std::string &niss, const std::string &pathologie,
-                          const std::string &date, const std::string &specialite,
-                          const std::string &birth) const;
+    void insertDiagnostic(const std::string &niss, const std::string &pathologie, std::string &date,
+                          const std::string &specialite, const std::string &birth) const;
+
+    /**
+     * @brief : Load the diagnostiques.xml file
+     * and insert the data into the database
+     */
+    void loadPrescriptions() const;
+
+    /**
+     * @brief: Insert a prescription into the Prescription table
+     *
+     * @param medecinINAMI: Inami of the doctor who wrote the prescription
+     * @param dossier: NISS of the patient
+     * @param pharmacien: Inami of the pharmacist who delivered the medicament
+     * @param medecinNom: Name of the doctor who wrote the prescription
+     * @param medicament: name of the medicament
+     * @return: The id of the prescription inserted
+     **/
+    int insertPrescription(const std::string &medecinINAMI, const std::string &dossier,
+                           const std::string &pharmacien, const std::string &medecinNom,
+                           const std::string &medicament, std::string &datePrescription,
+                           const std::string &duree) const;
+
+    void insertPharmacienDelivreMedicament(const std::string &pharmacien,
+                                           const std::string &prescription,
+                                           const std::string &medicament,
+                                           const std::string &dateDelivrance) const;
+
     /**
      * @brief: Check if a value exist in a table
      *
@@ -197,6 +223,8 @@ private:
     void strip(std::string &str) const;
 
     bool isDate1MoreRecent(const std::string &date1, const std::string &date2) const;
+
+    std::string transformDate(std::string date) const;
 };
 
 #endif // !DEBUG

@@ -70,6 +70,7 @@ void Database::init() const {
     loadMedicaments();
     loadPatients();
     loadDiagnostics();
+    loadPrescriptions();
 }
 
 void Database::loadSpecialites() const {
@@ -529,11 +530,11 @@ void Database::loadDiagnostics() const {
 }
 
 void Database::insertDiagnostic(const std::string &niss, const std::string &pathologie,
-                                const std::string &date, const std::string &specialite,
+                                std::string &date, const std::string &specialite,
                                 const std::string &birth) const {
     std::vector<std::string> args = {niss, pathologie, date};
     if (checkIfExists3("DossierContientPathologie", "DossierID", "PathologieNom",
-                       "DateDiagnostique", niss, pathologie, date)) {
+                       "DateDiagnostique", niss, pathologie, transformDate(date))) {
         std::cout << niss << " exist " << pathologie << " exist "
                   << " Inside DossierContientPathologie" << std::endl;
         return;
@@ -554,6 +555,164 @@ void Database::insertDiagnostic(const std::string &niss, const std::string &path
     sql::PreparedStatement *stmt = con->prepareStatement(
         "INSERT INTO DossierContientPathologie (DossierID, PathologieNom, DateDiagnostique) "
         "VALUES (?, ?, STR_TO_DATE(?, '%m/%d/%Y'))");
+    for (size_t i = 0; i < args.size(); i++) { stmt->setString(i + 1, args[i]); }
+    stmt->execute();
+    delete stmt;
+}
+
+std::string Database::transformDate(std::string date) const {
+    std::string month = date.substr(0, 2);
+    std::string day = date.substr(3, 2);
+    std::string year = date.substr(6, 4);
+    date = year + "-" + month + "-" + day;
+    return date;
+}
+
+void Database::loadPrescriptions() const {
+    std::string prescriptionPath = "../data/dossiers_patients.csv";
+    std::cout << "Loading dossier_patients.csv ..." << std::endl;
+    std::cout << std::endl;
+    std::ifstream file(prescriptionPath);
+    // NISS_patient,medecin,inami_medecin,pharmacien,inami_pharmacien,medicament_nom_commercial,
+    // DCI,date_prescription,date_vente,duree_traitement
+    enum {
+        NISS,
+        MEDECIN,
+        INAMI_MEDECIN,
+        PHARMACIEN,
+        INAMI_PHARMACIEN,
+        MEDICAMENT,
+        DCI,
+        DATE,
+        VENTE,
+        DUREE
+    };
+    std::string line;
+    std::vector<std::string> args = {"None", "None", "None", "None", "None",
+                                     "None", "None", "None", "None", "None"};
+    int i = 0;
+    while (std::getline(file, line)) {
+        if (i == 0) {
+        } else {
+            std::istringstream iss(line);
+            for (size_t i = 0; i < args.size(); i++) {
+                std::getline(iss, args[i], ',');
+                strip(args[i]);
+            }
+            // std::cout << "NISS: " << args[NISS] << " Medecin: " << args[MEDECIN]
+            //           << " Inami Medecin: " << args[INAMI_MEDECIN]
+            //           << " Pharmacien: " << args[PHARMACIEN]
+            //           << " Inami Pharmacien: " << args[INAMI_PHARMACIEN]
+            //           << " Medicament: " << args[MEDICAMENT] << " DCI: " << args[DCI]
+            //           << " Date: " << args[DATE] << " Duree: " << args[DUREE] << std::endl;
+            int prescriptionId =
+                insertPrescription(args[INAMI_MEDECIN], args[NISS], args[PHARMACIEN], args[MEDECIN],
+                                   args[MEDICAMENT], args[DATE], args[DUREE]);
+            if (prescriptionId != -1) {
+                // find the medicmanet id
+                int medicamentId = -1;
+                sql::PreparedStatement *stmt =
+                    con->prepareStatement("SELECT ID FROM Medicament WHERE Nom = ? AND DCI = ?"
+                                          " AND Conditionnement >= ? "
+                                          " ORDER BY Conditionnement ASC "
+                                          " LIMIT 1");
+                stmt->setString(1, args[MEDICAMENT]);
+                stmt->setString(2, args[DCI]);
+                stmt->setString(3, args[DUREE]);
+                sql::ResultSet *res = stmt->executeQuery();
+                if (res->next()) { medicamentId = res->getInt("ID"); }
+                delete res;
+                delete stmt;
+                if (medicamentId == -1) {
+                    std::cout << "Medicament not found, taking the one with max conditionnement"
+                              << std::endl;
+                    sql::PreparedStatement *stmt =
+                        con->prepareStatement("SELECT ID FROM Medicament WHERE Nom = ? AND DCI = ?"
+                                              " ORDER BY Conditionnement DESC"
+                                              " LIMIT 1");
+                    stmt->setString(1, args[MEDICAMENT]);
+                    stmt->setString(2, args[DCI]);
+                    sql::ResultSet *res = stmt->executeQuery();
+                    if (res->next()) { medicamentId = res->getInt("ID"); }
+                }
+                std::cout << "I foutnd the medicament id" << medicamentId << std::endl;
+                insertPharmacienDelivreMedicament(args[INAMI_PHARMACIEN],
+                                                  std::to_string(prescriptionId),
+                                                  std::to_string(medicamentId), args[VENTE]);
+            }
+        }
+        i++;
+    }
+    std::cout << "Nombre de prescriptions : " << i << std::endl;
+    return;
+}
+
+int Database::insertPrescription(const std::string &medecinINAMI, const std::string &dossier,
+                                 const std::string &pharmacien, const std::string &medecinNom,
+                                 const std::string &medicament, std::string &datePrescription,
+                                 const std::string &duree) const {
+    std::vector<std::string> args = {medecinINAMI, dossier,          pharmacien, medecinNom,
+                                     medicament,   datePrescription, duree};
+    // no need to check if a prescription exists, because it is possible to have the same
+    // prescription twice
+    if (checkIfExists3("Prescription", "DossierID", "MedicamentNom", "DatePrescription", dossier,
+                       medicament, transformDate(datePrescription))) {
+        std::cout << medecinINAMI << " exist " << dossier << " exist " << pharmacien
+                  << " exist Inside Prescription" << std::endl;
+        return -1;
+    }
+    if (not checkIfExists("Dossier", "Niss", dossier)) {
+        std::cout << "Dossier does not exist " << std::endl;
+        return -1;
+    }
+    if (not checkIfExists("Medecin", "INAMI", medecinINAMI)) {
+        std::cout << "Medecin does not exist " << std::endl;
+        return -1;
+    }
+    if (not checkIfExists("Pharmacien", "Nom", pharmacien)) {
+        std::cout << "Pharmacien does not exist " << std::endl;
+        return -1;
+    }
+    if (not checkIfExists("Medicament", "Nom", medicament)) {
+        std::cout << "Medicament does not exist " << std::endl;
+        return -1;
+    }
+    sql::PreparedStatement *stmt = con->prepareStatement(
+        "INSERT INTO Prescription (MedecinINAMI, DossierID, PharmacienNom, MedecinNom, "
+        "MedicamentNom, DatePrescription, DureeTraitement) VALUES (?, ?, ?, ?, ?, STR_TO_DATE(?, "
+        "'%m/%d/%Y'), ?)");
+    for (size_t i = 0; i < args.size(); i++) { stmt->setString(i + 1, args[i]); }
+    stmt->execute();
+    delete stmt;
+    sql::Statement *stmt2 = con->createStatement();
+    stmt2 = con->createStatement();
+    sql::ResultSet *res = stmt2->executeQuery("SELECT LAST_INSERT_ID()");
+    int prescriptionId = -1;
+    if (res->next()) {
+        prescriptionId = res->getInt(1);
+        std::cout << "ID de la prescription insérée : " << prescriptionId << std::endl;
+    }
+    delete stmt2;
+    delete res;
+    return prescriptionId;
+}
+
+void Database::insertPharmacienDelivreMedicament(const std::string &pharmacien,
+                                                 const std::string &prescription,
+                                                 const std::string &medicament,
+                                                 const std::string &dateDelivrance) const {
+
+    std::vector<std::string> args = {pharmacien, prescription, medicament, dateDelivrance};
+    if (checkIfExists2("PharmacienDelivreMedicament", "PharmacienINAMI", "PrescriptionID",
+                       pharmacien, prescription)) {
+        std::cout << pharmacien << " exist " << prescription << " exist "
+                  << " Inside PharmacienDelivreMedicament" << std::endl;
+        return;
+    }
+    // TODO: Find the correct medicament that can covered a max of duration of prescrption
+    sql::PreparedStatement *stmt = con->prepareStatement(
+        "INSERT INTO PharmacienDelivreMedicament (PharmacienINAMI, PrescriptionID, "
+        "MedicamentID, DateDelivrance) VALUES (?, ?, ?, STR_TO_DATE(?, '%m/%d/%Y'))");
     for (size_t i = 0; i < args.size(); i++) { stmt->setString(i + 1, args[i]); }
     stmt->execute();
     delete stmt;
