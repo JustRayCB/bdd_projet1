@@ -1,6 +1,7 @@
 #include "database.hpp"
 #include <ctime>
 #include <fstream>
+#include <iostream>
 #include <ostream>
 #include <pugixml.hpp>
 #include <sstream>
@@ -188,8 +189,7 @@ void Database::loadPathologies() const {
 }
 
 void Database::insertPathologie(const std::string &nom, const std::string &specialisation) const {
-    bool exists = checkIfExists("Pathologie", "Nom", nom);
-    if (exists) {
+    if (checkIfExists("Pathologie", "Nom", nom)) {
         std::cout << nom << " exist "
                   << " Inside Pathologie" << std::endl;
         return;
@@ -254,11 +254,14 @@ void Database::loadPharmaciens() const {
 
 void Database::insertPharmacien(const std::string &inami, const std::string &nom,
                                 const std::string &email, const std::string &tel) const {
-    bool exists = checkIfExists("Pharmacien", "Inami", inami);
     std::vector<std::string> args = {inami, nom, tel, email};
-    if (exists) {
+    if (checkIfExists("Pharmacien", "INAMI", inami)) {
         std::cout << inami << " exist "
                   << " Inside Pharmacien" << std::endl;
+        return;
+    }
+    if (checkIfExists("Medecin", "INAMI", inami)) {
+        std::cout << "The inami is already taken by a Medecin" << std::endl;
         return;
     }
     if (inami == "None" or inami == "") { return; }
@@ -334,13 +337,18 @@ void Database::loadMedecins() const {
 void Database::insertMedecin(const std::string &inami, const std::string &nom,
                              const std::string &email, const std::string &tel,
                              const std::string &specilisation) const {
-    bool exists = checkIfExists("Medecin", "INAMI", inami);
     std::vector<std::string> args = {inami, nom, tel, email, specilisation};
-    if (exists) {
+    if (checkIfExists("Medecin", "INAMI", inami)) {
         std::cout << inami << " exist "
                   << " Inside Medecin" << std::endl;
         return;
     }
+
+    if (checkIfExists("Pharmacien", "INAMI", inami)) {
+        std::cout << "The inami of the medecin is already taken by a Pharmacien" << std::endl;
+        return;
+    }
+
     if (inami == "None" or inami == "") { return; }
     std::cout << "Insert medecin" << std::endl;
     sql::PreparedStatement *stmt = con->prepareStatement(
@@ -387,10 +395,12 @@ void Database::loadMedicaments() const {
 
 void Database::insertMedicament(const std::string &dci, const std::string &nom,
                                 const std::string &conditionnement) const {
-    bool exists =
-        checkIfExists3("Medicament", "DCI", "Conditionnement", "Nom", dci, conditionnement, nom);
     std::vector<std::string> args = {dci, nom, conditionnement};
-    if (exists) {
+    if (std::stoi(conditionnement) <= 0) {
+        std::cout << "Conditionnement is negative or null number" << std::endl;
+        return;
+    }
+    if (checkIfExists3("Medicament", "DCI", "Conditionnement", "Nom", dci, conditionnement, nom)) {
         std::cout << dci << " exist "
                   << " Inside Medicament" << std::endl;
         return;
@@ -655,6 +665,10 @@ int Database::insertPrescription(const std::string &medecinINAMI, const std::str
                                      medicament,   datePrescription, duree};
     // no need to check if a prescription exists, because it is possible to have the same
     // prescription twice
+    if (std::stoi(duree) <= 0) { // check if the duree is negative or null
+        std::cout << "Duree is negative" << std::endl;
+        return -1;
+    }
     if (checkIfExists3("Prescription", "DossierID", "MedicamentNom", "DatePrescription", dossier,
                        medicament, transformDate(datePrescription))) {
         std::cout << medecinINAMI << " exist " << dossier << " exist " << pharmacien

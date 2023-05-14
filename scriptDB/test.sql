@@ -12,8 +12,8 @@ describe Pathologie;
 describe Specialisation;
 describe Dossier
 describe Medicament
-select * from PharmacienDelivreMedicament;
-SELECT * FROM Prescription;
+select * from PharmacienDelivreMedicament; -- 2351
+SELECT * FROM Prescription; -- 2351
 
 SELECT ID
 FROM Medicament
@@ -23,4 +23,6 @@ LIMIT 1;
 -- TODO: Il manque MedecinPrescritPrescription, PharmacienDelivreMedicament, Prescription
 -- Tous ceci avec le dernier fichier dossier_patient.csv
 
+SELECT DateNaissance FROM Dossier WHERE Niss = 184232301592;
+SELECT Nom FROM Medecin where INAMI = 274140166745;
 -- describe Pathologie;

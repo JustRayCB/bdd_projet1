@@ -86,24 +86,9 @@ CREATE TABLE Prescription (
     DureeTraitement INT NOT NULL,
     FOREIGN KEY (MedecinINAMI) REFERENCES Medecin(INAMI) ON DELETE CASCADE,
     FOREIGN KEY (DossierID) REFERENCES Dossier(Niss) ON DELETE CASCADE
-    -- FOREIGN KEY(MedicamentID) REFERENCES Medicament(ID) ON DELETE SET NULL
-    -- FOREIGN KEY (MedicamentNom) REFERENCES Medicament(Nom) ON DELETE SET NULL
-    -- FOREIGN KEY (MedecinNom) REFERENCES Medecin(Nom) ON DELETE SET NULL,
-    -- FOREIGN KEY (PharmacienINAMI) REFERENCES Pharmacien(INAMI) ON DELETE SET NULL,
 );
 
 
--- NOTE: MédecinPrescritPrescription à besoin de Médecin et Prescription
-
--- CREATE TABLE MedecinPrescritPrescription (
---     MedecinINAMI VARCHAR(20) NOT NULL,
---     PrescriptionID INT NOT NULL,
---     DatePrescription DATE NOT NULL,
---     DuréeTraitement INT NOT NULL,
---     FOREIGN KEY (MedecinINAMI) REFERENCES Medecin(INAMI) ON DELETE CASCADE,
---     FOREIGN KEY (PrescriptionID) REFERENCES Prescription(ID) ON DELETE CASCADE,
---     PRIMARY KEY (MedecinINAMI, PrescriptionID)
--- );
 
 
 -- NOTE: PharmacienDélivreMédicament à besoin de Pharmacien et Médicament
