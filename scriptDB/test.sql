@@ -26,3 +26,27 @@ LIMIT 1;
 SELECT DateNaissance FROM Dossier WHERE Niss = 184232301592;
 SELECT Nom FROM Medecin where INAMI = 274140166745;
 -- describe Pathologie;
+
+SELECT *
+    FROM Prescription
+    JOIN PharmacienDelivreMedicament
+    ON Prescription.ID = PharmacienDelivreMedicament.PrescriptionID
+    -- AND Prescription.PharmacienNom IN (
+    --     SELECT Nom
+    --     FROM Pharmacien
+    --     WHERE INAMI = PharmacienDelivreMedicament.PharmacienINAMI
+    -- )
+    LIMIT 10;
+
+SELECT COUNT(*) FROM Medecin, Prescription
+WHERE Medecin.INAMI = Prescription.MedecinINAMI;
+
+
+-- La specialité de médecins pour laquelle les médecins prescrivent le plus de médicaments.
+SELECT SpecialisationNom, COUNT(*) AS nbPrescription 
+FROM Medecin, Prescription
+WHERE Medecin.INAMI = Prescription.MedecinINAMI 
+GROUP BY SpecialisationNom 
+ORDER BY nbPrescription DESC 
+LIMIT 1;
+
