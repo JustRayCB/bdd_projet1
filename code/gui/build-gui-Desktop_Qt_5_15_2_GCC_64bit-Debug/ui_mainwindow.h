@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created by: Qt User Interface Compiler version 6.5.0
+** Created by: Qt User Interface Compiler version 5.15.2
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -10,7 +10,7 @@
 #define UI_MAINWINDOW_H
 
 #include <QtCore/QVariant>
-#include <QtGui/QAction>
+#include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QGroupBox>
 #include <QtWidgets/QHBoxLayout>
@@ -48,33 +48,33 @@ public:
     void setupUi(QMainWindow *MainWindow)
     {
         if (MainWindow->objectName().isEmpty())
-            MainWindow->setObjectName("MainWindow");
+            MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
         MainWindow->resize(1000, 722);
         actionPatient = new QAction(MainWindow);
-        actionPatient->setObjectName("actionPatient");
+        actionPatient->setObjectName(QString::fromUtf8("actionPatient"));
         actionPharmacien = new QAction(MainWindow);
-        actionPharmacien->setObjectName("actionPharmacien");
+        actionPharmacien->setObjectName(QString::fromUtf8("actionPharmacien"));
         actionM_decin = new QAction(MainWindow);
-        actionM_decin->setObjectName("actionM_decin");
+        actionM_decin->setObjectName(QString::fromUtf8("actionM_decin"));
         centralwidget = new QWidget(MainWindow);
-        centralwidget->setObjectName("centralwidget");
+        centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         pushButton = new QPushButton(centralwidget);
-        pushButton->setObjectName("pushButton");
+        pushButton->setObjectName(QString::fromUtf8("pushButton"));
         pushButton->setGeometry(QRect(10, 10, 131, 41));
         groupBox = new QGroupBox(centralwidget);
-        groupBox->setObjectName("groupBox");
+        groupBox->setObjectName(QString::fromUtf8("groupBox"));
         groupBox->setGeometry(QRect(470, 240, 261, 111));
         verticalLayout = new QVBoxLayout(groupBox);
-        verticalLayout->setObjectName("verticalLayout");
+        verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
         horizontalLayout = new QHBoxLayout();
-        horizontalLayout->setObjectName("horizontalLayout");
+        horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
         nissLabel = new QLabel(groupBox);
-        nissLabel->setObjectName("nissLabel");
+        nissLabel->setObjectName(QString::fromUtf8("nissLabel"));
 
         horizontalLayout->addWidget(nissLabel);
 
         nissText = new QLineEdit(groupBox);
-        nissText->setObjectName("nissText");
+        nissText->setObjectName(QString::fromUtf8("nissText"));
 
         horizontalLayout->addWidget(nissText);
 
@@ -82,7 +82,7 @@ public:
         verticalLayout->addLayout(horizontalLayout);
 
         connectionButton = new QPushButton(groupBox);
-        connectionButton->setObjectName("connectionButton");
+        connectionButton->setObjectName(QString::fromUtf8("connectionButton"));
         QSizePolicy sizePolicy(QSizePolicy::Minimum, QSizePolicy::Preferred);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
@@ -92,19 +92,19 @@ public:
         verticalLayout->addWidget(connectionButton);
 
         loginPic = new QLabel(centralwidget);
-        loginPic->setObjectName("loginPic");
+        loginPic->setObjectName(QString::fromUtf8("loginPic"));
         loginPic->setGeometry(QRect(140, 180, 261, 251));
         loginPic->setPixmap(QPixmap(QString::fromUtf8("pictures/login.png")));
         loginPic->setScaledContents(true);
         MainWindow->setCentralWidget(centralwidget);
         statusbar = new QStatusBar(MainWindow);
-        statusbar->setObjectName("statusbar");
+        statusbar->setObjectName(QString::fromUtf8("statusbar"));
         MainWindow->setStatusBar(statusbar);
         menubar = new QMenuBar(MainWindow);
-        menubar->setObjectName("menubar");
+        menubar->setObjectName(QString::fromUtf8("menubar"));
         menubar->setGeometry(QRect(0, 0, 1000, 19));
         menuInscription = new QMenu(menubar);
-        menuInscription->setObjectName("menuInscription");
+        menuInscription->setObjectName(QString::fromUtf8("menuInscription"));
         MainWindow->setMenuBar(menubar);
 
         menubar->addAction(menuInscription->menuAction());

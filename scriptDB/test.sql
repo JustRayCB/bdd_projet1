@@ -27,6 +27,8 @@ SELECT DateNaissance FROM Dossier WHERE Niss = 184232301592;
 SELECT Nom FROM Medecin where INAMI = 274140166745;
 -- describe Pathologie;
 
+SELECT Nom FROM Dossier WHERE Niss = 184232301592;
+
 SELECT *
     FROM Prescription
     JOIN PharmacienDelivreMedicament

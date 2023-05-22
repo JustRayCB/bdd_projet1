@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>1000</width>
+    <height>722</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,8 +17,8 @@
    <widget class="QPushButton" name="pushButton">
     <property name="geometry">
      <rect>
-      <x>330</x>
-      <y>220</y>
+      <x>10</x>
+      <y>10</y>
       <width>131</width>
       <height>41</height>
      </rect>
@@ -27,18 +27,103 @@
      <string>Show tables</string>
     </property>
    </widget>
+   <widget class="QGroupBox" name="groupBox">
+    <property name="geometry">
+     <rect>
+      <x>470</x>
+      <y>240</y>
+      <width>261</width>
+      <height>111</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Connectez-vous</string>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <item>
+        <widget class="QLabel" name="nissLabel">
+         <property name="text">
+          <string>NISS</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="nissText"/>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <widget class="QPushButton" name="connectionButton">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="text">
+        <string>Connection</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QLabel" name="loginPic">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>180</y>
+      <width>261</width>
+      <height>251</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap>pictures/login.png</pixmap>
+    </property>
+    <property name="scaledContents">
+     <bool>true</bool>
+    </property>
+   </widget>
   </widget>
+  <widget class="QStatusBar" name="statusbar"/>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>1000</width>
      <height>19</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuInscription">
+    <property name="title">
+     <string>Inscription</string>
+    </property>
+    <addaction name="actionPatient"/>
+    <addaction name="actionPharmacien"/>
+    <addaction name="actionM_decin"/>
+   </widget>
+   <addaction name="menuInscription"/>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionPatient">
+   <property name="text">
+    <string>Patient</string>
+   </property>
+  </action>
+  <action name="actionPharmacien">
+   <property name="text">
+    <string>Pharmacien</string>
+   </property>
+  </action>
+  <action name="actionM_decin">
+   <property name="text">
+    <string>Médecin</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>
