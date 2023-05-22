@@ -1,5 +1,5 @@
 SELECT
-    distinct m.`Nom`,
+    distinct m.`Nom`, m.`Conditionnement`
 FROM
     Medicament AS m
 WHERE
