@@ -49,7 +49,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
-        MainWindow->resize(1000, 722);
+        MainWindow->resize(1004, 639);
         actionPatient = new QAction(MainWindow);
         actionPatient->setObjectName(QString::fromUtf8("actionPatient"));
         actionPharmacien = new QAction(MainWindow);
@@ -102,7 +102,7 @@ public:
         MainWindow->setStatusBar(statusbar);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QString::fromUtf8("menubar"));
-        menubar->setGeometry(QRect(0, 0, 1000, 19));
+        menubar->setGeometry(QRect(0, 0, 1004, 19));
         menuInscription = new QMenu(menubar);
         menuInscription->setObjectName(QString::fromUtf8("menuInscription"));
         MainWindow->setMenuBar(menubar);

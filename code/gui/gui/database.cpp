@@ -75,12 +75,33 @@ void Database::init() const {
 }
 
 bool Database::connectUser(const std::string &niss) {
-    sql::Statement *stmt = con->createStatement();
-    sql::ResultSet *res = stmt->executeQuery("SELECT * FROM Dossier WHERE Niss= " + niss);
+    std::cout << "Je suis dans connect" << std::endl;
+    sql::PreparedStatement *stmt = con->prepareStatement("SELECT * FROM Dossier WHERE Niss = ?");
+    stmt->setString(1, niss);
+    sql::ResultSet *res = stmt->executeQuery();
+
+    // sql::Statement *stmt = con->createStatement();
+    // sql::ResultSet *res = stmt->executeQuery("SELECT * FROM Dossier WHERE Niss = ?");
+    // res->setString(1, niss);
+    std::cout << "J'ai envoyé la requête: "
+              << "SELECT * FROM Dossier WHERE Niss= " + niss << std::endl;
     if (res->next()) {
         std::cout << "Patient found" << std::endl;
+        // // stock all the result into strings
+        // std::vector<std::string> fields = {
+        //     "Niss", "Nom",    "Prenom",  "Genre",           "DateNaissance",
+        //     "Mail", "NumTel", "Adresse", "PharmacienINAMI", "MedecinINAMI"};
+        // std::vector<std::string> patient;
+        // for (auto field : fields) { patient.push_back(res->getString(field)); }
+        // // print all the result
+        // for (size_t i = 0; i < fields.size(); i++) {
+        //     std::cout << fields[i] << ": " << patient[i] << std::endl;
+        // }
+        std::cout << "je return true" << std::endl;
+
         return true;
     }
+    std::cout << "Patient not found" << std::endl;
     delete res;
     delete stmt;
     return false;
@@ -812,7 +833,7 @@ bool Database::checkIfExists3(const std::string &table, const std::string &colum
     return count > 0;
 }
 
-void Database::strip(std::string &str) const {
+void Database::strip(std::string &str) {
     str.erase(0, str.find_first_not_of(" \r\n")); // supprime les espaces au début
     str.erase(str.find_last_not_of(" \r\n") + 1); // supprime les espaces à la fin
 }

@@ -33,6 +33,11 @@ public:
 
     bool connectUser(const std::string &niss);
 
+    /**
+     * @brief: Remove space before and after a string
+     **/
+    static void strip(std::string &str);
+
 private:
     /**
      * @brief : Load the specialites.xml file
@@ -218,11 +223,6 @@ private:
                         const std::string &column2, const std::string &column3,
                         const std::string &value1, const std::string &value2,
                         const std::string &value3) const;
-
-    /**
-     * @brief: Remove space before and after a string
-     **/
-    void strip(std::string &str) const;
 
     bool isDate1MoreRecent(const std::string &date1, const std::string &date2) const;
 
