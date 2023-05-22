@@ -7,7 +7,7 @@ FROM (
     SELECT
         -- Déduction de la décennie par rapport à la date de naissance du patient
         SUBSTRING(d.DateNaissance, 1, 3) AS Decade,
-        m.DCI AS Medicament,
+        m.Nom AS Medicament,
         COUNT(*) AS Nombre_Patients,
         -- Un numéro de ligne par décennie en fonction du nombre de patients (tri descendant)
         ROW_NUMBER() OVER (PARTITION BY SUBSTRING(d.DateNaissance, 1, 3) ORDER BY COUNT(*) DESC) AS RowNum
@@ -16,8 +16,8 @@ FROM (
         JOIN Prescription AS p ON d.Niss = p.DossierID
         JOIN Medicament AS m ON p.MedicamentNom = m.Nom
     WHERE
-        -- Filtre pour inclure uniquement les patients nés entre 1950 et 2000
-        SUBSTRING(d.DateNaissance, 1, 3) BETWEEN '195' AND '200'
+        -- Filtre pour inclure uniquement les patients nés entre 1950 et 2020
+        SUBSTRING(d.DateNaissance, 1, 3) BETWEEN '195' AND '202'
     GROUP BY
         Decade,
         Medicament
