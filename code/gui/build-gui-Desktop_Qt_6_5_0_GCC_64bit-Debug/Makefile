@@ -40,7 +40,7 @@ DISTNAME      = gui1.0.0
 DISTDIR = /home/cbr/Unif2/bdd/projet/bdd_projet1/code/gui/build-gui-Desktop_Qt_6_5_0_GCC_64bit-Debug/.tmp/gui1.0.0
 LINK          = g++
 LFLAGS        = -Wl,-rpath,/home/cbr/dev/Qt/6.5.0/gcc_64/lib -Wl,-rpath-link,/home/cbr/dev/Qt/6.5.0/gcc_64/lib
-LIBS          = $(SUBLIBS) /home/cbr/dev/Qt/6.5.0/gcc_64/lib/libQt6Widgets.so /home/cbr/dev/Qt/6.5.0/gcc_64/lib/libQt6Gui.so /home/cbr/dev/Qt/6.5.0/gcc_64/lib/libQt6Core.so -lpthread -lGL   
+LIBS          = $(SUBLIBS) -lmysqlcppconn -lpugixml /home/cbr/dev/Qt/6.5.0/gcc_64/lib/libQt6Widgets.so /home/cbr/dev/Qt/6.5.0/gcc_64/lib/libQt6Gui.so /home/cbr/dev/Qt/6.5.0/gcc_64/lib/libQt6Core.so -lpthread -lGL   
 AR            = ar cqs
 RANLIB        = 
 SED           = sed
@@ -52,9 +52,11 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = ../gui/main.cpp \
+SOURCES       = ../gui/database.cpp \
+		../gui/main.cpp \
 		../gui/mainwindow.cpp moc_mainwindow.cpp
-OBJECTS       = main.o \
+OBJECTS       = database.o \
+		main.o \
 		mainwindow.o \
 		moc_mainwindow.o
 DIST          = /home/cbr/dev/Qt/6.5.0/gcc_64/mkspecs/features/spec_pre.prf \
@@ -331,6 +333,7 @@ DIST          = /home/cbr/dev/Qt/6.5.0/gcc_64/mkspecs/features/spec_pre.prf \
 		/home/cbr/dev/Qt/6.5.0/gcc_64/mkspecs/features/qt_config.prf \
 		/home/cbr/dev/Qt/6.5.0/gcc_64/mkspecs/linux-g++/qmake.conf \
 		/home/cbr/dev/Qt/6.5.0/gcc_64/mkspecs/features/spec_post.prf \
+		../gui/.qmake.stash \
 		/home/cbr/dev/Qt/6.5.0/gcc_64/mkspecs/features/exclusive_builds.prf \
 		/home/cbr/dev/Qt/6.5.0/gcc_64/mkspecs/features/toolchain.prf \
 		/home/cbr/dev/Qt/6.5.0/gcc_64/mkspecs/features/default_pre.prf \
@@ -351,7 +354,9 @@ DIST          = /home/cbr/dev/Qt/6.5.0/gcc_64/mkspecs/features/spec_pre.prf \
 		/home/cbr/dev/Qt/6.5.0/gcc_64/mkspecs/features/exceptions.prf \
 		/home/cbr/dev/Qt/6.5.0/gcc_64/mkspecs/features/yacc.prf \
 		/home/cbr/dev/Qt/6.5.0/gcc_64/mkspecs/features/lex.prf \
-		../gui/gui.pro ../gui/mainwindow.hpp ../gui/main.cpp \
+		../gui/gui.pro ../gui/database.hpp \
+		../gui/mainwindow.hpp ../gui/database.cpp \
+		../gui/main.cpp \
 		../gui/mainwindow.cpp
 QMAKE_TARGET  = gui
 DESTDIR       = 
@@ -638,6 +643,7 @@ Makefile: ../gui/gui.pro /home/cbr/dev/Qt/6.5.0/gcc_64/mkspecs/linux-g++/qmake.c
 		/home/cbr/dev/Qt/6.5.0/gcc_64/mkspecs/features/qt_config.prf \
 		/home/cbr/dev/Qt/6.5.0/gcc_64/mkspecs/linux-g++/qmake.conf \
 		/home/cbr/dev/Qt/6.5.0/gcc_64/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		/home/cbr/dev/Qt/6.5.0/gcc_64/mkspecs/features/exclusive_builds.prf \
 		/home/cbr/dev/Qt/6.5.0/gcc_64/mkspecs/features/toolchain.prf \
 		/home/cbr/dev/Qt/6.5.0/gcc_64/mkspecs/features/default_pre.prf \
@@ -937,6 +943,7 @@ Makefile: ../gui/gui.pro /home/cbr/dev/Qt/6.5.0/gcc_64/mkspecs/linux-g++/qmake.c
 /home/cbr/dev/Qt/6.5.0/gcc_64/mkspecs/features/qt_config.prf:
 /home/cbr/dev/Qt/6.5.0/gcc_64/mkspecs/linux-g++/qmake.conf:
 /home/cbr/dev/Qt/6.5.0/gcc_64/mkspecs/features/spec_post.prf:
+.qmake.stash:
 /home/cbr/dev/Qt/6.5.0/gcc_64/mkspecs/features/exclusive_builds.prf:
 /home/cbr/dev/Qt/6.5.0/gcc_64/mkspecs/features/toolchain.prf:
 /home/cbr/dev/Qt/6.5.0/gcc_64/mkspecs/features/default_pre.prf:
@@ -976,8 +983,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /home/cbr/dev/Qt/6.5.0/gcc_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../gui/mainwindow.hpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../gui/main.cpp ../gui/mainwindow.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../gui/database.hpp ../gui/mainwindow.hpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../gui/database.cpp ../gui/main.cpp ../gui/mainwindow.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../gui/mainwindow.ui $(DISTDIR)/
 
 
@@ -1172,6 +1179,7 @@ moc_mainwindow.cpp: ../gui/mainwindow.hpp \
 		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtGui/QTransform \
 		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtCore/qnativeinterface.h \
 		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qtabwidget.h \
+		../gui/database.hpp \
 		moc_predefs.h \
 		/home/cbr/dev/Qt/6.5.0/gcc_64/libexec/moc
 	/home/cbr/dev/Qt/6.5.0/gcc_64/libexec/moc $(DEFINES) --include /home/cbr/Unif2/bdd/projet/bdd_projet1/code/gui/build-gui-Desktop_Qt_6_5_0_GCC_64bit-Debug/moc_predefs.h -I/home/cbr/dev/Qt/6.5.0/gcc_64/mkspecs/linux-g++ -I/home/cbr/Unif2/bdd/projet/bdd_projet1/code/gui/gui -I/home/cbr/dev/Qt/6.5.0/gcc_64/include -I/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets -I/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtGui -I/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtCore -I. -I/usr/include/c++/11 -I/usr/include/x86_64-linux-gnu/c++/11 -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-linux-gnu/11/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../gui/mainwindow.hpp -o moc_mainwindow.cpp
@@ -1196,6 +1204,9 @@ compiler_lex_clean:
 compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean compiler_uic_clean 
 
 ####### Compile
+
+database.o: ../gui/database.cpp ../gui/database.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o database.o ../gui/database.cpp
 
 main.o: ../gui/main.cpp ../gui/mainwindow.hpp \
 		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/QMainWindow \
@@ -1356,6 +1367,7 @@ main.o: ../gui/main.cpp ../gui/mainwindow.hpp \
 		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtGui/QTransform \
 		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtCore/qnativeinterface.h \
 		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qtabwidget.h \
+		../gui/database.hpp \
 		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/QApplication \
 		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qapplication.h \
 		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtCore/qcoreapplication.h \
@@ -1539,7 +1551,37 @@ mainwindow.o: ../gui/mainwindow.cpp ../gui/mainwindow.hpp \
 		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtGui/QTransform \
 		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtCore/qnativeinterface.h \
 		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qtabwidget.h \
-		ui_mainwindow.h
+		../gui/database.hpp \
+		ui_mainwindow.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtCore/QVariant \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/QApplication \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qapplication.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtCore/qcoreapplication.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtCore/qeventloop.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtCore/qcoreapplication_platform.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtCore/qfuture.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtCore/qfutureinterface.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtCore/qmutex.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtCore/qtsan_impl.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtCore/qresultstore.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtCore/qfuture_impl.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtCore/qthreadpool.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtCore/qthread.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtCore/qdeadlinetimer.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtCore/qelapsedtimer.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtCore/qrunnable.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtCore/qexception.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtCore/qpromise.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtGui/qguiapplication.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtGui/qinputmethod.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtCore/qlocale.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtGui/qguiapplication_platform.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/QMenuBar \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qmenubar.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qmenu.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/QStatusBar \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qstatusbar.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/QWidget
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../gui/mainwindow.cpp
 
 moc_mainwindow.o: moc_mainwindow.cpp 
