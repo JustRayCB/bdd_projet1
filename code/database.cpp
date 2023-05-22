@@ -386,7 +386,7 @@ void Database::loadMedicaments() const {
             //           << std::endl;
             std::cout << "DCI: " << args[DCI] << " Nom: " << args[NOMCOMMERCIALE]
                       << " Conditionnement: " << args[CONDITIONNEMENT] << std::endl;
-            insertMedicament(args[DCI], args[NOMCOMMERCIALE], args[CONDITIONNEMENT]);
+            insertMedicament(args[DCI], args[NOMCOMMERCIALE], args.at(SYSA), args[CONDITIONNEMENT]);
         }
         i++;
     }
@@ -394,8 +394,8 @@ void Database::loadMedicaments() const {
 }
 
 void Database::insertMedicament(const std::string &dci, const std::string &nom,
-                                const std::string &conditionnement) const {
-    std::vector<std::string> args = {dci, nom, conditionnement};
+                                const std::string &sysa, const std::string &conditionnement) const {
+    std::vector<std::string> args = {dci, nom, conditionnement, sysa};
     if (std::stoi(conditionnement) <= 0) {
         std::cout << "Conditionnement is negative or null number" << std::endl;
         return;
@@ -405,10 +405,12 @@ void Database::insertMedicament(const std::string &dci, const std::string &nom,
                   << " Inside Medicament" << std::endl;
         return;
     }
+    if (not checkIfExists("SystemeAnatomique", "Nom", sysa)) { insertSystemeAnatomique(sysa); }
     if (dci == "None" or dci == "") { return; }
     // std::cout << "Insert medicament" << std::endl;
-    sql::PreparedStatement *stmt = con->prepareStatement(
-        "INSERT INTO Medicament (DCI, Nom, Conditionnement) VALUES (?, ?, ?)");
+    sql::PreparedStatement *stmt =
+        con->prepareStatement("INSERT INTO Medicament (DCI, Nom, Conditionnement, "
+                              "SystemeAnatomiqueNom) VALUES (?, ?, ?, ?)");
     for (size_t i = 0; i < args.size(); i++) { stmt->setString(i + 1, args[i]); }
     stmt->execute();
     delete stmt;
@@ -418,7 +420,7 @@ void Database::loadPatients() const {
     std::cout << "Loading patients.xml ..." << std::endl;
     std::cout << std::endl;
 
-    std::string specialitesPath = "../data/patient.xml";
+    std::string specialitesPath = "../data/patients_corrige.xml";
     pugi::xml_document doc;
     if (!doc.load_file(specialitesPath.c_str())) {
         std::cout << "Erreur lors du chargement du fichier XML." << std::endl;
@@ -482,7 +484,7 @@ void Database::insertPatient(const std::string &niss, const std::string &nom,
             stmt->setNull(i + 1, sql::DataType::VARCHAR);
         } else if (i == 8 and not checkIfExists("Medecin", "INAMI", medecin)) {
             stmt->setNull(i + 1, sql::DataType::VARCHAR);
-        } else if ((i == 5 and args[i] == "") or (i == 6 and args[i] == "")) {
+        } else if ((i == 5 and args[i] == "None") or (i == 6 and args[i] == "None")) {
             stmt->setNull(i + 1, sql::DataType::VARCHAR);
         } else if (i == 3) {
             if (args[i] == "1") {

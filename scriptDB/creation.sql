@@ -12,7 +12,9 @@ CREATE TABLE Medicament(
     ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     DCI VARCHAR(50) NOT NULL,
     Nom VARCHAR(50) NOT NULL,
-    Conditionnement INT NOT NULL
+    Conditionnement INT NOT NULL,
+    SystemeAnatomiqueNom VARCHAR(50) NOT NULL,
+    FOREIGN KEY (SystemeAnatomiqueNom) REFERENCES SystemeAnatomique(Nom) ON DELETE CASCADE
 );
 
 -- NOTE: Spécialisation à besoin de SystemeAnatomique

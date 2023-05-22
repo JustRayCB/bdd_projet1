@@ -123,7 +123,7 @@ private:
      * @param nom: Name of the medicament
      * @param conditionnement: Conditionnement of the medicament
      **/
-    void insertMedicament(const std::string &dci, const std::string &nom,
+    void insertMedicament(const std::string &dci, const std::string &nom, const std::string &sysa,
                           const std::string &conditionnement) const;
 
     /**
