@@ -17,7 +17,6 @@
 #define __WINT_MAX__ 0xffffffffU
 #define __FLT32_MIN_EXP__ (-125)
 #define __cpp_static_assert 201411L
-#define QT_GUI_LIB 1
 #define __ORDER_LITTLE_ENDIAN__ 1234
 #define __SIZE_MAX__ 0xffffffffffffffffUL
 #define __WCHAR_MAX__ 0x7fffffff
@@ -120,7 +119,6 @@
 #define __FLT64X_MANT_DIG__ 64
 #define __GNUC__ 11
 #define __GXX_RTTI 1
-#define __pie__ 2
 #define __MMX__ 1
 #define __FLT_HAS_DENORM__ 1
 #define __SIZEOF_LONG_DOUBLE__ 16
@@ -144,7 +142,6 @@
 #define __INT_FAST16_TYPE__ long int
 #define __MMX_WITH_SSE__ 1
 #define __LDBL_HAS_DENORM__ 1
-#define QT_WIDGETS_LIB 1
 #define __cplusplus 201703L
 #define __cpp_ref_qualifiers 200710L
 #define __DEC32_MIN__ 1E-95DF
@@ -168,7 +165,6 @@
 #define __LONG_LONG_WIDTH__ 64
 #define __cpp_initializer_lists 200806L
 #define __FLT32_MAX_EXP__ 128
-#define ABI_ID "ELF"
 #define __cpp_hex_float 201603L
 #define __GXX_ABI_VERSION 1016
 #define __FLT128_HAS_INFINITY__ 1
@@ -210,7 +206,6 @@
 #define __FLT128_MAX_EXP__ 16384
 #define __FLT32_MANT_DIG__ 24
 #define __FLOAT_WORD_ORDER__ __ORDER_LITTLE_ENDIAN__
-#define SIZEOF_DPTR (sizeof(void*))
 #define __STDC_IEC_60559_COMPLEX__ 201404L
 #define __cpp_aggregate_bases 201603L
 #define __FLT128_HAS_DENORM__ 1
@@ -324,7 +319,6 @@
 #define __ORDER_BIG_ENDIAN__ 4321
 #define __DBL_MANT_DIG__ 53
 #define __cpp_inheriting_constructors 201511L
-#define QT_CORE_LIB 1
 #define __SIZEOF_FLOAT128__ 16
 #define __INT_LEAST64_MAX__ 0x7fffffffffffffffL
 #define __DEC64_MIN__ 1E-383DD
@@ -401,7 +395,6 @@
 #define __GLIBCXX_TYPE_INT_N_0 __int128
 #define __INT_FAST16_WIDTH__ 64
 #define __UINTMAX_MAX__ 0xffffffffffffffffUL
-#define __PIE__ 2
 #define __FLT32X_DENORM_MIN__ 4.94065645841246544176568792868221372e-324F32x
 #define __cpp_template_template_args 201611L
 #define __DBL_MAX_10_EXP__ 308
