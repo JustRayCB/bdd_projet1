@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include <QPixmap>
 #include <QDebug>
+#include <QMessageBox>
 
 
 
@@ -34,11 +35,14 @@ void MainWindow::on_connectionButton_clicked()
    if (db.connectUser(niss.toStdString())){
        // qDebug()<< "Je suis connecté";
        std::cout << "Je suis connecté\n" << std::flush; // car le cout peut-être mis en tampon et ne pas s'afficher tous de suite
-
+       QMessageBox::information(this, "Connection réussie", "Vous vous êtes connecter avec succès !") ;
+       if (ui->stackedWidget->currentIndex() == 0)
+            ui->stackedWidget->setCurrentIndex(1);
    }
    else{
        // qDebug() << "Je ne suis pas connecté";
        std::cout << "Je ne suis pas connecté\n" << std::flush;
+       QMessageBox::critical(this, "Erreur de Connection", "Veuillez rentrer un NISS correct") ;
    }
 }
 

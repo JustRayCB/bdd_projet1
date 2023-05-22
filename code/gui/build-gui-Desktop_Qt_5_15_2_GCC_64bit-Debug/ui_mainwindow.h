@@ -20,6 +20,7 @@
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
+#include <QtWidgets/QStackedWidget>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
@@ -34,13 +35,16 @@ public:
     QAction *actionM_decin;
     QWidget *centralwidget;
     QPushButton *pushButton;
+    QStackedWidget *stackedWidget;
+    QWidget *page;
+    QLabel *loginPic;
     QGroupBox *groupBox;
     QVBoxLayout *verticalLayout;
     QHBoxLayout *horizontalLayout;
     QLabel *nissLabel;
     QLineEdit *nissText;
     QPushButton *connectionButton;
-    QLabel *loginPic;
+    QWidget *page_2;
     QStatusBar *statusbar;
     QMenuBar *menubar;
     QMenu *menuInscription;
@@ -61,9 +65,19 @@ public:
         pushButton = new QPushButton(centralwidget);
         pushButton->setObjectName(QString::fromUtf8("pushButton"));
         pushButton->setGeometry(QRect(10, 10, 131, 41));
-        groupBox = new QGroupBox(centralwidget);
+        stackedWidget = new QStackedWidget(centralwidget);
+        stackedWidget->setObjectName(QString::fromUtf8("stackedWidget"));
+        stackedWidget->setGeometry(QRect(10, 60, 961, 531));
+        page = new QWidget();
+        page->setObjectName(QString::fromUtf8("page"));
+        loginPic = new QLabel(page);
+        loginPic->setObjectName(QString::fromUtf8("loginPic"));
+        loginPic->setGeometry(QRect(140, 130, 261, 251));
+        loginPic->setPixmap(QPixmap(QString::fromUtf8("pictures/login.png")));
+        loginPic->setScaledContents(true);
+        groupBox = new QGroupBox(page);
         groupBox->setObjectName(QString::fromUtf8("groupBox"));
-        groupBox->setGeometry(QRect(470, 240, 261, 111));
+        groupBox->setGeometry(QRect(460, 180, 261, 111));
         verticalLayout = new QVBoxLayout(groupBox);
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
         horizontalLayout = new QHBoxLayout();
@@ -91,11 +105,10 @@ public:
 
         verticalLayout->addWidget(connectionButton);
 
-        loginPic = new QLabel(centralwidget);
-        loginPic->setObjectName(QString::fromUtf8("loginPic"));
-        loginPic->setGeometry(QRect(140, 180, 261, 251));
-        loginPic->setPixmap(QPixmap(QString::fromUtf8("pictures/login.png")));
-        loginPic->setScaledContents(true);
+        stackedWidget->addWidget(page);
+        page_2 = new QWidget();
+        page_2->setObjectName(QString::fromUtf8("page_2"));
+        stackedWidget->addWidget(page_2);
         MainWindow->setCentralWidget(centralwidget);
         statusbar = new QStatusBar(MainWindow);
         statusbar->setObjectName(QString::fromUtf8("statusbar"));
@@ -124,10 +137,10 @@ public:
         actionPharmacien->setText(QCoreApplication::translate("MainWindow", "Pharmacien", nullptr));
         actionM_decin->setText(QCoreApplication::translate("MainWindow", "M\303\251decin", nullptr));
         pushButton->setText(QCoreApplication::translate("MainWindow", "Show tables", nullptr));
+        loginPic->setText(QString());
         groupBox->setTitle(QCoreApplication::translate("MainWindow", "Connectez-vous", nullptr));
         nissLabel->setText(QCoreApplication::translate("MainWindow", "NISS", nullptr));
         connectionButton->setText(QCoreApplication::translate("MainWindow", "Connection", nullptr));
-        loginPic->setText(QString());
         menuInscription->setTitle(QCoreApplication::translate("MainWindow", "Inscription", nullptr));
     } // retranslateUi
 
