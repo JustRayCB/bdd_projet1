@@ -1,1 +1,0 @@
-/usr/bin/g++ -DQT_QML_DEBUG -g CMakeFiles/bdd.dir/bdd_autogen/mocs_compilation.cpp.o CMakeFiles/bdd.dir/main.cpp.o CMakeFiles/bdd.dir/mainwindow.cpp.o -o bdd  /usr/lib/x86_64-linux-gnu/libQt5Widgets.so.5.15.8 /usr/lib/x86_64-linux-gnu/libQt5Sql.so.5.15.8 /usr/lib/x86_64-linux-gnu/libQt5Gui.so.5.15.8 /usr/lib/x86_64-linux-gnu/libQt5Core.so.5.15.8 
