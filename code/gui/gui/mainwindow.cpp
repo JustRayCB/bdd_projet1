@@ -51,10 +51,21 @@ void MainWindow::on_connectionButton_clicked()
 void MainWindow::on_submit_clicked()
 {
    int choosenOne = ui->editMP->currentIndex();
-   std::string inami = ui->editMPText->text().toStdString();
-   if (db.changeMP(inami, choosenOne))
-       std::cout << "OK\n";
-   else
-       std::cout << "C'est pas bon\n";
+   std::string inami = ui->editMPText->text().trimmed().toStdString();
+   ui->editMPText->clear();
+   int result = db.changeMP(inami, choosenOne);
+   std::string i = (choosenOne) ? "Pharmacien" : "Médecin";
+   std::string j  = (not choosenOne) ? "Pharmacien" : "Médecin";
+   if (result == -1){
+       QMessageBox::critical(this, "Erreur", QString::fromStdString("Le " + i + " n'existe pas dans notre base de données"));
+   }
+   else if (result == -2){
+       QMessageBox::critical(this, "Erreur", QString::fromStdString("Il y a une erreur dans le format de l'INAMI\nVeillez à ce qu'il ait 11 chiffres et pas de lettres"));
+   }
+   else if (result == -3)
+       QMessageBox::critical(this, "Erreur", QString::fromStdString("Le numéro inami donné n'est pas un " + i + " mais un " + j ));
+   else {
+       QMessageBox::information(this, "Succès", QString::fromStdString("Votre changement de " + i + " a été appliqué"));
+   }
 }
 

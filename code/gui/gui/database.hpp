@@ -50,7 +50,7 @@ public:
      * @param which: 0 if it's a doctor, 1 if it's a pharmacist
      * @return: True if the change was successful, false otherwise
      */
-    bool changeMP(const std::string &inami, const int which) const;
+    int changeMP(const std::string &inami, const int which);
 
     /**
      * @brief: Remove space before and after a string

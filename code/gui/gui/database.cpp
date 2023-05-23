@@ -93,7 +93,51 @@ bool Database::connectUser(const std::string &niss) {
     return (patient.empty()) ? false : true;
 }
 
-bool Database::changeMP(const std::string &inami, const int which) const { return false; }
+int Database::changeMP(const std::string &inami, const int which) {
+    std::cout << "Change mp" << std::endl;
+    bool exists = false;
+    std::string columnName;
+
+    if (inami.size() < 10) { return -2; }
+
+    for (auto c : inami) {
+        if (!isdigit(c)) { return -2; }
+    }
+
+    if (which) {
+        // pharmacien
+        if (checkIfExists("Medecin", "INAMI", inami)) { return -3; }
+        exists = checkIfExists("Pharmacien", "INAMI", inami);
+        columnName = "PharmacienINAMI";
+    } else {
+        // médecin
+        if (checkIfExists("Pharmacien", "INAMI", inami)) { return -3; }
+        exists = checkIfExists("Medecin", "INAMI", inami);
+        columnName = "MedecinINAMI";
+    }
+
+    if (not exists) { return -1; }
+
+    sql::PreparedStatement *stmt =
+        con->prepareStatement("UPDATE Dossier SET " + columnName + " = ? WHERE Niss = ?");
+    stmt->setString(1, inami);
+    stmt->setString(2, patient.at(Niss));
+    std::cout << "Going to execute" << std::endl;
+    stmt->executeUpdate();
+    delete stmt;
+    std::cout << "Previous Medecin : " << patient.at(MedecinINAMI) << std::endl;
+    std::cout << "Previous Pharmacient" << patient.at(PharmacienINAMI) << std::endl;
+    if (which) {
+        patient.at(PharmacienINAMI) = inami;
+    } else {
+        patient.at(MedecinINAMI) = inami;
+    }
+    std::cout << "New Medecin : " << patient.at(MedecinINAMI) << std::endl;
+    std::cout << "New Pharmacient" << patient.at(PharmacienINAMI) << std::endl;
+
+    std::cout << "OK" << std::endl;
+    return 1;
+}
 
 void Database::loadSpecialites() const {
     // NOTE: Il faut remplire d'abord système anatomique avant la donnée de specialites
