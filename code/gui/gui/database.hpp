@@ -35,7 +35,22 @@ public:
      */
     void init() const;
 
-    std::vector<std::string> connectUser(const std::string &niss);
+    /*
+     * @brief : Check if the patient is in the db and stock his info
+     *
+     * @param niss: NISS of the patient
+     * @return: A vector containing the info of the patient
+     */
+    bool connectUser(const std::string &niss);
+
+    /*
+     * @brief: Change the Medecin or the Pharamacien of the patient
+     *
+     * @param inami: Inami of the new doctor or pharmacistZ
+     * @param which: 0 if it's a doctor, 1 if it's a pharmacist
+     * @return: True if the change was successful, false otherwise
+     */
+    bool changeMP(const std::string &inami, const int which) const;
 
     /**
      * @brief: Remove space before and after a string

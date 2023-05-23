@@ -21,6 +21,8 @@ private slots:
 
     void on_connectionButton_clicked();
 
+    void on_submit_clicked();
+
 private:
     Ui::MainWindow *ui;
     Database db;

@@ -34,8 +34,7 @@ void MainWindow::on_connectionButton_clicked()
    std::cout << "This is my niss : " << niss.toStdString() << std::endl;
    ui->nissText->clear();
    niss = niss.trimmed();
-   std::vector<std::string> patient = db.connectUser(niss.toStdString());
-   if (not patient.empty()){
+   if (db.connectUser(niss.toStdString())){
        // qDebug()<< "Je suis connecté";
        std::cout << "Je suis connecté\n" << std::flush; // car le cout peut-être mis en tampon et ne pas s'afficher tous de suite
        QMessageBox::information(this, "Connection réussie", "Vous vous êtes connecté avec succès !") ;
@@ -46,5 +45,16 @@ void MainWindow::on_connectionButton_clicked()
        std::cout << "Je ne suis pas connecté\n" << std::flush;
        QMessageBox::critical(this, "Erreur de Connection", "Veuillez rentrer un NISS correct") ;
    }
+}
+
+
+void MainWindow::on_submit_clicked()
+{
+   int choosenOne = ui->editMP->currentIndex();
+   std::string inami = ui->editMPText->text().toStdString();
+   if (db.changeMP(inami, choosenOne))
+       std::cout << "OK\n";
+   else
+       std::cout << "C'est pas bon\n";
 }
 

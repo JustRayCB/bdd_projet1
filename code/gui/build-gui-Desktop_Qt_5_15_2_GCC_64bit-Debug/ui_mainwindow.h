@@ -50,9 +50,9 @@ public:
     QWidget *widget;
     QVBoxLayout *verticalLayout_2;
     QHBoxLayout *horizontalLayout_2;
-    QComboBox *comboBox;
-    QLineEdit *lineEdit;
-    QPushButton *pushButton_2;
+    QComboBox *editMP;
+    QLineEdit *editMPText;
+    QPushButton *submit;
     QStatusBar *statusbar;
     QMenuBar *menubar;
     QMenu *menuInscription;
@@ -127,34 +127,34 @@ public:
         verticalLayout_2->setContentsMargins(0, 0, 0, 0);
         horizontalLayout_2 = new QHBoxLayout();
         horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
-        comboBox = new QComboBox(widget);
-        comboBox->addItem(QString());
-        comboBox->addItem(QString());
-        comboBox->setObjectName(QString::fromUtf8("comboBox"));
+        editMP = new QComboBox(widget);
+        editMP->addItem(QString());
+        editMP->addItem(QString());
+        editMP->setObjectName(QString::fromUtf8("editMP"));
         QSizePolicy sizePolicy1(QSizePolicy::Preferred, QSizePolicy::Preferred);
         sizePolicy1.setHorizontalStretch(0);
         sizePolicy1.setVerticalStretch(0);
-        sizePolicy1.setHeightForWidth(comboBox->sizePolicy().hasHeightForWidth());
-        comboBox->setSizePolicy(sizePolicy1);
+        sizePolicy1.setHeightForWidth(editMP->sizePolicy().hasHeightForWidth());
+        editMP->setSizePolicy(sizePolicy1);
 
-        horizontalLayout_2->addWidget(comboBox);
+        horizontalLayout_2->addWidget(editMP);
 
-        lineEdit = new QLineEdit(widget);
-        lineEdit->setObjectName(QString::fromUtf8("lineEdit"));
-        sizePolicy1.setHeightForWidth(lineEdit->sizePolicy().hasHeightForWidth());
-        lineEdit->setSizePolicy(sizePolicy1);
+        editMPText = new QLineEdit(widget);
+        editMPText->setObjectName(QString::fromUtf8("editMPText"));
+        sizePolicy1.setHeightForWidth(editMPText->sizePolicy().hasHeightForWidth());
+        editMPText->setSizePolicy(sizePolicy1);
 
-        horizontalLayout_2->addWidget(lineEdit);
+        horizontalLayout_2->addWidget(editMPText);
 
 
         verticalLayout_2->addLayout(horizontalLayout_2);
 
-        pushButton_2 = new QPushButton(widget);
-        pushButton_2->setObjectName(QString::fromUtf8("pushButton_2"));
-        sizePolicy1.setHeightForWidth(pushButton_2->sizePolicy().hasHeightForWidth());
-        pushButton_2->setSizePolicy(sizePolicy1);
+        submit = new QPushButton(widget);
+        submit->setObjectName(QString::fromUtf8("submit"));
+        sizePolicy1.setHeightForWidth(submit->sizePolicy().hasHeightForWidth());
+        submit->setSizePolicy(sizePolicy1);
 
-        verticalLayout_2->addWidget(pushButton_2);
+        verticalLayout_2->addWidget(submit);
 
         pages->addWidget(accountPage);
         MainWindow->setCentralWidget(centralwidget);
@@ -193,11 +193,11 @@ public:
         nissLabel->setText(QCoreApplication::translate("MainWindow", "NISS", nullptr));
         connectionButton->setText(QCoreApplication::translate("MainWindow", "Connection", nullptr));
         groupBox_2->setTitle(QCoreApplication::translate("MainWindow", "Modifiez vos informations !", nullptr));
-        comboBox->setItemText(0, QCoreApplication::translate("MainWindow", "Nouveau M\303\251decin", nullptr));
-        comboBox->setItemText(1, QCoreApplication::translate("MainWindow", "Nouveau Pharmacien", nullptr));
+        editMP->setItemText(0, QCoreApplication::translate("MainWindow", "Nouveau M\303\251decin", nullptr));
+        editMP->setItemText(1, QCoreApplication::translate("MainWindow", "Nouveau Pharmacien", nullptr));
 
-        lineEdit->setPlaceholderText(QCoreApplication::translate("MainWindow", "INAMI", nullptr));
-        pushButton_2->setText(QCoreApplication::translate("MainWindow", "Soumettre", nullptr));
+        editMPText->setPlaceholderText(QCoreApplication::translate("MainWindow", "INAMI", nullptr));
+        submit->setText(QCoreApplication::translate("MainWindow", "Soumettre", nullptr));
         menuInscription->setTitle(QCoreApplication::translate("MainWindow", "Inscription", nullptr));
     } // retranslateUi
 

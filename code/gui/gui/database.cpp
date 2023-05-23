@@ -74,7 +74,7 @@ void Database::init() const {
     loadPrescriptions();
 }
 
-std::vector<std::string> Database::connectUser(const std::string &niss) {
+bool Database::connectUser(const std::string &niss) {
     std::cout << "Je suis dans connect" << std::endl;
     sql::PreparedStatement *stmt = con->prepareStatement("SELECT * FROM Dossier WHERE Niss = ?");
     stmt->setString(1, niss);
@@ -90,8 +90,10 @@ std::vector<std::string> Database::connectUser(const std::string &niss) {
     }
     delete res;
     delete stmt;
-    return patient;
+    return (patient.empty()) ? false : true;
 }
+
+bool Database::changeMP(const std::string &inami, const int which) const { return false; }
 
 void Database::loadSpecialites() const {
     // NOTE: Il faut remplire d'abord système anatomique avant la donnée de specialites
