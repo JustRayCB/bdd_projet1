@@ -46,10 +46,13 @@ public:
     QLineEdit *nissText;
     QPushButton *connectionButton;
     QWidget *accountPage;
+    QGroupBox *groupBox_2;
     QWidget *widget;
+    QVBoxLayout *verticalLayout_2;
     QHBoxLayout *horizontalLayout_2;
-    QComboBox *editMP;
-    QLineEdit *editMPText;
+    QComboBox *comboBox;
+    QLineEdit *lineEdit;
+    QPushButton *pushButton_2;
     QStatusBar *statusbar;
     QMenuBar *menubar;
     QMenu *menuInscription;
@@ -113,28 +116,45 @@ public:
         pages->addWidget(loginPage);
         accountPage = new QWidget();
         accountPage->setObjectName(QString::fromUtf8("accountPage"));
-        widget = new QWidget(accountPage);
+        groupBox_2 = new QGroupBox(accountPage);
+        groupBox_2->setObjectName(QString::fromUtf8("groupBox_2"));
+        groupBox_2->setGeometry(QRect(0, 30, 381, 121));
+        widget = new QWidget(groupBox_2);
         widget->setObjectName(QString::fromUtf8("widget"));
-        widget->setGeometry(QRect(160, 70, 290, 24));
-        horizontalLayout_2 = new QHBoxLayout(widget);
+        widget->setGeometry(QRect(10, 40, 361, 71));
+        verticalLayout_2 = new QVBoxLayout(widget);
+        verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
+        verticalLayout_2->setContentsMargins(0, 0, 0, 0);
+        horizontalLayout_2 = new QHBoxLayout();
         horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
-        horizontalLayout_2->setContentsMargins(0, 0, 0, 0);
-        editMP = new QComboBox(widget);
-        editMP->addItem(QString());
-        editMP->addItem(QString());
-        editMP->setObjectName(QString::fromUtf8("editMP"));
-
-        horizontalLayout_2->addWidget(editMP);
-
-        editMPText = new QLineEdit(widget);
-        editMPText->setObjectName(QString::fromUtf8("editMPText"));
-        QSizePolicy sizePolicy1(QSizePolicy::Expanding, QSizePolicy::Preferred);
+        comboBox = new QComboBox(widget);
+        comboBox->addItem(QString());
+        comboBox->addItem(QString());
+        comboBox->setObjectName(QString::fromUtf8("comboBox"));
+        QSizePolicy sizePolicy1(QSizePolicy::Preferred, QSizePolicy::Preferred);
         sizePolicy1.setHorizontalStretch(0);
         sizePolicy1.setVerticalStretch(0);
-        sizePolicy1.setHeightForWidth(editMPText->sizePolicy().hasHeightForWidth());
-        editMPText->setSizePolicy(sizePolicy1);
+        sizePolicy1.setHeightForWidth(comboBox->sizePolicy().hasHeightForWidth());
+        comboBox->setSizePolicy(sizePolicy1);
 
-        horizontalLayout_2->addWidget(editMPText);
+        horizontalLayout_2->addWidget(comboBox);
+
+        lineEdit = new QLineEdit(widget);
+        lineEdit->setObjectName(QString::fromUtf8("lineEdit"));
+        sizePolicy1.setHeightForWidth(lineEdit->sizePolicy().hasHeightForWidth());
+        lineEdit->setSizePolicy(sizePolicy1);
+
+        horizontalLayout_2->addWidget(lineEdit);
+
+
+        verticalLayout_2->addLayout(horizontalLayout_2);
+
+        pushButton_2 = new QPushButton(widget);
+        pushButton_2->setObjectName(QString::fromUtf8("pushButton_2"));
+        sizePolicy1.setHeightForWidth(pushButton_2->sizePolicy().hasHeightForWidth());
+        pushButton_2->setSizePolicy(sizePolicy1);
+
+        verticalLayout_2->addWidget(pushButton_2);
 
         pages->addWidget(accountPage);
         MainWindow->setCentralWidget(centralwidget);
@@ -168,20 +188,16 @@ public:
         actionPharmacien->setText(QCoreApplication::translate("MainWindow", "Pharmacien", nullptr));
         actionM_decin->setText(QCoreApplication::translate("MainWindow", "M\303\251decin", nullptr));
         pushButton->setText(QCoreApplication::translate("MainWindow", "Show tables", nullptr));
-#if QT_CONFIG(whatsthis)
-        pages->setWhatsThis(QString());
-#endif // QT_CONFIG(whatsthis)
         loginPic->setText(QString());
         groupBox->setTitle(QCoreApplication::translate("MainWindow", "Connectez-vous", nullptr));
         nissLabel->setText(QCoreApplication::translate("MainWindow", "NISS", nullptr));
         connectionButton->setText(QCoreApplication::translate("MainWindow", "Connection", nullptr));
-        editMP->setItemText(0, QCoreApplication::translate("MainWindow", "Nouveau Pharmacien", nullptr));
-        editMP->setItemText(1, QCoreApplication::translate("MainWindow", "Nouveau M\303\251decin", nullptr));
+        groupBox_2->setTitle(QCoreApplication::translate("MainWindow", "Modifiez vos informations !", nullptr));
+        comboBox->setItemText(0, QCoreApplication::translate("MainWindow", "Nouveau M\303\251decin", nullptr));
+        comboBox->setItemText(1, QCoreApplication::translate("MainWindow", "Nouveau Pharmacien", nullptr));
 
-#if QT_CONFIG(whatsthis)
-        editMPText->setWhatsThis(QCoreApplication::translate("MainWindow", "salut", nullptr));
-#endif // QT_CONFIG(whatsthis)
-        editMPText->setPlaceholderText(QCoreApplication::translate("MainWindow", "INAMI", nullptr));
+        lineEdit->setPlaceholderText(QCoreApplication::translate("MainWindow", "INAMI", nullptr));
+        pushButton_2->setText(QCoreApplication::translate("MainWindow", "Soumettre", nullptr));
         menuInscription->setTitle(QCoreApplication::translate("MainWindow", "Inscription", nullptr));
     } // retranslateUi
 
