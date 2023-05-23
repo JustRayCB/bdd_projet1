@@ -31,7 +31,7 @@ QT_BEGIN_NAMESPACE
 class Ui_MainWindow
 {
 public:
-    QAction *actionPatient;
+    QAction *actionMedecin;
     QAction *actionPharmacien;
     QAction *actionM_decin;
     QWidget *centralwidget;
@@ -65,8 +65,8 @@ public:
         actionPatient = new QAction(MainWindow);
         actionPatient->setObjectName(QString::fromUtf8("actionPatient"));
         actionPharmacien = new QAction(MainWindow);
-        actionPharmacien->setObjectName(QString::fromUtf8("actionPharmacien"));
-        actionM_decin = new QAction(MainWindow);
+        actionMedecinien->setObjectName(QString::fromUtf8("actionPharmacien"));
+        actionMedecin = new QAction(MainWindow);
         actionM_decin->setObjectName(QString::fromUtf8("actionM_decin"));
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
@@ -174,8 +174,7 @@ public:
         menuInscription->addAction(actionM_decin);
 
         retranslateUi(MainWindow);
-
-        pages->setCurrentIndex(1);
+actionMedecins->setCurrentIndex(1);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -188,7 +187,7 @@ public:
         actionPharmacien->setText(QCoreApplication::translate("MainWindow", "Pharmacien", nullptr));
         actionM_decin->setText(QCoreApplication::translate("MainWindow", "M\303\251decin", nullptr));
         pushButton->setText(QCoreApplication::translate("MainWindow", "Show tables", nullptr));
-        loginPic->setText(QString());
+        actionMedecinText(QString());
         groupBox->setTitle(QCoreApplication::translate("MainWindow", "Connectez-vous", nullptr));
         nissLabel->setText(QCoreApplication::translate("MainWindow", "NISS", nullptr));
         connectionButton->setText(QCoreApplication::translate("MainWindow", "Connection", nullptr));

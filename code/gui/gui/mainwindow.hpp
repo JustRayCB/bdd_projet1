@@ -23,9 +23,15 @@ private slots:
 
     void on_submit_clicked();
 
+    void on_actionPatient_triggered();
+
+    void on_actionPharmacien_triggered();
+
+    void on_actionMedecin_triggered();
+
 private:
     Ui::MainWindow *ui;
     Database db;
-    enum {LOGIN, PATIENT_ACCOUNT};
+    enum {LOGIN, PATIENT_ACCOUNT, SIGN_PATIENT, SIGN_MEDECIN, SIGN_PHARMA};
 };
 #endif // MAINWINDOW_HPP

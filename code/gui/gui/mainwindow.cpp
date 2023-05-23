@@ -69,3 +69,22 @@ void MainWindow::on_submit_clicked()
    }
 }
 
+
+void MainWindow::on_actionPatient_triggered()
+{
+   ui->pages->setCurrentIndex(SIGN_PATIENT);
+}
+
+
+void MainWindow::on_actionPharmacien_triggered()
+{
+   ui->pages->setCurrentIndex(SIGN_PHARMA);
+}
+
+
+void MainWindow::on_actionMedecin_triggered()
+{
+   ui->pages->setCurrentIndex(SIGN_MEDECIN);
+
+}
+
