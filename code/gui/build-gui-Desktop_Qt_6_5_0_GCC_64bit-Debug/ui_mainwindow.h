@@ -9,6 +9,7 @@
 #ifndef UI_MAINWINDOW_H
 #define UI_MAINWINDOW_H
 
+#include <QtCore/QDate>
 #include <QtCore/QVariant>
 #include <QtGui/QAction>
 #include <QtWidgets/QApplication>
@@ -231,7 +232,7 @@ public:
         signPatient->setObjectName("signPatient");
         groupBox_3 = new QGroupBox(signPatient);
         groupBox_3->setObjectName("groupBox_3");
-        groupBox_3->setGeometry(QRect(310, 30, 351, 451));
+        groupBox_3->setGeometry(QRect(310, 30, 341, 441));
         widget = new QWidget(groupBox_3);
         widget->setObjectName("widget");
         widget->setGeometry(QRect(0, 30, 341, 411));
@@ -311,6 +312,8 @@ public:
         birthPatient = new QDateEdit(widget);
         birthPatient->setObjectName("birthPatient");
         birthPatient->setDateTime(QDateTime(QDate(2000, 1, 1), QTime(0, 0, 0)));
+        birthPatient->setMaximumDateTime(QDateTime(QDate(2023, 5, 30), QTime(1, 59, 59)));
+        birthPatient->setMaximumDate(QDate(2023, 5, 30));
         birthPatient->setCurrentSection(QDateTimeEdit::DaySection);
         birthPatient->setCalendarPopup(true);
 
@@ -389,7 +392,7 @@ public:
         signMedecin->setObjectName("signMedecin");
         groupBox_4 = new QGroupBox(signMedecin);
         groupBox_4->setObjectName("groupBox_4");
-        groupBox_4->setGeometry(QRect(300, 30, 351, 451));
+        groupBox_4->setGeometry(QRect(300, 30, 341, 441));
         layoutWidget_2 = new QWidget(groupBox_4);
         layoutWidget_2->setObjectName("layoutWidget_2");
         layoutWidget_2->setGeometry(QRect(0, 30, 341, 411));
@@ -481,7 +484,7 @@ public:
         signPharmacien->setObjectName("signPharmacien");
         groupBox_5 = new QGroupBox(signPharmacien);
         groupBox_5->setObjectName("groupBox_5");
-        groupBox_5->setGeometry(QRect(300, 40, 351, 451));
+        groupBox_5->setGeometry(QRect(300, 40, 341, 441));
         layoutWidget_3 = new QWidget(groupBox_5);
         layoutWidget_3->setObjectName("layoutWidget_3");
         layoutWidget_3->setGeometry(QRect(0, 30, 341, 411));
@@ -572,7 +575,7 @@ public:
 
         retranslateUi(MainWindow);
 
-        pages->setCurrentIndex(2);
+        pages->setCurrentIndex(4);
 
 
         QMetaObject::connectSlotsByName(MainWindow);

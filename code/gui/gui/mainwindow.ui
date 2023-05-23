@@ -37,7 +37,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>4</number>
     </property>
     <widget class="QWidget" name="loginPage">
      <widget class="QLabel" name="loginPic">
@@ -185,8 +185,8 @@
        <rect>
         <x>310</x>
         <y>30</y>
-        <width>351</width>
-        <height>451</height>
+        <width>341</width>
+        <height>441</height>
        </rect>
       </property>
       <property name="title">
@@ -310,6 +310,23 @@
               <day>1</day>
              </datetime>
             </property>
+            <property name="maximumDateTime">
+             <datetime>
+              <hour>1</hour>
+              <minute>59</minute>
+              <second>59</second>
+              <year>2023</year>
+              <month>5</month>
+              <day>30</day>
+             </datetime>
+            </property>
+            <property name="maximumDate">
+             <date>
+              <year>2023</year>
+              <month>5</month>
+              <day>30</day>
+             </date>
+            </property>
             <property name="currentSection">
              <enum>QDateTimeEdit::DaySection</enum>
             </property>
@@ -412,8 +429,8 @@
        <rect>
         <x>300</x>
         <y>30</y>
-        <width>351</width>
-        <height>451</height>
+        <width>341</width>
+        <height>441</height>
        </rect>
       </property>
       <property name="title">
@@ -536,8 +553,8 @@
        <rect>
         <x>300</x>
         <y>40</y>
-        <width>351</width>
-        <height>451</height>
+        <width>341</width>
+        <height>441</height>
        </rect>
       </property>
       <property name="title">
