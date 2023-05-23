@@ -29,6 +29,8 @@ private slots:
 
     void on_actionMedecin_triggered();
 
+    void on_signPatient_2_clicked();
+
 private:
     Ui::MainWindow *ui;
     Database db;

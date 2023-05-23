@@ -869,3 +869,46 @@ void Database::strip(std::string &str) {
     str.erase(0, str.find_first_not_of(" \r\n")); // supprime les espaces au début
     str.erase(str.find_last_not_of(" \r\n") + 1); // supprime les espaces à la fin
 }
+
+bool Database::checkInami(const std::string &inami) const {
+    if (inami.size() < 10) { return false; }
+    for (size_t i = 0; i < inami.size(); i++) {
+        if (not std::isdigit(inami[i])) { return false; }
+    }
+    return true;
+}
+
+bool Database::checkPhone(const std::string &phone) const {
+    if (phone.size() != 15) { return false; }
+    if (phone[0] != '+') { return false; }
+    if (phone.substr(0, 2) != "+32") { return false; }
+    for (size_t i = 1; i < phone.size(); i++) {
+        if (not std::isdigit(phone[i])) { return false; }
+    }
+    return true;
+}
+
+bool Database::checkEmail(const std::string &email) const {
+    if (email.size() < 5) { return false; }
+    if (email.find('@') == std::string::npos) { return false; }
+    if (email.find('.') == std::string::npos) { return false; }
+    return true;
+}
+
+bool Database::checkDate(const std::string &date) const {
+    if (date.size() != 10) { return false; }
+    if (date[2] != '/' or date[5] != '/') { return false; }
+    for (size_t i = 0; i < date.size(); i++) {
+        if (i != 2 and i != 5) {
+            if (not std::isdigit(date[i])) { return false; }
+        }
+    }
+    // check if the date is after today
+    struct tm tm1 = {};
+    time_t t1;
+    strptime(date.c_str(), "%m/%d/%Y", &tm1);
+    t1 = mktime(&tm1);
+    time_t now = time(0);
+    // if the date is before today or today return true
+    return t1 >= now;
+}

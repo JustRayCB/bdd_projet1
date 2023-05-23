@@ -88,3 +88,9 @@ void MainWindow::on_actionMedecin_triggered()
 
 }
 
+
+void MainWindow::on_signPatient_2_clicked()
+{
+   std::cout << "J'ai appuyé\n";
+}
+

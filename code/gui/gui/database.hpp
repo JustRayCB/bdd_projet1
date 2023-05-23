@@ -246,6 +246,16 @@ private:
     bool isDate1MoreRecent(const std::string &date1, const std::string &date2) const;
 
     std::string transformDate(std::string date) const;
+
+    bool checkInami(const std::string &inami) const;
+
+    bool checkPhone(const std::string &phone) const;
+
+    bool checkEmail(const std::string &email) const;
+
+    bool checkNiss(const std::string &niss) const;
+
+    bool checkDate(const std::string &date) const;
 };
 
 #endif // !DEBUG
