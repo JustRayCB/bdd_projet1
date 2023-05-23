@@ -12,6 +12,7 @@
 #include <QtCore/QVariant>
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QComboBox>
 #include <QtWidgets/QGroupBox>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
@@ -35,8 +36,8 @@ public:
     QAction *actionM_decin;
     QWidget *centralwidget;
     QPushButton *pushButton;
-    QStackedWidget *stackedWidget;
-    QWidget *page;
+    QStackedWidget *pages;
+    QWidget *loginPage;
     QLabel *loginPic;
     QGroupBox *groupBox;
     QVBoxLayout *verticalLayout;
@@ -44,7 +45,11 @@ public:
     QLabel *nissLabel;
     QLineEdit *nissText;
     QPushButton *connectionButton;
-    QWidget *page_2;
+    QWidget *accountPage;
+    QWidget *widget;
+    QHBoxLayout *horizontalLayout_2;
+    QComboBox *editMP;
+    QLineEdit *editMPText;
     QStatusBar *statusbar;
     QMenuBar *menubar;
     QMenu *menuInscription;
@@ -65,17 +70,17 @@ public:
         pushButton = new QPushButton(centralwidget);
         pushButton->setObjectName(QString::fromUtf8("pushButton"));
         pushButton->setGeometry(QRect(10, 10, 131, 41));
-        stackedWidget = new QStackedWidget(centralwidget);
-        stackedWidget->setObjectName(QString::fromUtf8("stackedWidget"));
-        stackedWidget->setGeometry(QRect(10, 60, 961, 531));
-        page = new QWidget();
-        page->setObjectName(QString::fromUtf8("page"));
-        loginPic = new QLabel(page);
+        pages = new QStackedWidget(centralwidget);
+        pages->setObjectName(QString::fromUtf8("pages"));
+        pages->setGeometry(QRect(10, 60, 971, 531));
+        loginPage = new QWidget();
+        loginPage->setObjectName(QString::fromUtf8("loginPage"));
+        loginPic = new QLabel(loginPage);
         loginPic->setObjectName(QString::fromUtf8("loginPic"));
         loginPic->setGeometry(QRect(140, 130, 261, 251));
         loginPic->setPixmap(QPixmap(QString::fromUtf8("pictures/login.png")));
         loginPic->setScaledContents(true);
-        groupBox = new QGroupBox(page);
+        groupBox = new QGroupBox(loginPage);
         groupBox->setObjectName(QString::fromUtf8("groupBox"));
         groupBox->setGeometry(QRect(460, 180, 261, 111));
         verticalLayout = new QVBoxLayout(groupBox);
@@ -105,10 +110,33 @@ public:
 
         verticalLayout->addWidget(connectionButton);
 
-        stackedWidget->addWidget(page);
-        page_2 = new QWidget();
-        page_2->setObjectName(QString::fromUtf8("page_2"));
-        stackedWidget->addWidget(page_2);
+        pages->addWidget(loginPage);
+        accountPage = new QWidget();
+        accountPage->setObjectName(QString::fromUtf8("accountPage"));
+        widget = new QWidget(accountPage);
+        widget->setObjectName(QString::fromUtf8("widget"));
+        widget->setGeometry(QRect(160, 70, 290, 24));
+        horizontalLayout_2 = new QHBoxLayout(widget);
+        horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
+        horizontalLayout_2->setContentsMargins(0, 0, 0, 0);
+        editMP = new QComboBox(widget);
+        editMP->addItem(QString());
+        editMP->addItem(QString());
+        editMP->setObjectName(QString::fromUtf8("editMP"));
+
+        horizontalLayout_2->addWidget(editMP);
+
+        editMPText = new QLineEdit(widget);
+        editMPText->setObjectName(QString::fromUtf8("editMPText"));
+        QSizePolicy sizePolicy1(QSizePolicy::Expanding, QSizePolicy::Preferred);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(editMPText->sizePolicy().hasHeightForWidth());
+        editMPText->setSizePolicy(sizePolicy1);
+
+        horizontalLayout_2->addWidget(editMPText);
+
+        pages->addWidget(accountPage);
         MainWindow->setCentralWidget(centralwidget);
         statusbar = new QStatusBar(MainWindow);
         statusbar->setObjectName(QString::fromUtf8("statusbar"));
@@ -127,6 +155,9 @@ public:
 
         retranslateUi(MainWindow);
 
+        pages->setCurrentIndex(1);
+
+
         QMetaObject::connectSlotsByName(MainWindow);
     } // setupUi
 
@@ -137,10 +168,20 @@ public:
         actionPharmacien->setText(QCoreApplication::translate("MainWindow", "Pharmacien", nullptr));
         actionM_decin->setText(QCoreApplication::translate("MainWindow", "M\303\251decin", nullptr));
         pushButton->setText(QCoreApplication::translate("MainWindow", "Show tables", nullptr));
+#if QT_CONFIG(whatsthis)
+        pages->setWhatsThis(QString());
+#endif // QT_CONFIG(whatsthis)
         loginPic->setText(QString());
         groupBox->setTitle(QCoreApplication::translate("MainWindow", "Connectez-vous", nullptr));
         nissLabel->setText(QCoreApplication::translate("MainWindow", "NISS", nullptr));
         connectionButton->setText(QCoreApplication::translate("MainWindow", "Connection", nullptr));
+        editMP->setItemText(0, QCoreApplication::translate("MainWindow", "Nouveau Pharmacien", nullptr));
+        editMP->setItemText(1, QCoreApplication::translate("MainWindow", "Nouveau M\303\251decin", nullptr));
+
+#if QT_CONFIG(whatsthis)
+        editMPText->setWhatsThis(QCoreApplication::translate("MainWindow", "salut", nullptr));
+#endif // QT_CONFIG(whatsthis)
+        editMPText->setPlaceholderText(QCoreApplication::translate("MainWindow", "INAMI", nullptr));
         menuInscription->setTitle(QCoreApplication::translate("MainWindow", "Inscription", nullptr));
     } // retranslateUi
 

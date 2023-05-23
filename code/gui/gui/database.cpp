@@ -74,37 +74,23 @@ void Database::init() const {
     loadPrescriptions();
 }
 
-bool Database::connectUser(const std::string &niss) {
+std::vector<std::string> Database::connectUser(const std::string &niss) {
     std::cout << "Je suis dans connect" << std::endl;
     sql::PreparedStatement *stmt = con->prepareStatement("SELECT * FROM Dossier WHERE Niss = ?");
     stmt->setString(1, niss);
     sql::ResultSet *res = stmt->executeQuery();
-
-    // sql::Statement *stmt = con->createStatement();
-    // sql::ResultSet *res = stmt->executeQuery("SELECT * FROM Dossier WHERE Niss = ?");
-    // res->setString(1, niss);
-    std::cout << "J'ai envoyé la requête: "
-              << "SELECT * FROM Dossier WHERE Niss= " + niss << std::endl;
     if (res->next()) {
-        std::cout << "Patient found" << std::endl;
-        // // stock all the result into strings
-        // std::vector<std::string> fields = {
-        //     "Niss", "Nom",    "Prenom",  "Genre",           "DateNaissance",
-        //     "Mail", "NumTel", "Adresse", "PharmacienINAMI", "MedecinINAMI"};
-        // std::vector<std::string> patient;
-        // for (auto field : fields) { patient.push_back(res->getString(field)); }
-        // // print all the result
-        // for (size_t i = 0; i < fields.size(); i++) {
-        //     std::cout << fields[i] << ": " << patient[i] << std::endl;
-        // }
-        std::cout << "je return true" << std::endl;
-
-        return true;
+        std::vector<std::string> fields = {"Niss",          "Nom",  "Prenom", "Genre",
+                                           "DateNaissance", "Mail", "NumTel", "PharmacienINAMI",
+                                           "MedecinINAMI"};
+        for (auto field : fields) { patient.push_back(res->getString(field)); }
+        for (size_t i = 0; i < patient.size(); i++) {
+            std::cout << fields[i] << ": " << patient[i] << std::endl;
+        }
     }
-    std::cout << "Patient not found" << std::endl;
     delete res;
     delete stmt;
-    return false;
+    return patient;
 }
 
 void Database::loadSpecialites() const {

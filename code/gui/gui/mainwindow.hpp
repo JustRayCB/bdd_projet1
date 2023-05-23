@@ -24,5 +24,6 @@ private slots:
 private:
     Ui::MainWindow *ui;
     Database db;
+    enum {LOGIN, PATIENT_ACCOUNT};
 };
 #endif // MAINWINDOW_HPP

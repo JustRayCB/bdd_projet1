@@ -3,16 +3,20 @@
 
 #include <cppconn/connection.h>
 #include <cppconn/prepared_statement.h>
+#include <cppconn/resultset.h>
 #include <cppconn/statement.h>
 #include <mysql_connection.h>
 #include <mysql_driver.h>
 #include <mysql_error.h>
 #include <string>
+#include <vector>
 
 class Database {
+    enum { Niss, Nom, Prenom, Genre, DateNaissance, Mail, NumTel, PharmacienINAMI, MedecinINAMI };
     sql::mysql::MySQL_Driver *driver;
     sql::Connection *con;
     sql::ConnectOptionsMap connection_properties;
+    std::vector<std::string> patient;
 
 public:
     Database();
@@ -31,7 +35,7 @@ public:
      */
     void init() const;
 
-    bool connectUser(const std::string &niss);
+    std::vector<std::string> connectUser(const std::string &niss);
 
     /**
      * @brief: Remove space before and after a string

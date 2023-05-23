@@ -3,6 +3,8 @@
 #include <QPixmap>
 #include <QDebug>
 #include <QMessageBox>
+#include <vector>
+#include <string>
 
 
 
@@ -11,6 +13,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    ui->pages->setCurrentIndex(LOGIN);
 }
 
 MainWindow::~MainWindow()
@@ -31,13 +34,12 @@ void MainWindow::on_connectionButton_clicked()
    std::cout << "This is my niss : " << niss.toStdString() << std::endl;
    ui->nissText->clear();
    niss = niss.trimmed();
-
-   if (db.connectUser(niss.toStdString())){
+   std::vector<std::string> patient = db.connectUser(niss.toStdString());
+   if (not patient.empty()){
        // qDebug()<< "Je suis connecté";
        std::cout << "Je suis connecté\n" << std::flush; // car le cout peut-être mis en tampon et ne pas s'afficher tous de suite
-       QMessageBox::information(this, "Connection réussie", "Vous vous êtes connecter avec succès !") ;
-       if (ui->stackedWidget->currentIndex() == 0)
-            ui->stackedWidget->setCurrentIndex(1);
+       QMessageBox::information(this, "Connection réussie", "Vous vous êtes connecté avec succès !") ;
+       ui->pages->setCurrentIndex(PATIENT_ACCOUNT);
    }
    else{
        // qDebug() << "Je ne suis pas connecté";
