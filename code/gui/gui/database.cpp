@@ -1,4 +1,5 @@
 #include "database.hpp"
+#include <bit>
 #include <ctime>
 #include <fstream>
 #include <iostream>
@@ -317,19 +318,38 @@ void Database::loadPharmaciens() const {
     return;
 }
 
-void Database::insertPharmacien(const std::string &inami, const std::string &nom,
-                                const std::string &email, const std::string &tel) const {
+int Database::insertPharmacien(const std::string &inami, const std::string &nom,
+                               const std::string &email, const std::string &tel) const {
     std::vector<std::string> args = {inami, nom, tel, email};
     if (checkIfExists("Pharmacien", "INAMI", inami)) {
         std::cout << inami << " exist "
                   << " Inside Pharmacien" << std::endl;
-        return;
+        return -1;
     }
     if (checkIfExists("Medecin", "INAMI", inami)) {
         std::cout << "The inami is already taken by a Medecin" << std::endl;
-        return;
+        return -2;
     }
-    if (inami == "None" or inami == "") { return; }
+    if (inami == "None" or inami == "") { return -3; }
+    for (size_t i = 0; i < args.size(); i++) {
+        if (i == 2 or i == 3) {
+        } else if (args[i] == "None" or args[i].empty()) {
+            std::cout << "Missing argument " << i << std::endl;
+            return -3;
+        }
+    }
+    if (not checkInami(inami)) {
+        std::cout << "The inami is not valid" << std::endl;
+        return -4;
+    }
+    if (not(args.at(3).empty() or args.at(3) == "None") and not checkEmail(email)) {
+        std::cout << "Mail is not valid" << std::endl;
+        return -5;
+    }
+    if (not(args.at(2).empty() or args.at(2) == "None") and not checkPhone(tel)) {
+        std::cout << "Tel is not valid" << std::endl;
+        return -6;
+    }
     // std::cout << "Insert pharmacien" << std::endl;
     sql::PreparedStatement *stmt = con->prepareStatement(
         "INSERT INTO Pharmacien (INAMI, Nom, NumTel, Mail) VALUES (?, ?, ?, ?)");
@@ -343,6 +363,7 @@ void Database::insertPharmacien(const std::string &inami, const std::string &nom
     }
     stmt->execute();
     delete stmt;
+    return 0;
 }
 
 void Database::loadMedecins() const {
@@ -399,22 +420,41 @@ void Database::loadMedecins() const {
     return;
 }
 
-void Database::insertMedecin(const std::string &inami, const std::string &nom,
-                             const std::string &email, const std::string &tel,
-                             const std::string &specilisation) const {
+int Database::insertMedecin(const std::string &inami, const std::string &nom,
+                            const std::string &email, const std::string &tel,
+                            const std::string &specilisation) const {
     std::vector<std::string> args = {inami, nom, tel, email, specilisation};
     if (checkIfExists("Medecin", "INAMI", inami)) {
         std::cout << inami << " exist "
                   << " Inside Medecin" << std::endl;
-        return;
+        return -1;
     }
 
     if (checkIfExists("Pharmacien", "INAMI", inami)) {
         std::cout << "The inami of the medecin is already taken by a Pharmacien" << std::endl;
-        return;
+        return -2;
     }
 
-    if (inami == "None" or inami == "") { return; }
+    for (size_t i = 0; i < args.size(); i++) {
+        if (i == 2 or i == 3) {
+        } else if (args[i] == "None" or args[i] == "") {
+            std::cout << "The " << i << "th argument is empty" << std::endl;
+            return -3;
+        }
+    }
+    if (not checkInami(inami)) {
+        std::cout << "The inami is not valid" << std::endl;
+        return -4;
+    }
+    if (not(args.at(3).empty() or args.at(3) == "None") and not checkEmail(email)) {
+        std::cout << "Mail is not valid" << std::endl;
+        return -5;
+    }
+    if (not(args.at(2).empty() or args.at(2) == "None") and not checkPhone(tel)) {
+        std::cout << "Tel is not valid" << std::endl;
+        return -6;
+    }
+
     std::cout << "Insert medecin" << std::endl;
     sql::PreparedStatement *stmt = con->prepareStatement(
         "INSERT INTO Medecin (INAMI, Nom, NumTel, Mail, SpecialisationNom) VALUES (?, ?, ?, ?, ?)");
@@ -427,6 +467,7 @@ void Database::insertMedecin(const std::string &inami, const std::string &nom,
     }
     stmt->execute();
     delete stmt;
+    return 0;
 }
 
 void Database::loadMedicaments() const {
@@ -540,16 +581,29 @@ int Database::insertPatient(const std::string &niss, const std::string &nom,
     }
     // if (niss == "None" or niss == "") { return; }
     for (size_t i = 0; i < args.size(); i++) {
-        if (i == 7 or i == 8) {
+        if (i == 5 or i == 6) {
 
         } else if (args[i] == "None" or args[i] == "") {
+            std::cout << "Argument " << i << " is empty" << std::endl;
             return -2;
         }
     }
-    if (not checkNiss(niss)) { return -3; }
-    if (not checkEmail(mail)) { return -4; }
-    if (not checkPhone(tel)) { return -5; }
-    if (not checkDate(dateNaissance)) { return -6; }
+    if (not checkNiss(niss)) {
+        std::cout << "Niss is not valid" << std::endl;
+        return -3;
+    }
+    if (not(args.at(5).empty() or args.at(5) == "None") and not checkEmail(mail)) {
+        std::cout << "Mail is not valid" << std::endl;
+        return -4;
+    }
+    if (not(args.at(6).empty() or args.at(6) == "None") and not checkPhone(tel)) {
+        std::cout << "Tel is not valid" << std::endl;
+        return -5;
+    }
+    if (not checkDate(dateNaissance)) {
+        std::cout << "=======Date is not valid========" << std::endl;
+        return -6;
+    }
     // std::cout << "Insert patient" << std::endl;
     sql::PreparedStatement *stmt = con->prepareStatement(
         "INSERT INTO Dossier (Niss, Nom, Prenom, Genre, DateNaissance, Mail, NumTel, "
@@ -891,11 +945,23 @@ bool Database::checkInami(const std::string &inami) const {
 }
 
 bool Database::checkPhone(const std::string &phone) const {
-    if (phone.size() != 15) { return false; }
-    if (phone[0] != '+') { return false; }
-    if (phone.substr(0, 2) != "+32") { return false; }
+    if (phone.size() < 12) {
+        std::cout << "Not a good size for a phone number" << std::endl;
+        return false;
+    }
+    if (phone[0] != '+') {
+        std::cout << "Not a good format for a phone number" << std::endl;
+        return false;
+    }
+    if (phone.substr(0, 3) != "+32") {
+        std::cout << "Not a good format +32 for a phone number" << std::endl;
+        return false;
+    }
     for (size_t i = 1; i < phone.size(); i++) {
-        if (not std::isdigit(phone[i])) { return false; }
+        if (not std::isdigit(phone[i])) {
+            std::cout << "The is a signe wich is not a digit: " << phone[i] << std::endl;
+            return false;
+        }
     }
     return true;
 }
@@ -916,11 +982,20 @@ bool Database::checkNiss(const std::string &niss) const {
 }
 
 bool Database::checkDate(const std::string &date) const {
-    if (date.size() != 10) { return false; }
-    if (date[2] != '/' or date[5] != '/') { return false; }
+    if (date.size() != 10) {
+        std::cout << "Not a good size for a date" << std::endl;
+        return false;
+    }
+    if (date[2] != '/' or date[5] != '/') {
+        std::cout << "Not a good format for a date" << std::endl;
+        return false;
+    }
     for (size_t i = 0; i < date.size(); i++) {
         if (i != 2 and i != 5) {
-            if (not std::isdigit(date[i])) { return false; }
+            if (not std::isdigit(date[i])) {
+                std::cout << "This is not a digit" << std::endl;
+                return false;
+            }
         }
     }
     // check if the date is after today
@@ -928,8 +1003,8 @@ bool Database::checkDate(const std::string &date) const {
     std::tm *today = std::localtime(&now);
     std::tm otherDate = {};
 
-    otherDate.tm_mday = std::stoi(date.substr(0, 2)) - 1;
-    otherDate.tm_mon = std::stoi(date.substr(3, 2));
+    otherDate.tm_mday = std::stoi(date.substr(3, 2));
+    otherDate.tm_mon = std::stoi(date.substr(0, 2)) - 1;
     otherDate.tm_year = std::stoi(date.substr(6, 4)) - 1900;
 
     std::time_t t1 = std::mktime(&otherDate);
@@ -942,5 +1017,6 @@ bool Database::checkDate(const std::string &date) const {
         std::cout << "date is before today" << std::endl;
         return true;
     }
+    std::cout << "date is after today" << std::endl;
     return false;
 }

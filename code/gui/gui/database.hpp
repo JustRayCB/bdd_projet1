@@ -57,6 +57,47 @@ public:
      **/
     static void strip(std::string &str);
 
+    /**
+     * @brief: Insert a patient into the Patient table
+     *
+     * @param niss: NISS of the patient
+     * @param nom: Name of the patient
+     * @param prenom: First name of the patient
+     * @param sexe: Gender of the patient
+     * @param dateNaissance: Date of birth of the patient
+     * @param mail: Mail of the patient
+     * @param tel: Phone number of the patient
+     * @param pharmacien: Inami of the pharmacist of the patient
+     * @param medecin: Inami of the doctor of the patient
+     * */
+    int insertPatient(const std::string &niss, const std::string &nom, const std::string &prenom,
+                      const std::string &sexe, const std::string &dateNaissance,
+                      const std::string &mail, const std::string &tel,
+                      const std::string &pharmacien, const std::string &medecin) const;
+
+    /**
+     * @brief: Insert a pharmacist into the Pharamacien table
+     *
+     * @param inami: Inami of the pharmacist
+     * @param nom: Name of the pharmacist
+     * @param email: Mail of the pharmacist
+     * @param tel: Phone number of the pharmacist
+     **/
+    int insertPharmacien(const std::string &inami, const std::string &nom, const std::string &email,
+                         const std::string &tel) const;
+
+    /**
+     * @brief: Insert a doctor into the Medecin table
+     *
+     * @param inami: Inami of the doctor
+     * @param nom: Name of the doctor
+     * @param email: Mail of the doctor
+     * @param tel: Phone number of the doctor
+     * @param specialisation: Specialisation of the doctor
+     **/
+    int insertMedecin(const std::string &inami, const std::string &nom, const std::string &email,
+                      const std::string &tel, const std::string &specilisation) const;
+
 private:
     /**
      * @brief : Load the specialites.xml file
@@ -108,33 +149,10 @@ private:
     void loadPharmaciens() const;
 
     /**
-     * @brief: Insert a pharmacist into the Pharamacien table
-     *
-     * @param inami: Inami of the pharmacist
-     * @param nom: Name of the pharmacist
-     * @param email: Mail of the pharmacist
-     * @param tel: Phone number of the pharmacist
-     **/
-    void insertPharmacien(const std::string &inami, const std::string &nom,
-                          const std::string &email, const std::string &tel) const;
-
-    /**
      * @brief : Load the medecins.xml file
      * and insert the data into the database
      */
     void loadMedecins() const;
-
-    /**
-     * @brief: Insert a doctor into the Medecin table
-     *
-     * @param inami: Inami of the doctor
-     * @param nom: Name of the doctor
-     * @param email: Mail of the doctor
-     * @param tel: Phone number of the doctor
-     * @param specialisation: Specialisation of the doctor
-     **/
-    void insertMedecin(const std::string &inami, const std::string &nom, const std::string &email,
-                       const std::string &tel, const std::string &specilisation) const;
 
     /**
      * @brief : Load the medicaments.csv file
@@ -157,24 +175,6 @@ private:
      * and insert the data into the database
      */
     void loadPatients() const;
-
-    /**
-     * @brief: Insert a patient into the Patient table
-     *
-     * @param niss: NISS of the patient
-     * @param nom: Name of the patient
-     * @param prenom: First name of the patient
-     * @param sexe: Gender of the patient
-     * @param dateNaissance: Date of birth of the patient
-     * @param mail: Mail of the patient
-     * @param tel: Phone number of the patient
-     * @param pharmacien: Inami of the pharmacist of the patient
-     * @param medecin: Inami of the doctor of the patient
-     * */
-    int insertPatient(const std::string &niss, const std::string &nom, const std::string &prenom,
-                      const std::string &sexe, const std::string &dateNaissance,
-                      const std::string &mail, const std::string &tel,
-                      const std::string &pharmacien, const std::string &medecin) const;
 
     /**
      * @brief : Load the diagnostiques.xml file

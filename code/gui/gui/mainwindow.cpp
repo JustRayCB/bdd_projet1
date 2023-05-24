@@ -91,7 +91,57 @@ void MainWindow::on_actionMedecin_triggered()
 
 void MainWindow::on_signPatient_2_clicked()
 {
-   std::cout << "J'ai appuyé\n";
+   std::string niss = ui->nissPatient->text().trimmed().toStdString();
+   std::string name = ui->namePatient->text().trimmed().toStdString();
+   std::string fname= ui->fnamePatient->text().trimmed().toStdString();
+   std::string gender = ui->genderPatient->text().trimmed().toStdString();
+   std::string birth = ui->birthPatient->text().trimmed().toStdString();
+   std::string mail = ui->mailPatient->text().trimmed().toStdString();
+   std::string phone= ui->phonePatient->text().trimmed().toStdString();
+   std::string pharmacien = ui->refP->text().trimmed().toStdString();
+   std::string medecin = ui->refM->text().trimmed().toStdString();
+
+   int res = db.insertPatient(niss, name, fname, gender, birth, mail, phone, pharmacien, medecin);
+   std::string error;
+
+   if (res ==  -1){
+       error = "Le patient possède déjà un dossier !!";
+       ui->nissPatient->clear();
+   }
+   else if (res == -2) {
+       error= "Certains champs sont vide, veuillez les remplir !!";
+   }
+   else if (res == -3){
+       error = "Veuillez rentrer un NISS valide";
+       ui->nissPatient->clear();
+   }
+   else if (res == -4){
+       error= "Veuillez rentrer un mail valide !!";
+       ui->mailPatient->clear();
+   }
+   else if (res == -5) {
+       error = "Veuillez rentre un numéro de téléphone valide !!";
+       ui->phonePatient->clear();
+   }
+   else if (res == -6){
+       error = "Veuillez rentrer une date de naissance valide !!";
+       ui->birthPatient->clear();
+   }
+   else {
+       ui->nissPatient->text().clear();
+       ui->namePatient->text().clear();
+       ui->fnamePatient->text().clear();
+       ui->genderPatient->text().clear();
+       ui->birthPatient->text().clear();
+       ui->mailPatient->text().clear();
+       ui->phonePatient->text().clear();
+       ui->refP->text().clear();
+       ui->refM->text().clear();
+       QMessageBox::information(this, "Succès", "Inscription du nouveau patient effectuée avec succès");
+       return;
+   }
+   QMessageBox::warning(this, "Erreur", QString::fromStdString(error));
+
 }
 
 
@@ -122,5 +172,17 @@ void MainWindow::on_actionPathologie_triggered()
 void MainWindow::on_actionSp_cialit_triggered()
 {
    ui->pages->setCurrentIndex(SPECIALITE);
+}
+
+
+void MainWindow::on_signM_clicked()
+{
+
+}
+
+
+void MainWindow::on_signPhar_clicked()
+{
+
 }
 
