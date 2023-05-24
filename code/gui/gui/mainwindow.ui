@@ -37,7 +37,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>4</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="loginPage">
      <widget class="QLabel" name="loginPic">
@@ -82,7 +82,11 @@
           </widget>
          </item>
          <item>
-          <widget class="QLineEdit" name="nissText"/>
+          <widget class="QLineEdit" name="nissText">
+           <property name="placeholderText">
+            <string>Votre NISS</string>
+           </property>
+          </widget>
          </item>
         </layout>
        </item>

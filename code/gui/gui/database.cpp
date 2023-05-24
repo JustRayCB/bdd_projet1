@@ -895,6 +895,14 @@ bool Database::checkEmail(const std::string &email) const {
     return true;
 }
 
+bool Database::checkNiss(const std::string &niss) const {
+    if (niss.size() < 10) { return false; }
+    for (size_t i = 0; i < niss.size(); i++) {
+        if (not std::isdigit(niss[i])) { return false; }
+    }
+    return true;
+}
+
 bool Database::checkDate(const std::string &date) const {
     if (date.size() != 10) { return false; }
     if (date[2] != '/' or date[5] != '/') { return false; }
@@ -904,11 +912,23 @@ bool Database::checkDate(const std::string &date) const {
         }
     }
     // check if the date is after today
-    struct tm tm1 = {};
-    time_t t1;
-    strptime(date.c_str(), "%m/%d/%Y", &tm1);
-    t1 = mktime(&tm1);
-    time_t now = time(0);
-    // if the date is before today or today return true
-    return t1 >= now;
+    std::time_t now = std::time(0);
+    std::tm *today = std::localtime(&now);
+    std::tm otherDate = {};
+
+    otherDate.tm_mday = std::stoi(date.substr(3, 2));
+    otherDate.tm_mon = std::stoi(date.substr(0, 2)) - 1;
+    otherDate.tm_year = std::stoi(date.substr(6, 4)) - 1900;
+
+    std::time_t t1 = std::mktime(&otherDate);
+    // std::time_t td = std::mktime(today);
+    if (today->tm_mday == otherDate.tm_mday && today->tm_mon == otherDate.tm_mon &&
+        today->tm_year == otherDate.tm_year) {
+        std::cout << "date is today" << std::endl;
+        return true;
+    } else if (t1 < now) {
+        std::cout << "date is before today" << std::endl;
+        return true;
+    }
+    return false;
 }

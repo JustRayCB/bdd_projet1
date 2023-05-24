@@ -575,7 +575,7 @@ public:
 
         retranslateUi(MainWindow);
 
-        pages->setCurrentIndex(4);
+        pages->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -591,6 +591,7 @@ public:
         loginPic->setText(QString());
         groupBox->setTitle(QCoreApplication::translate("MainWindow", "Connectez-vous", nullptr));
         nissLabel->setText(QCoreApplication::translate("MainWindow", "NISS", nullptr));
+        nissText->setPlaceholderText(QCoreApplication::translate("MainWindow", "Votre NISS", nullptr));
         connectionButton->setText(QCoreApplication::translate("MainWindow", "Connection", nullptr));
         groupBox_2->setTitle(QCoreApplication::translate("MainWindow", "Modifiez vos informations !", nullptr));
         editMP->setItemText(0, QCoreApplication::translate("MainWindow", "Nouveau M\303\251decin", nullptr));
