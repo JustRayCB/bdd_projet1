@@ -94,7 +94,13 @@ void MainWindow::on_signPatient_2_clicked()
    std::string niss = ui->nissPatient->text().trimmed().toStdString();
    std::string name = ui->namePatient->text().trimmed().toStdString();
    std::string fname= ui->fnamePatient->text().trimmed().toStdString();
-   std::string gender = ui->genderPatient->text().trimmed().toStdString();
+   std::string gender = ui->genderPatient->currentText().trimmed().toStdString();
+   if (gender == "Homme")
+       gender = "1";
+   else if (gender == "Femme")
+       gender = "2";
+   else
+       gender = "3";
    std::string birth = ui->birthPatient->text().trimmed().toStdString();
    std::string mail = ui->mailPatient->text().trimmed().toStdString();
    std::string phone= ui->phonePatient->text().trimmed().toStdString();
@@ -102,6 +108,8 @@ void MainWindow::on_signPatient_2_clicked()
    std::string medecin = ui->refM->text().trimmed().toStdString();
 
    int res = db.insertPatient(niss, name, fname, gender, birth, mail, phone, pharmacien, medecin);
+   // int res = 0;
+   qDebug() << "Voici la date : " << birth;
    std::string error;
 
    if (res ==  -1){
@@ -128,15 +136,14 @@ void MainWindow::on_signPatient_2_clicked()
        ui->birthPatient->clear();
    }
    else {
-       ui->nissPatient->text().clear();
-       ui->namePatient->text().clear();
-       ui->fnamePatient->text().clear();
-       ui->genderPatient->text().clear();
-       ui->birthPatient->text().clear();
-       ui->mailPatient->text().clear();
-       ui->phonePatient->text().clear();
-       ui->refP->text().clear();
-       ui->refM->text().clear();
+       ui->nissPatient->clear();
+       ui->namePatient->clear();
+       ui->fnamePatient->clear();
+       ui->birthPatient->clear();
+       ui->mailPatient->clear();
+       ui->phonePatient->clear();
+       ui->refP->clear();
+       ui->refM->clear();
        QMessageBox::information(this, "Succès", "Inscription du nouveau patient effectuée avec succès");
        return;
    }
@@ -177,12 +184,102 @@ void MainWindow::on_actionSp_cialit_triggered()
 
 void MainWindow::on_signM_clicked()
 {
+   std::string inami = ui->inamiM->text().trimmed().toStdString();
+   std::string name = ui->nameM->text().trimmed().toStdString();
+   std::string phone = ui->phoneM->text().trimmed().toStdString();
+   std::string mail = ui->mailM->text().trimmed().toStdString();
+   std::string specialisation = ui->specM->text().trimmed().toStdString();
+
+   int res = db.insertMedecin(inami, name, mail, phone, specialisation);
+   std::string error;
+
+   if (res ==  -1){
+       error = "Le médecin est déjà dans a bade de donnée !!";
+       ui->inamiM->clear();
+   }
+   else if (res == -2) {
+       error= "L'INAMI appartient à un Pharmacien !!";
+       ui->inamiM->clear();
+   }
+   else if (res == -3){
+       error= "Certains champs sont vide, veuillez les remplir !!";
+   }
+   else if (res == -4){
+       error= "Veuillez rentrer un numéro INAMI valide !!";
+       ui->inamiM->clear();
+   }
+   else if (res == -5) {
+       error = "Veuillez rentre un mail valide !!";
+       ui->mailM->clear();
+   }
+   else if (res == -6){
+       error = "Veuillez rentrer un numéro de téléphone valide !!";
+       ui->phoneM->clear();
+   }
+   else if (res == -7){
+       error = "La spécialisation entré n'existe pas !!";
+       ui->specM->clear();
+   }
+   else {
+       ui->inamiM->clear();
+       ui->nameM->clear();
+       ui->phoneM->clear();
+       ui->mailM->clear();
+       ui->specM->clear();
+
+       QMessageBox::information(this, "Succès", "Inscription du nouveau médecin à été effectuée avec succès !!");
+       return;
+   }
+   QMessageBox::warning(this, "Erreur", QString::fromStdString(error));
+
 
 }
 
 
 void MainWindow::on_signPhar_clicked()
 {
+   std::string inami = ui->inamiP->text().trimmed().toStdString();
+   std::string name = ui->namePhar->text().trimmed().toStdString();
+   std::string phone = ui->phonePhar->text().trimmed().toStdString();
+   std::string mail = ui->mailPhar->text().trimmed().toStdString();
+
+   int res = db.insertPharmacien(inami, name, mail, phone);
+   std::string error;
+
+   if (res ==  -1){
+       error = "Le pharmacien est déjà dans a bade de donnée !!";
+       ui->inamiP->clear();
+   }
+   else if (res == -2) {
+       error= "L'INAMI appartient à un Médecin!!";
+       ui->inamiP->clear();
+   }
+   else if (res == -3){
+       error= "Certains champs sont vide, veuillez les remplir !!";
+   }
+   else if (res == -4){
+       error= "Veuillez rentrer un numéro INAMI valide !!";
+       ui->inamiP->clear();
+   }
+   else if (res == -5) {
+       error = "Veuillez rentre un mail valide !!";
+       ui->mailPhar->clear();
+   }
+   else if (res == -6){
+       error = "Veuillez rentrer un numéro de téléphone valide !!";
+       ui->phonePhar->clear();
+   }
+   else {
+       ui->inamiP->clear();
+       ui->namePhar->clear();
+       ui->phonePhar->clear();
+       ui->mailPhar->clear();
+
+       QMessageBox::information(this, "Succès", "Inscription du nouveau pharmacien à été effectuée avec succès !!");
+       return;
+   }
+   QMessageBox::warning(this, "Erreur", QString::fromStdString(error));
+
 
 }
 

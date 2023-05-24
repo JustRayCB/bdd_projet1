@@ -105,7 +105,7 @@ public:
     QLineEdit *nameM;
     QHBoxLayout *horizontalLayout_14;
     QLabel *label_15;
-    QLineEdit *fnameM;
+    QLineEdit *phoneM;
     QHBoxLayout *horizontalLayout_17;
     QLabel *label_18;
     QLineEdit *mailM;
@@ -125,7 +125,7 @@ public:
     QLineEdit *namePhar;
     QHBoxLayout *horizontalLayout_19;
     QLabel *label_20;
-    QLineEdit *fnamePhar;
+    QLineEdit *phonePhar;
     QHBoxLayout *horizontalLayout_20;
     QLabel *label_21;
     QLineEdit *mailPhar;
@@ -338,10 +338,10 @@ public:
 
         birthPatient = new QDateEdit(layoutWidget1);
         birthPatient->setObjectName("birthPatient");
-        birthPatient->setDateTime(QDateTime(QDate(1999, 12, 30), QTime(0, 0, 0)));
+        birthPatient->setDateTime(QDateTime(QDate(1999, 12, 27), QTime(0, 0, 0)));
         birthPatient->setMaximumDateTime(QDateTime(QDate(2023, 5, 30), QTime(23, 59, 59)));
         birthPatient->setMaximumDate(QDate(2023, 5, 30));
-        birthPatient->setCurrentSection(QDateTimeEdit::DaySection);
+        birthPatient->setCurrentSection(QDateTimeEdit::MonthSection);
         birthPatient->setCalendarPopup(true);
 
         horizontalLayout_7->addWidget(birthPatient);
@@ -463,10 +463,10 @@ public:
 
         horizontalLayout_14->addWidget(label_15);
 
-        fnameM = new QLineEdit(layoutWidget_2);
-        fnameM->setObjectName("fnameM");
+        phoneM = new QLineEdit(layoutWidget_2);
+        phoneM->setObjectName("phoneM");
 
-        horizontalLayout_14->addWidget(fnameM);
+        horizontalLayout_14->addWidget(phoneM);
 
 
         verticalLayout_4->addLayout(horizontalLayout_14);
@@ -555,10 +555,10 @@ public:
 
         horizontalLayout_19->addWidget(label_20);
 
-        fnamePhar = new QLineEdit(layoutWidget_3);
-        fnamePhar->setObjectName("fnamePhar");
+        phonePhar = new QLineEdit(layoutWidget_3);
+        phonePhar->setObjectName("phonePhar");
 
-        horizontalLayout_19->addWidget(fnamePhar);
+        horizontalLayout_19->addWidget(phonePhar);
 
 
         verticalLayout_5->addLayout(horizontalLayout_19);
@@ -683,10 +683,11 @@ public:
 
         genderPatient->setPlaceholderText(QCoreApplication::translate("MainWindow", "Genre", nullptr));
         label_8->setText(QCoreApplication::translate("MainWindow", "Date de Naissance", nullptr));
-        birthPatient->setDisplayFormat(QCoreApplication::translate("MainWindow", "d MMM yyyy", nullptr));
+        birthPatient->setDisplayFormat(QCoreApplication::translate("MainWindow", "MM/dd/yyyy", nullptr));
         label_9->setText(QCoreApplication::translate("MainWindow", "Votre Email", nullptr));
         mailPatient->setPlaceholderText(QCoreApplication::translate("MainWindow", "Email", nullptr));
         label_10->setText(QCoreApplication::translate("MainWindow", "Num\303\251ro de T\303\251l\303\251phone", nullptr));
+        phonePatient->setText(QCoreApplication::translate("MainWindow", "+32", nullptr));
         phonePatient->setPlaceholderText(QCoreApplication::translate("MainWindow", "T\303\251l\303\251phone", nullptr));
         label_11->setText(QCoreApplication::translate("MainWindow", "Pharmacien de r\303\251f\303\251rence", nullptr));
         refP->setPlaceholderText(QCoreApplication::translate("MainWindow", "INAMI Pharmacien", nullptr));
@@ -698,8 +699,9 @@ public:
         inamiM->setPlaceholderText(QCoreApplication::translate("MainWindow", "INAMI", nullptr));
         label_14->setText(QCoreApplication::translate("MainWindow", "Nom", nullptr));
         nameM->setPlaceholderText(QCoreApplication::translate("MainWindow", "Nom", nullptr));
-        label_15->setText(QCoreApplication::translate("MainWindow", "Pr\303\251nom", nullptr));
-        fnameM->setPlaceholderText(QCoreApplication::translate("MainWindow", "Pr\303\251nom", nullptr));
+        label_15->setText(QCoreApplication::translate("MainWindow", "Num\303\251ro de T\303\251l\303\251phone", nullptr));
+        phoneM->setText(QCoreApplication::translate("MainWindow", "+32", nullptr));
+        phoneM->setPlaceholderText(QCoreApplication::translate("MainWindow", "N\302\260 de T\303\251l\303\251phone", nullptr));
         label_18->setText(QCoreApplication::translate("MainWindow", "Email", nullptr));
         mailM->setPlaceholderText(QCoreApplication::translate("MainWindow", "Email", nullptr));
         label_19->setText(QCoreApplication::translate("MainWindow", "Sp\303\251cialisation", nullptr));
@@ -710,8 +712,9 @@ public:
         inamiP->setPlaceholderText(QCoreApplication::translate("MainWindow", "INAMI", nullptr));
         label_17->setText(QCoreApplication::translate("MainWindow", "Nom", nullptr));
         namePhar->setPlaceholderText(QCoreApplication::translate("MainWindow", "Nom", nullptr));
-        label_20->setText(QCoreApplication::translate("MainWindow", "Pr\303\251nom", nullptr));
-        fnamePhar->setPlaceholderText(QCoreApplication::translate("MainWindow", "Pr\303\251nom", nullptr));
+        label_20->setText(QCoreApplication::translate("MainWindow", "Num\303\251ro de T\303\251l\303\251phone", nullptr));
+        phonePhar->setText(QCoreApplication::translate("MainWindow", "+32", nullptr));
+        phonePhar->setPlaceholderText(QCoreApplication::translate("MainWindow", "N\302\260 de T\303\251l\303\251phone", nullptr));
         label_21->setText(QCoreApplication::translate("MainWindow", "Email", nullptr));
         mailPhar->setPlaceholderText(QCoreApplication::translate("MainWindow", "Email", nullptr));
         signPhar->setText(QCoreApplication::translate("MainWindow", "Inscription", nullptr));

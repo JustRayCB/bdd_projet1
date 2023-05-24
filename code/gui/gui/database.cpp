@@ -434,6 +434,7 @@ int Database::insertMedecin(const std::string &inami, const std::string &nom,
         std::cout << "The inami of the medecin is already taken by a Pharmacien" << std::endl;
         return -2;
     }
+    if (not checkIfExists("Specialisation", "Nom", specilisation)) { return -7; }
 
     for (size_t i = 0; i < args.size(); i++) {
         if (i == 2 or i == 3) {

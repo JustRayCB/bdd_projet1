@@ -41,6 +41,10 @@ private slots:
 
     void on_actionSp_cialit_triggered();
 
+    void on_signM_clicked();
+
+    void on_signPhar_clicked();
+
 private:
     Ui::MainWindow *ui;
     Database db;
