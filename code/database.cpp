@@ -74,6 +74,71 @@ void Database::init() const {
     loadPrescriptions();
 }
 
+bool Database::connectUser(const std::string &niss) {
+    std::cout << "Je suis dans connect" << std::endl;
+    sql::PreparedStatement *stmt = con->prepareStatement("SELECT * FROM Dossier WHERE Niss = ?");
+    stmt->setString(1, niss);
+    sql::ResultSet *res = stmt->executeQuery();
+    if (res->next()) {
+        std::vector<std::string> fields = {"Niss",          "Nom",  "Prenom", "Genre",
+                                           "DateNaissance", "Mail", "NumTel", "PharmacienINAMI",
+                                           "MedecinINAMI"};
+        for (auto field : fields) { patient.push_back(res->getString(field)); }
+        for (size_t i = 0; i < patient.size(); i++) {
+            std::cout << fields[i] << ": " << patient[i] << std::endl;
+        }
+    }
+    delete res;
+    delete stmt;
+    return (patient.empty()) ? false : true;
+}
+
+int Database::changeMP(const std::string &inami, const int which) {
+    std::cout << "Change mp" << std::endl;
+    bool exists = false;
+    std::string columnName;
+
+    if (inami.size() < 10) { return -2; }
+
+    for (auto c : inami) {
+        if (!isdigit(c)) { return -2; }
+    }
+
+    if (which) {
+        // pharmacien
+        if (checkIfExists("Medecin", "INAMI", inami)) { return -3; }
+        exists = checkIfExists("Pharmacien", "INAMI", inami);
+        columnName = "PharmacienINAMI";
+    } else {
+        // médecin
+        if (checkIfExists("Pharmacien", "INAMI", inami)) { return -3; }
+        exists = checkIfExists("Medecin", "INAMI", inami);
+        columnName = "MedecinINAMI";
+    }
+
+    if (not exists) { return -1; }
+
+    sql::PreparedStatement *stmt =
+        con->prepareStatement("UPDATE Dossier SET " + columnName + " = ? WHERE Niss = ?");
+    stmt->setString(1, inami);
+    stmt->setString(2, patient.at(Niss));
+    std::cout << "Going to execute" << std::endl;
+    stmt->executeUpdate();
+    delete stmt;
+    std::cout << "Previous Medecin : " << patient.at(MedecinINAMI) << std::endl;
+    std::cout << "Previous Pharmacient" << patient.at(PharmacienINAMI) << std::endl;
+    if (which) {
+        patient.at(PharmacienINAMI) = inami;
+    } else {
+        patient.at(MedecinINAMI) = inami;
+    }
+    std::cout << "New Medecin : " << patient.at(MedecinINAMI) << std::endl;
+    std::cout << "New Pharmacient" << patient.at(PharmacienINAMI) << std::endl;
+
+    std::cout << "OK" << std::endl;
+    return 1;
+}
+
 void Database::loadSpecialites() const {
     // NOTE: Il faut remplire d'abord système anatomique avant la donnée de specialites
     std::cout << "Loading specialites.xml ..." << std::endl;
@@ -461,19 +526,43 @@ void Database::loadPatients() const {
     return;
 }
 
-void Database::insertPatient(const std::string &niss, const std::string &nom,
-                             const std::string &prenom, const std::string &sexe,
-                             const std::string &dateNaissance, const std::string &mail,
-                             const std::string &tel, const std::string &pharmacien,
-                             const std::string &medecin) const {
+int Database::insertPatient(const std::string &niss, const std::string &nom,
+                            const std::string &prenom, const std::string &sexe,
+                            const std::string &dateNaissance, const std::string &mail,
+                            const std::string &tel, const std::string &pharmacien,
+                            const std::string &medecin) const {
     std::vector<std::string> args = {niss, nom, prenom,     sexe,   dateNaissance,
                                      mail, tel, pharmacien, medecin};
     if (checkIfExists("Dossier", "Niss", niss)) {
         std::cout << niss << " exist "
                   << " Inside Dossier" << std::endl;
-        return;
+        return -1;
     }
-    if (niss == "None" or niss == "") { return; }
+    // if (niss == "None" or niss == "") { return; }
+    for (size_t i = 0; i < args.size(); i++) {
+        if (i == 5 or i == 6) {
+
+        } else if (args[i] == "None" or args[i] == "") {
+            std::cout << "Argument " << i << " is empty" << std::endl;
+            return -2;
+        }
+    }
+    if (not checkNiss(niss)) {
+        std::cout << "Niss is not valid" << std::endl;
+        return -3;
+    }
+    if (not(args.at(5).empty() or args.at(5) == "None") and not checkEmail(mail)) {
+        std::cout << "Mail is not valid" << std::endl;
+        return -4;
+    }
+    if (not(args.at(6).empty() or args.at(6) == "None") and not checkPhone(tel)) {
+        std::cout << "Tel is not valid" << std::endl;
+        return -5;
+    }
+    if (not checkDate(dateNaissance)) {
+        std::cout << "=======Date is not valid========" << std::endl;
+        return -6;
+    }
     // std::cout << "Insert patient" << std::endl;
     sql::PreparedStatement *stmt = con->prepareStatement(
         "INSERT INTO Dossier (Niss, Nom, Prenom, Genre, DateNaissance, Mail, NumTel, "
@@ -500,6 +589,7 @@ void Database::insertPatient(const std::string &niss, const std::string &nom,
     }
     stmt->execute();
     delete stmt;
+    return 0;
 }
 
 void Database::loadDiagnostics() const {
@@ -800,7 +890,92 @@ bool Database::checkIfExists3(const std::string &table, const std::string &colum
     return count > 0;
 }
 
-void Database::strip(std::string &str) const {
+void Database::strip(std::string &str) {
     str.erase(0, str.find_first_not_of(" \r\n")); // supprime les espaces au début
     str.erase(str.find_last_not_of(" \r\n") + 1); // supprime les espaces à la fin
+}
+
+bool Database::checkInami(const std::string &inami) const {
+    if (inami.size() < 10) { return false; }
+    for (size_t i = 0; i < inami.size(); i++) {
+        if (not std::isdigit(inami[i])) { return false; }
+    }
+    return true;
+}
+
+bool Database::checkPhone(const std::string &phone) const {
+    if (phone.size() != 15) {
+        std::cout << "Not a good size for a phone number" << std::endl;
+        return false;
+    }
+    if (phone[0] != '+') {
+        std::cout << "Not a good format for a phone number" << std::endl;
+        return false;
+    }
+    if (phone.substr(0, 3) != "+32") {
+        std::cout << "Not a good format +32 for a phone number" << std::endl;
+        return false;
+    }
+    for (size_t i = 1; i < phone.size(); i++) {
+        if (not std::isdigit(phone[i])) {
+            std::cout << "The is a signe wich is not a digit: " << phone[i] << std::endl;
+            return false;
+        }
+    }
+    return true;
+}
+
+bool Database::checkEmail(const std::string &email) const {
+    if (email.size() < 5) { return false; }
+    if (email.find('@') == std::string::npos) { return false; }
+    if (email.find('.') == std::string::npos) { return false; }
+    return true;
+}
+
+bool Database::checkNiss(const std::string &niss) const {
+    if (niss.size() < 10) { return false; }
+    for (size_t i = 0; i < niss.size(); i++) {
+        if (not std::isdigit(niss[i])) { return false; }
+    }
+    return true;
+}
+
+bool Database::checkDate(const std::string &date) const {
+    if (date.size() != 10) {
+        std::cout << "Not a good size for a date" << std::endl;
+        return false;
+    }
+    if (date[2] != '/' or date[5] != '/') {
+        std::cout << "Not a good format for a date" << std::endl;
+        return false;
+    }
+    for (size_t i = 0; i < date.size(); i++) {
+        if (i != 2 and i != 5) {
+            if (not std::isdigit(date[i])) {
+                std::cout << "This is not a digit" << std::endl;
+                return false;
+            }
+        }
+    }
+    // check if the date is after today
+    std::time_t now = std::time(0);
+    std::tm *today = std::localtime(&now);
+    std::tm otherDate = {};
+
+    otherDate.tm_mday = std::stoi(date.substr(3, 2));
+    otherDate.tm_mon = std::stoi(date.substr(0, 2)) - 1;
+    otherDate.tm_year = std::stoi(date.substr(6, 4)) - 1900;
+
+    std::time_t t1 = std::mktime(&otherDate);
+    // std::time_t td = std::mktime(today);
+    if (today->tm_mday == otherDate.tm_mday && today->tm_mon == otherDate.tm_mon &&
+        today->tm_year == otherDate.tm_year) {
+        std::cout << "date is today" << std::endl;
+        return true;
+    } else if (t1 < now) {
+        std::cout << "date is before today" << std::endl;
+        return true;
+    }
+    std::cout << "date is after today" << std::endl;
+    return false;
 }

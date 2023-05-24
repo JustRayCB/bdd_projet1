@@ -526,19 +526,30 @@ void Database::loadPatients() const {
     return;
 }
 
-void Database::insertPatient(const std::string &niss, const std::string &nom,
-                             const std::string &prenom, const std::string &sexe,
-                             const std::string &dateNaissance, const std::string &mail,
-                             const std::string &tel, const std::string &pharmacien,
-                             const std::string &medecin) const {
+int Database::insertPatient(const std::string &niss, const std::string &nom,
+                            const std::string &prenom, const std::string &sexe,
+                            const std::string &dateNaissance, const std::string &mail,
+                            const std::string &tel, const std::string &pharmacien,
+                            const std::string &medecin) const {
     std::vector<std::string> args = {niss, nom, prenom,     sexe,   dateNaissance,
                                      mail, tel, pharmacien, medecin};
     if (checkIfExists("Dossier", "Niss", niss)) {
         std::cout << niss << " exist "
                   << " Inside Dossier" << std::endl;
-        return;
+        return -1;
     }
-    if (niss == "None" or niss == "") { return; }
+    // if (niss == "None" or niss == "") { return; }
+    for (size_t i = 0; i < args.size(); i++) {
+        if (i == 7 or i == 8) {
+
+        } else if (args[i] == "None" or args[i] == "") {
+            return -2;
+        }
+    }
+    if (not checkNiss(niss)) { return -3; }
+    if (not checkEmail(mail)) { return -4; }
+    if (not checkPhone(tel)) { return -5; }
+    if (not checkDate(dateNaissance)) { return -6; }
     // std::cout << "Insert patient" << std::endl;
     sql::PreparedStatement *stmt = con->prepareStatement(
         "INSERT INTO Dossier (Niss, Nom, Prenom, Genre, DateNaissance, Mail, NumTel, "
@@ -565,6 +576,7 @@ void Database::insertPatient(const std::string &niss, const std::string &nom,
     }
     stmt->execute();
     delete stmt;
+    return 0;
 }
 
 void Database::loadDiagnostics() const {
@@ -916,8 +928,8 @@ bool Database::checkDate(const std::string &date) const {
     std::tm *today = std::localtime(&now);
     std::tm otherDate = {};
 
-    otherDate.tm_mday = std::stoi(date.substr(3, 2));
-    otherDate.tm_mon = std::stoi(date.substr(0, 2)) - 1;
+    otherDate.tm_mday = std::stoi(date.substr(0, 2)) - 1;
+    otherDate.tm_mon = std::stoi(date.substr(3, 2));
     otherDate.tm_year = std::stoi(date.substr(6, 4)) - 1900;
 
     std::time_t t1 = std::mktime(&otherDate);

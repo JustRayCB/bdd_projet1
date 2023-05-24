@@ -171,10 +171,10 @@ private:
      * @param pharmacien: Inami of the pharmacist of the patient
      * @param medecin: Inami of the doctor of the patient
      * */
-    void insertPatient(const std::string &niss, const std::string &nom, const std::string &prenom,
-                       const std::string &sexe, const std::string &dateNaissance,
-                       const std::string &mail, const std::string &tel,
-                       const std::string &pharmacien, const std::string &medecin) const;
+    int insertPatient(const std::string &niss, const std::string &nom, const std::string &prenom,
+                      const std::string &sexe, const std::string &dateNaissance,
+                      const std::string &mail, const std::string &tel,
+                      const std::string &pharmacien, const std::string &medecin) const;
 
     /**
      * @brief : Load the diagnostiques.xml file

@@ -3,16 +3,20 @@
 
 #include <cppconn/connection.h>
 #include <cppconn/prepared_statement.h>
+#include <cppconn/resultset.h>
 #include <cppconn/statement.h>
 #include <mysql_connection.h>
 #include <mysql_driver.h>
 #include <mysql_error.h>
 #include <string>
+#include <vector>
 
 class Database {
+    enum { Niss, Nom, Prenom, Genre, DateNaissance, Mail, NumTel, PharmacienINAMI, MedecinINAMI };
     sql::mysql::MySQL_Driver *driver;
     sql::Connection *con;
     sql::ConnectOptionsMap connection_properties;
+    std::vector<std::string> patient;
 
 public:
     Database();
@@ -30,6 +34,28 @@ public:
      * inside the data folder
      */
     void init() const;
+
+    /*
+     * @brief : Check if the patient is in the db and stock his info
+     *
+     * @param niss: NISS of the patient
+     * @return: A vector containing the info of the patient
+     */
+    bool connectUser(const std::string &niss);
+
+    /*
+     * @brief: Change the Medecin or the Pharamacien of the patient
+     *
+     * @param inami: Inami of the new doctor or pharmacistZ
+     * @param which: 0 if it's a doctor, 1 if it's a pharmacist
+     * @return: True if the change was successful, false otherwise
+     */
+    int changeMP(const std::string &inami, const int which);
+
+    /**
+     * @brief: Remove space before and after a string
+     **/
+    static void strip(std::string &str);
 
 private:
     /**
@@ -145,10 +171,10 @@ private:
      * @param pharmacien: Inami of the pharmacist of the patient
      * @param medecin: Inami of the doctor of the patient
      * */
-    void insertPatient(const std::string &niss, const std::string &nom, const std::string &prenom,
-                       const std::string &sexe, const std::string &dateNaissance,
-                       const std::string &mail, const std::string &tel,
-                       const std::string &pharmacien, const std::string &medecin) const;
+    int insertPatient(const std::string &niss, const std::string &nom, const std::string &prenom,
+                      const std::string &sexe, const std::string &dateNaissance,
+                      const std::string &mail, const std::string &tel,
+                      const std::string &pharmacien, const std::string &medecin) const;
 
     /**
      * @brief : Load the diagnostiques.xml file
@@ -217,14 +243,19 @@ private:
                         const std::string &value1, const std::string &value2,
                         const std::string &value3) const;
 
-    /**
-     * @brief: Remove space before and after a string
-     **/
-    void strip(std::string &str) const;
-
     bool isDate1MoreRecent(const std::string &date1, const std::string &date2) const;
 
     std::string transformDate(std::string date) const;
+
+    bool checkInami(const std::string &inami) const;
+
+    bool checkPhone(const std::string &phone) const;
+
+    bool checkEmail(const std::string &email) const;
+
+    bool checkNiss(const std::string &niss) const;
+
+    bool checkDate(const std::string &date) const;
 };
 
 #endif // !DEBUG
