@@ -133,8 +133,8 @@ private:
      * @param tel: Phone number of the doctor
      * @param specialisation: Specialisation of the doctor
      **/
-    void insertMedecin(const std::string &inami, const std::string &nom, const std::string &email,
-                       const std::string &tel, const std::string &specilisation) const;
+    int insertMedecin(const std::string &inami, const std::string &nom, const std::string &email,
+                      const std::string &tel, const std::string &specilisation) const;
 
     /**
      * @brief : Load the medicaments.csv file

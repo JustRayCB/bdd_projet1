@@ -399,22 +399,41 @@ void Database::loadMedecins() const {
     return;
 }
 
-void Database::insertMedecin(const std::string &inami, const std::string &nom,
-                             const std::string &email, const std::string &tel,
-                             const std::string &specilisation) const {
+int Database::insertMedecin(const std::string &inami, const std::string &nom,
+                            const std::string &email, const std::string &tel,
+                            const std::string &specilisation) const {
     std::vector<std::string> args = {inami, nom, tel, email, specilisation};
     if (checkIfExists("Medecin", "INAMI", inami)) {
         std::cout << inami << " exist "
                   << " Inside Medecin" << std::endl;
-        return;
+        return -1;
     }
 
     if (checkIfExists("Pharmacien", "INAMI", inami)) {
         std::cout << "The inami of the medecin is already taken by a Pharmacien" << std::endl;
-        return;
+        return -2;
     }
 
-    if (inami == "None" or inami == "") { return; }
+    for (size_t i = 0; i < args.size(); i++) {
+        if (i == 2 or i == 3) {
+        } else if (args[i] == "None" or args[i] == "") {
+            std::cout << "The " << i << "th argument is empty" << std::endl;
+            return -3;
+        }
+    }
+    if (not checkInami(inami)) {
+        std::cout << "The inami is not valid" << std::endl;
+        return -4;
+    }
+    if (not(args.at(3).empty() or args.at(3) == "None") and not checkEmail(email)) {
+        std::cout << "Mail is not valid" << std::endl;
+        return -5;
+    }
+    if (not(args.at(2).empty() or args.at(2) == "None") and not checkPhone(tel)) {
+        std::cout << "Tel is not valid" << std::endl;
+        return -6;
+    }
+
     std::cout << "Insert medecin" << std::endl;
     sql::PreparedStatement *stmt = con->prepareStatement(
         "INSERT INTO Medecin (INAMI, Nom, NumTel, Mail, SpecialisationNom) VALUES (?, ?, ?, ?, ?)");
@@ -427,6 +446,7 @@ void Database::insertMedecin(const std::string &inami, const std::string &nom,
     }
     stmt->execute();
     delete stmt;
+    return 0;
 }
 
 void Database::loadMedicaments() const {
@@ -904,7 +924,7 @@ bool Database::checkInami(const std::string &inami) const {
 }
 
 bool Database::checkPhone(const std::string &phone) const {
-    if (phone.size() != 15) {
+    if (phone.size() < 12) {
         std::cout << "Not a good size for a phone number" << std::endl;
         return false;
     }
