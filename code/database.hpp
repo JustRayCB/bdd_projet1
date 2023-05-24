@@ -115,8 +115,8 @@ private:
      * @param email: Mail of the pharmacist
      * @param tel: Phone number of the pharmacist
      **/
-    void insertPharmacien(const std::string &inami, const std::string &nom,
-                          const std::string &email, const std::string &tel) const;
+    int insertPharmacien(const std::string &inami, const std::string &nom, const std::string &email,
+                         const std::string &tel) const;
 
     /**
      * @brief : Load the medecins.xml file

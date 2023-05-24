@@ -1389,7 +1389,15 @@ main.o: ../gui/main.cpp ../gui/mainwindow.hpp \
 		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtGui/qguiapplication.h \
 		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtGui/qinputmethod.h \
 		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtCore/qlocale.h \
-		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtGui/qguiapplication_platform.h
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtGui/qguiapplication_platform.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtCore/QDir \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtCore/qdir.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtCore/qfile.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtCore/qfiledevice.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtCore/qfileinfo.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtCore/qdatetime.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtCore/qcalendar.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtCore/QCoreApplication
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../gui/main.cpp
 
 mainwindow.o: ../gui/mainwindow.cpp ../gui/mainwindow.hpp \
@@ -1553,7 +1561,12 @@ mainwindow.o: ../gui/mainwindow.cpp ../gui/mainwindow.hpp \
 		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qtabwidget.h \
 		../gui/database.hpp \
 		ui_mainwindow.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtCore/QDate \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtCore/qdatetime.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtCore/qcalendar.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtCore/qlocale.h \
 		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtCore/QVariant \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtGui/QAction \
 		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/QApplication \
 		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qapplication.h \
 		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtCore/qcoreapplication.h \
@@ -1574,14 +1587,62 @@ mainwindow.o: ../gui/mainwindow.cpp ../gui/mainwindow.hpp \
 		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtCore/qpromise.h \
 		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtGui/qguiapplication.h \
 		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtGui/qinputmethod.h \
-		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtCore/qlocale.h \
 		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtGui/qguiapplication_platform.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/QComboBox \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qcombobox.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qstyleoption.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qabstractspinbox.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtGui/qvalidator.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtCore/qregularexpression.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qslider.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qabstractslider.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qstyle.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qtabbar.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qrubberband.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qframe.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtCore/qabstractitemmodel.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/QDateEdit \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qdatetimeedit.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/QGroupBox \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qgroupbox.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/QHBoxLayout \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qboxlayout.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qlayout.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qlayoutitem.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qgridlayout.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/QLabel \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qlabel.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtGui/qpicture.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtGui/qtextdocument.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/QLineEdit \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qlineedit.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtGui/qtextcursor.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtGui/qtextformat.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtGui/qpen.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtGui/qtextoption.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/QMenu \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qmenu.h \
 		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/QMenuBar \
 		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qmenubar.h \
-		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qmenu.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/QPushButton \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qpushbutton.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qabstractbutton.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/QStackedWidget \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qstackedwidget.h \
 		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/QStatusBar \
 		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qstatusbar.h \
-		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/QWidget
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/QTextBrowser \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qtextbrowser.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qtextedit.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/QVBoxLayout \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/QWidget \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtGui/QPixmap \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtCore/QDebug \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/QMessageBox \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qmessagebox.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qdialog.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../gui/mainwindow.cpp
 
 moc_mainwindow.o: moc_mainwindow.cpp 

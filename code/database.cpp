@@ -1,4 +1,5 @@
 #include "database.hpp"
+#include <bit>
 #include <ctime>
 #include <fstream>
 #include <iostream>
@@ -317,19 +318,38 @@ void Database::loadPharmaciens() const {
     return;
 }
 
-void Database::insertPharmacien(const std::string &inami, const std::string &nom,
-                                const std::string &email, const std::string &tel) const {
+int Database::insertPharmacien(const std::string &inami, const std::string &nom,
+                               const std::string &email, const std::string &tel) const {
     std::vector<std::string> args = {inami, nom, tel, email};
     if (checkIfExists("Pharmacien", "INAMI", inami)) {
         std::cout << inami << " exist "
                   << " Inside Pharmacien" << std::endl;
-        return;
+        return -1;
     }
     if (checkIfExists("Medecin", "INAMI", inami)) {
         std::cout << "The inami is already taken by a Medecin" << std::endl;
-        return;
+        return -2;
     }
-    if (inami == "None" or inami == "") { return; }
+    if (inami == "None" or inami == "") { return -3; }
+    for (size_t i = 0; i < args.size(); i++) {
+        if (i == 2 or i == 3) {
+        } else if (args[i] == "None" or args[i].empty()) {
+            std::cout << "Missing argument " << i << std::endl;
+            return -3;
+        }
+    }
+    if (not checkInami(inami)) {
+        std::cout << "The inami is not valid" << std::endl;
+        return -4;
+    }
+    if (not(args.at(3).empty() or args.at(3) == "None") and not checkEmail(email)) {
+        std::cout << "Mail is not valid" << std::endl;
+        return -5;
+    }
+    if (not(args.at(2).empty() or args.at(2) == "None") and not checkPhone(tel)) {
+        std::cout << "Tel is not valid" << std::endl;
+        return -6;
+    }
     // std::cout << "Insert pharmacien" << std::endl;
     sql::PreparedStatement *stmt = con->prepareStatement(
         "INSERT INTO Pharmacien (INAMI, Nom, NumTel, Mail) VALUES (?, ?, ?, ?)");
@@ -343,6 +363,7 @@ void Database::insertPharmacien(const std::string &inami, const std::string &nom
     }
     stmt->execute();
     delete stmt;
+    return 0;
 }
 
 void Database::loadMedecins() const {

@@ -25,6 +25,7 @@
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QStackedWidget>
 #include <QtWidgets/QStatusBar>
+#include <QtWidgets/QTextBrowser>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
@@ -36,6 +37,11 @@ public:
     QAction *actionPatient;
     QAction *actionMedecin;
     QAction *actionPharmacien;
+    QAction *actionDossier;
+    QAction *actionM_dicament;
+    QAction *actionPathologie;
+    QAction *actionM_decin;
+    QAction *actionSp_cialit;
     QWidget *centralwidget;
     QPushButton *pushButton;
     QStackedWidget *pages;
@@ -57,7 +63,7 @@ public:
     QPushButton *submit;
     QWidget *signPatient;
     QGroupBox *groupBox_3;
-    QWidget *widget;
+    QWidget *layoutWidget1;
     QVBoxLayout *verticalLayout_3;
     QHBoxLayout *horizontalLayout_3;
     QLabel *label_4;
@@ -124,9 +130,20 @@ public:
     QLabel *label_21;
     QLineEdit *mailPhar;
     QPushButton *signPhar;
+    QWidget *Dossier;
+    QTextBrowser *textBrowser;
+    QWidget *Medicament;
+    QTextBrowser *textBrowser_2;
+    QWidget *Pathologie;
+    QTextBrowser *textBrowser_3;
+    QWidget *Medecin;
+    QTextBrowser *textBrowser_4;
+    QWidget *page;
+    QTextBrowser *textBrowser_5;
     QStatusBar *statusbar;
     QMenuBar *menubar;
     QMenu *menuInscription;
+    QMenu *menuTables;
 
     void setupUi(QMainWindow *MainWindow)
     {
@@ -139,6 +156,16 @@ public:
         actionMedecin->setObjectName("actionMedecin");
         actionPharmacien = new QAction(MainWindow);
         actionPharmacien->setObjectName("actionPharmacien");
+        actionDossier = new QAction(MainWindow);
+        actionDossier->setObjectName("actionDossier");
+        actionM_dicament = new QAction(MainWindow);
+        actionM_dicament->setObjectName("actionM_dicament");
+        actionPathologie = new QAction(MainWindow);
+        actionPathologie->setObjectName("actionPathologie");
+        actionM_decin = new QAction(MainWindow);
+        actionM_decin->setObjectName("actionM_decin");
+        actionSp_cialit = new QAction(MainWindow);
+        actionSp_cialit->setObjectName("actionSp_cialit");
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName("centralwidget");
         pushButton = new QPushButton(centralwidget);
@@ -233,20 +260,20 @@ public:
         groupBox_3 = new QGroupBox(signPatient);
         groupBox_3->setObjectName("groupBox_3");
         groupBox_3->setGeometry(QRect(310, 30, 341, 441));
-        widget = new QWidget(groupBox_3);
-        widget->setObjectName("widget");
-        widget->setGeometry(QRect(0, 30, 341, 411));
-        verticalLayout_3 = new QVBoxLayout(widget);
+        layoutWidget1 = new QWidget(groupBox_3);
+        layoutWidget1->setObjectName("layoutWidget1");
+        layoutWidget1->setGeometry(QRect(0, 30, 341, 411));
+        verticalLayout_3 = new QVBoxLayout(layoutWidget1);
         verticalLayout_3->setObjectName("verticalLayout_3");
         verticalLayout_3->setContentsMargins(0, 0, 0, 0);
         horizontalLayout_3 = new QHBoxLayout();
         horizontalLayout_3->setObjectName("horizontalLayout_3");
-        label_4 = new QLabel(widget);
+        label_4 = new QLabel(layoutWidget1);
         label_4->setObjectName("label_4");
 
         horizontalLayout_3->addWidget(label_4);
 
-        nissPatient = new QLineEdit(widget);
+        nissPatient = new QLineEdit(layoutWidget1);
         nissPatient->setObjectName("nissPatient");
 
         horizontalLayout_3->addWidget(nissPatient);
@@ -256,12 +283,12 @@ public:
 
         horizontalLayout_4 = new QHBoxLayout();
         horizontalLayout_4->setObjectName("horizontalLayout_4");
-        label_5 = new QLabel(widget);
+        label_5 = new QLabel(layoutWidget1);
         label_5->setObjectName("label_5");
 
         horizontalLayout_4->addWidget(label_5);
 
-        namePatient = new QLineEdit(widget);
+        namePatient = new QLineEdit(layoutWidget1);
         namePatient->setObjectName("namePatient");
 
         horizontalLayout_4->addWidget(namePatient);
@@ -271,12 +298,12 @@ public:
 
         horizontalLayout_5 = new QHBoxLayout();
         horizontalLayout_5->setObjectName("horizontalLayout_5");
-        label_6 = new QLabel(widget);
+        label_6 = new QLabel(layoutWidget1);
         label_6->setObjectName("label_6");
 
         horizontalLayout_5->addWidget(label_6);
 
-        fnamePatient = new QLineEdit(widget);
+        fnamePatient = new QLineEdit(layoutWidget1);
         fnamePatient->setObjectName("fnamePatient");
 
         horizontalLayout_5->addWidget(fnamePatient);
@@ -286,12 +313,12 @@ public:
 
         horizontalLayout_6 = new QHBoxLayout();
         horizontalLayout_6->setObjectName("horizontalLayout_6");
-        label_7 = new QLabel(widget);
+        label_7 = new QLabel(layoutWidget1);
         label_7->setObjectName("label_7");
 
         horizontalLayout_6->addWidget(label_7);
 
-        genderPatient = new QComboBox(widget);
+        genderPatient = new QComboBox(layoutWidget1);
         genderPatient->addItem(QString());
         genderPatient->addItem(QString());
         genderPatient->addItem(QString());
@@ -304,15 +331,15 @@ public:
 
         horizontalLayout_7 = new QHBoxLayout();
         horizontalLayout_7->setObjectName("horizontalLayout_7");
-        label_8 = new QLabel(widget);
+        label_8 = new QLabel(layoutWidget1);
         label_8->setObjectName("label_8");
 
         horizontalLayout_7->addWidget(label_8);
 
-        birthPatient = new QDateEdit(widget);
+        birthPatient = new QDateEdit(layoutWidget1);
         birthPatient->setObjectName("birthPatient");
-        birthPatient->setDateTime(QDateTime(QDate(2000, 1, 1), QTime(0, 0, 0)));
-        birthPatient->setMaximumDateTime(QDateTime(QDate(2023, 5, 30), QTime(1, 59, 59)));
+        birthPatient->setDateTime(QDateTime(QDate(1999, 12, 31), QTime(0, 0, 0)));
+        birthPatient->setMaximumDateTime(QDateTime(QDate(2023, 5, 30), QTime(23, 59, 59)));
         birthPatient->setMaximumDate(QDate(2023, 5, 30));
         birthPatient->setCurrentSection(QDateTimeEdit::DaySection);
         birthPatient->setCalendarPopup(true);
@@ -324,12 +351,12 @@ public:
 
         horizontalLayout_8 = new QHBoxLayout();
         horizontalLayout_8->setObjectName("horizontalLayout_8");
-        label_9 = new QLabel(widget);
+        label_9 = new QLabel(layoutWidget1);
         label_9->setObjectName("label_9");
 
         horizontalLayout_8->addWidget(label_9);
 
-        mailPatient = new QLineEdit(widget);
+        mailPatient = new QLineEdit(layoutWidget1);
         mailPatient->setObjectName("mailPatient");
 
         horizontalLayout_8->addWidget(mailPatient);
@@ -339,12 +366,12 @@ public:
 
         horizontalLayout_9 = new QHBoxLayout();
         horizontalLayout_9->setObjectName("horizontalLayout_9");
-        label_10 = new QLabel(widget);
+        label_10 = new QLabel(layoutWidget1);
         label_10->setObjectName("label_10");
 
         horizontalLayout_9->addWidget(label_10);
 
-        phonePatient = new QLineEdit(widget);
+        phonePatient = new QLineEdit(layoutWidget1);
         phonePatient->setObjectName("phonePatient");
 
         horizontalLayout_9->addWidget(phonePatient);
@@ -354,12 +381,12 @@ public:
 
         horizontalLayout_10 = new QHBoxLayout();
         horizontalLayout_10->setObjectName("horizontalLayout_10");
-        label_11 = new QLabel(widget);
+        label_11 = new QLabel(layoutWidget1);
         label_11->setObjectName("label_11");
 
         horizontalLayout_10->addWidget(label_11);
 
-        refP = new QLineEdit(widget);
+        refP = new QLineEdit(layoutWidget1);
         refP->setObjectName("refP");
 
         horizontalLayout_10->addWidget(refP);
@@ -369,12 +396,12 @@ public:
 
         horizontalLayout_11 = new QHBoxLayout();
         horizontalLayout_11->setObjectName("horizontalLayout_11");
-        label_12 = new QLabel(widget);
+        label_12 = new QLabel(layoutWidget1);
         label_12->setObjectName("label_12");
 
         horizontalLayout_11->addWidget(label_12);
 
-        refM = new QLineEdit(widget);
+        refM = new QLineEdit(layoutWidget1);
         refM->setObjectName("refM");
 
         horizontalLayout_11->addWidget(refM);
@@ -382,7 +409,7 @@ public:
 
         verticalLayout_3->addLayout(horizontalLayout_11);
 
-        signPatient_2 = new QPushButton(widget);
+        signPatient_2 = new QPushButton(layoutWidget1);
         signPatient_2->setObjectName("signPatient_2");
 
         verticalLayout_3->addWidget(signPatient_2);
@@ -557,25 +584,63 @@ public:
         verticalLayout_5->addWidget(signPhar);
 
         pages->addWidget(signPharmacien);
+        Dossier = new QWidget();
+        Dossier->setObjectName("Dossier");
+        textBrowser = new QTextBrowser(Dossier);
+        textBrowser->setObjectName("textBrowser");
+        textBrowser->setGeometry(QRect(430, 170, 71, 31));
+        pages->addWidget(Dossier);
+        Medicament = new QWidget();
+        Medicament->setObjectName("Medicament");
+        textBrowser_2 = new QTextBrowser(Medicament);
+        textBrowser_2->setObjectName("textBrowser_2");
+        textBrowser_2->setGeometry(QRect(430, 200, 231, 31));
+        pages->addWidget(Medicament);
+        Pathologie = new QWidget();
+        Pathologie->setObjectName("Pathologie");
+        textBrowser_3 = new QTextBrowser(Pathologie);
+        textBrowser_3->setObjectName("textBrowser_3");
+        textBrowser_3->setGeometry(QRect(360, 180, 271, 51));
+        pages->addWidget(Pathologie);
+        Medecin = new QWidget();
+        Medecin->setObjectName("Medecin");
+        textBrowser_4 = new QTextBrowser(Medecin);
+        textBrowser_4->setObjectName("textBrowser_4");
+        textBrowser_4->setGeometry(QRect(450, 200, 71, 31));
+        pages->addWidget(Medecin);
+        page = new QWidget();
+        page->setObjectName("page");
+        textBrowser_5 = new QTextBrowser(page);
+        textBrowser_5->setObjectName("textBrowser_5");
+        textBrowser_5->setGeometry(QRect(450, 190, 71, 31));
+        pages->addWidget(page);
         MainWindow->setCentralWidget(centralwidget);
         statusbar = new QStatusBar(MainWindow);
         statusbar->setObjectName("statusbar");
         MainWindow->setStatusBar(statusbar);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName("menubar");
-        menubar->setGeometry(QRect(0, 0, 1004, 19));
+        menubar->setGeometry(QRect(0, 0, 1004, 24));
         menuInscription = new QMenu(menubar);
         menuInscription->setObjectName("menuInscription");
+        menuTables = new QMenu(menubar);
+        menuTables->setObjectName("menuTables");
         MainWindow->setMenuBar(menubar);
 
         menubar->addAction(menuInscription->menuAction());
+        menubar->addAction(menuTables->menuAction());
         menuInscription->addAction(actionPatient);
         menuInscription->addAction(actionMedecin);
         menuInscription->addAction(actionPharmacien);
+        menuTables->addAction(actionDossier);
+        menuTables->addAction(actionM_dicament);
+        menuTables->addAction(actionPathologie);
+        menuTables->addAction(actionM_decin);
+        menuTables->addAction(actionSp_cialit);
 
         retranslateUi(MainWindow);
 
-        pages->setCurrentIndex(0);
+        pages->setCurrentIndex(5);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -587,6 +652,11 @@ public:
         actionPatient->setText(QCoreApplication::translate("MainWindow", "Patient", nullptr));
         actionMedecin->setText(QCoreApplication::translate("MainWindow", "M\303\251decin", nullptr));
         actionPharmacien->setText(QCoreApplication::translate("MainWindow", "Pharmacien", nullptr));
+        actionDossier->setText(QCoreApplication::translate("MainWindow", "dossier", nullptr));
+        actionM_dicament->setText(QCoreApplication::translate("MainWindow", "medicament", nullptr));
+        actionPathologie->setText(QCoreApplication::translate("MainWindow", "pathologie", nullptr));
+        actionM_decin->setText(QCoreApplication::translate("MainWindow", "medecin", nullptr));
+        actionSp_cialit->setText(QCoreApplication::translate("MainWindow", "specialite", nullptr));
         pushButton->setText(QCoreApplication::translate("MainWindow", "Show tables", nullptr));
         loginPic->setText(QString());
         groupBox->setTitle(QCoreApplication::translate("MainWindow", "Connectez-vous", nullptr));
@@ -645,7 +715,49 @@ public:
         label_21->setText(QCoreApplication::translate("MainWindow", "Email", nullptr));
         mailPhar->setPlaceholderText(QCoreApplication::translate("MainWindow", "Email", nullptr));
         signPhar->setText(QCoreApplication::translate("MainWindow", "Inscription", nullptr));
+        textBrowser->setHtml(QCoreApplication::translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"hr { height: 1px; border-width: 0; }\n"
+"li.unchecked::marker { content: \"\\2610\"; }\n"
+"li.checked::marker { content: \"\\2612\"; }\n"
+"</style></head><body style=\" font-family:'.AppleSystemUIFont'; font-size:13pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Dossier</p></body></html>", nullptr));
+        textBrowser_2->setHtml(QCoreApplication::translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"hr { height: 1px; border-width: 0; }\n"
+"li.unchecked::marker { content: \"\\2610\"; }\n"
+"li.checked::marker { content: \"\\2612\"; }\n"
+"</style></head><body style=\" font-family:'.AppleSystemUIFont'; font-size:13pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">M\303\251dicament</p></body></html>", nullptr));
+        textBrowser_3->setHtml(QCoreApplication::translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"hr { height: 1px; border-width: 0; }\n"
+"li.unchecked::marker { content: \"\\2610\"; }\n"
+"li.checked::marker { content: \"\\2612\"; }\n"
+"</style></head><body style=\" font-family:'.AppleSystemUIFont'; font-size:13pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">pathologie</p>\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>", nullptr));
+        textBrowser_4->setHtml(QCoreApplication::translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"hr { height: 1px; border-width: 0; }\n"
+"li.unchecked::marker { content: \"\\2610\"; }\n"
+"li.checked::marker { content: \"\\2612\"; }\n"
+"</style></head><body style=\" font-family:'.AppleSystemUIFont'; font-size:13pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">M\303\251decin</p></body></html>", nullptr));
+        textBrowser_5->setHtml(QCoreApplication::translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"hr { height: 1px; border-width: 0; }\n"
+"li.unchecked::marker { content: \"\\2610\"; }\n"
+"li.checked::marker { content: \"\\2612\"; }\n"
+"</style></head><body style=\" font-family:'.AppleSystemUIFont'; font-size:13pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Sp\303\251cialit\303\251</p></body></html>", nullptr));
         menuInscription->setTitle(QCoreApplication::translate("MainWindow", "Inscription", nullptr));
+        menuTables->setTitle(QCoreApplication::translate("MainWindow", "Tables", nullptr));
     } // retranslateUi
 
 };

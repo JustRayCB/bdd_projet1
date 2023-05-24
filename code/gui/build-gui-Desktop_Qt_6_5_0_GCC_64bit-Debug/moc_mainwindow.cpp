@@ -46,11 +46,16 @@ static constexpr auto qt_meta_stringdata_CLASSMainWindowENDCLASS = QtMocHelpers:
     "on_actionPatient_triggered",
     "on_actionPharmacien_triggered",
     "on_actionMedecin_triggered",
-    "on_signPatient_2_clicked"
+    "on_signPatient_2_clicked",
+    "on_actionM_decin_triggered",
+    "on_actionDossier_triggered",
+    "on_actionM_dicament_triggered",
+    "on_actionPathologie_triggered",
+    "on_actionSp_cialit_triggered"
 );
 #else  // !QT_MOC_HAS_STRING_DATA
 struct qt_meta_stringdata_CLASSMainWindowENDCLASS_t {
-    uint offsetsAndSizes[18];
+    uint offsetsAndSizes[28];
     char stringdata0[11];
     char stringdata1[22];
     char stringdata2[1];
@@ -60,6 +65,11 @@ struct qt_meta_stringdata_CLASSMainWindowENDCLASS_t {
     char stringdata6[30];
     char stringdata7[27];
     char stringdata8[25];
+    char stringdata9[27];
+    char stringdata10[27];
+    char stringdata11[30];
+    char stringdata12[30];
+    char stringdata13[29];
 };
 #define QT_MOC_LITERAL(ofs, len) \
     uint(sizeof(qt_meta_stringdata_CLASSMainWindowENDCLASS_t::offsetsAndSizes) + ofs), len 
@@ -73,7 +83,12 @@ Q_CONSTINIT static const qt_meta_stringdata_CLASSMainWindowENDCLASS_t qt_meta_st
         QT_MOC_LITERAL(80, 26),  // "on_actionPatient_triggered"
         QT_MOC_LITERAL(107, 29),  // "on_actionPharmacien_triggered"
         QT_MOC_LITERAL(137, 26),  // "on_actionMedecin_triggered"
-        QT_MOC_LITERAL(164, 24)   // "on_signPatient_2_clicked"
+        QT_MOC_LITERAL(164, 24),  // "on_signPatient_2_clicked"
+        QT_MOC_LITERAL(189, 26),  // "on_actionM_decin_triggered"
+        QT_MOC_LITERAL(216, 26),  // "on_actionDossier_triggered"
+        QT_MOC_LITERAL(243, 29),  // "on_actionM_dicament_triggered"
+        QT_MOC_LITERAL(273, 29),  // "on_actionPathologie_triggered"
+        QT_MOC_LITERAL(303, 28)   // "on_actionSp_cialit_triggered"
     },
     "MainWindow",
     "on_pushButton_clicked",
@@ -83,7 +98,12 @@ Q_CONSTINIT static const qt_meta_stringdata_CLASSMainWindowENDCLASS_t qt_meta_st
     "on_actionPatient_triggered",
     "on_actionPharmacien_triggered",
     "on_actionMedecin_triggered",
-    "on_signPatient_2_clicked"
+    "on_signPatient_2_clicked",
+    "on_actionM_decin_triggered",
+    "on_actionDossier_triggered",
+    "on_actionM_dicament_triggered",
+    "on_actionPathologie_triggered",
+    "on_actionSp_cialit_triggered"
 };
 #undef QT_MOC_LITERAL
 #endif // !QT_MOC_HAS_STRING_DATA
@@ -95,7 +115,7 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSMainWindowENDCLASS[] = {
       11,       // revision
        0,       // classname
        0,    0, // classinfo
-       7,   14, // methods
+      12,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -103,15 +123,25 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSMainWindowENDCLASS[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    0,   56,    2, 0x08,    1 /* Private */,
-       3,    0,   57,    2, 0x08,    2 /* Private */,
-       4,    0,   58,    2, 0x08,    3 /* Private */,
-       5,    0,   59,    2, 0x08,    4 /* Private */,
-       6,    0,   60,    2, 0x08,    5 /* Private */,
-       7,    0,   61,    2, 0x08,    6 /* Private */,
-       8,    0,   62,    2, 0x08,    7 /* Private */,
+       1,    0,   86,    2, 0x08,    1 /* Private */,
+       3,    0,   87,    2, 0x08,    2 /* Private */,
+       4,    0,   88,    2, 0x08,    3 /* Private */,
+       5,    0,   89,    2, 0x08,    4 /* Private */,
+       6,    0,   90,    2, 0x08,    5 /* Private */,
+       7,    0,   91,    2, 0x08,    6 /* Private */,
+       8,    0,   92,    2, 0x08,    7 /* Private */,
+       9,    0,   93,    2, 0x08,    8 /* Private */,
+      10,    0,   94,    2, 0x08,    9 /* Private */,
+      11,    0,   95,    2, 0x08,   10 /* Private */,
+      12,    0,   96,    2, 0x08,   11 /* Private */,
+      13,    0,   97,    2, 0x08,   12 /* Private */,
 
  // slots: parameters
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -145,6 +175,16 @@ Q_CONSTINIT const QMetaObject MainWindow::staticMetaObject = { {
         // method 'on_actionMedecin_triggered'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'on_signPatient_2_clicked'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'on_actionM_decin_triggered'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'on_actionDossier_triggered'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'on_actionM_dicament_triggered'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'on_actionPathologie_triggered'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'on_actionSp_cialit_triggered'
         QtPrivate::TypeAndForceComplete<void, std::false_type>
     >,
     nullptr
@@ -163,6 +203,11 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 4: _t->on_actionPharmacien_triggered(); break;
         case 5: _t->on_actionMedecin_triggered(); break;
         case 6: _t->on_signPatient_2_clicked(); break;
+        case 7: _t->on_actionM_decin_triggered(); break;
+        case 8: _t->on_actionDossier_triggered(); break;
+        case 9: _t->on_actionM_dicament_triggered(); break;
+        case 10: _t->on_actionPathologie_triggered(); break;
+        case 11: _t->on_actionSp_cialit_triggered(); break;
         default: ;
         }
     }
@@ -188,13 +233,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 7)
+        if (_id < 12)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 7;
+        _id -= 12;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 7)
+        if (_id < 12)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 7;
+        _id -= 12;
     }
     return _id;
 }
