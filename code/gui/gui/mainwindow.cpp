@@ -94,3 +94,33 @@ void MainWindow::on_signPatient_2_clicked()
    std::cout << "J'ai appuyé\n";
 }
 
+
+void MainWindow::on_actionM_decin_triggered()
+{
+   ui->pages->setCurrentIndex(MEDECIN);
+}
+
+
+void MainWindow::on_actionDossier_triggered()
+{
+   ui->pages->setCurrentIndex(DOSSIER);
+}
+
+
+void MainWindow::on_actionM_dicament_triggered()
+{
+   ui->pages->setCurrentIndex(MEDICAMENT);
+}
+
+
+void MainWindow::on_actionPathologie_triggered()
+{
+   ui->pages->setCurrentIndex(PATHOLOGIE);
+}
+
+
+void MainWindow::on_actionSp_cialit_triggered()
+{
+   ui->pages->setCurrentIndex(SPECIALITE);
+}
+
