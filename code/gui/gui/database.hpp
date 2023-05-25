@@ -35,6 +35,12 @@ public:
      */
     void init() const;
 
+    /**
+     * @brief : Get the res of the query in the table Dossier
+     * @param query : String that represents the query
+     */
+    sql::ResultSet* getResFromQuery(const std::string query);
+
     /*
      * @brief : Check if the patient is in the db and stock his info
      *

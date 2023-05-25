@@ -2,6 +2,9 @@
 #define MAINWINDOW_HPP
 
 #include <QMainWindow>
+#include <QStandardItemModel>
+#include <QStandardItem>
+#include <QTableView>
 #include "database.hpp"
 
 QT_BEGIN_NAMESPACE
@@ -44,6 +47,8 @@ private slots:
     void on_signM_clicked();
 
     void on_signPhar_clicked();
+
+    void on_pushBoutonLoadTable_clicked();
 
 private:
     Ui::MainWindow *ui;

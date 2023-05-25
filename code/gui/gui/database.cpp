@@ -75,6 +75,12 @@ void Database::init() const {
     loadPrescriptions();
 }
 
+sql::ResultSet* Database::getResFromQuery(const std::string query) {
+    sql::PreparedStatement *stmt = con->prepareStatement(query);
+    sql::ResultSet *res = stmt->executeQuery();
+    return res;
+}
+
 bool Database::connectUser(const std::string &niss) {
     std::cout << "Je suis dans connect" << std::endl;
     sql::PreparedStatement *stmt = con->prepareStatement("SELECT * FROM Dossier WHERE Niss = ?");

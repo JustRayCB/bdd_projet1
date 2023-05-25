@@ -1,6 +1,8 @@
-CXXFLAGS+=-std=c++17 -g -Wall -Wextra -Wpedantic -D_GNU_SOURCE -Werror=all -O2
+CXXFLAGS+=-std=c++17 -g -Wall -Wextra -Wpedantic -D_GNU_SOURCE -Werror=all -O2 -I/opt/homebrew/Cellar/mysql-connector-c++/8.0.33/include/ -I/opt/homebrew/Cellar/pugixml/1.13/include/
+
 CXX=g++
-LDLIBS+=-lmysqlcppconn -lpugixml
+LDLIBS+=-L/opt/homebrew/Cellar/mysql-connector-c++/8.0.33/lib64/ -L/opt/homebrew/Cellar/pugixml/1.13/lib/ -lmysqlcppconn -lpugixml
+
 OBJ_DIR=bin
 
 ifeq ($(wildcard $(OBJ_DIR)),)
@@ -16,3 +18,4 @@ $(OBJ_DIR)/database.o: database.cpp database.hpp
 
 clean:
 	rm -rf $(OBJ_DIR)/*.o
+	rm main

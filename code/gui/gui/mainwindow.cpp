@@ -3,6 +3,9 @@
 #include <QPixmap>
 #include <QDebug>
 #include <QMessageBox>
+#include <QtSql/QSqlQuery>
+#include <QStandardItemModel>
+#include <QStandardItem>
 #include <vector>
 #include <string>
 
@@ -282,4 +285,42 @@ void MainWindow::on_signPhar_clicked()
 
 
 }
+
+
+void MainWindow::on_pushBoutonLoadTable_clicked()
+{
+   QTableView *tableView = ui->tableViewDossier;
+   QStandardItemModel *model = new QStandardItemModel(this);
+   tableView->setModel(model);
+
+   std::vector<std::string> fields = {"Niss",          "Nom",  "Prenom", "Genre",
+                                      "DateNaissance", "Mail", "NumTel", "PharmacienINAMI",
+                                      "MedecinINAMI"};
+
+   // Ajouter des en-têtes de colonne
+   model->setColumnCount(9);
+   model->setHeaderData(0, Qt::Horizontal, "NISS");
+   model->setHeaderData(1, Qt::Horizontal, "Nom");
+   model->setHeaderData(2, Qt::Horizontal, "Prenom");
+   model->setHeaderData(3, Qt::Horizontal, "Genre");
+   model->setHeaderData(4, Qt::Horizontal, "DateNaissance");
+   model->setHeaderData(5, Qt::Horizontal, "Mail");
+   model->setHeaderData(6, Qt::Horizontal, "NumTel");
+   model->setHeaderData(7, Qt::Horizontal, "PharmacienINAMI");
+   model->setHeaderData(8, Qt::Horizontal, "MedecinINAMI");
+
+   sql::ResultSet *res = db.getResFromQuery("SELECT * FROM DOSSIER");
+   int row = 0;
+   std::cout << "HERE" << std::endl;
+   while (res->next()) {
+       std::cout << "IN HERE" << std::endl;
+       for (int col=0; col<9; col++) {
+           std::cout << "IN IN HERE" << std::endl;
+           QString data = QString::fromStdString(res->getString(fields[col]));
+           model->setItem(row,col,new QStandardItem(data));
+       }
+       row++;
+   }
+}
+
 
