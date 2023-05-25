@@ -341,6 +341,25 @@ void MainWindow::on_boutonLoadDossier_clicked()
            row++;
        }
    }
+   if (ui->comboBox_Dos->currentText()=="query 9"){
+       std::vector<std::string> fields = {"Niss", "Nom",  "Prenom", "NombreMedecinsPrescripteurs"};
+
+       model->setColumnCount(4);
+       model->setHeaderData(0, Qt::Horizontal, "NISS");
+       model->setHeaderData(1, Qt::Horizontal, "Nom");
+       model->setHeaderData(2, Qt::Horizontal, "Prenom");
+       model->setHeaderData(3, Qt::Horizontal, "NombreMedecinsPrescripteurs");
+
+       sql::ResultSet *res = db.getResFromQuery("SELECT D.Niss,D.Nom,D.Prenom, COUNT(DISTINCT P.MedecinINAMI) AS NombreMedecinsPrescripteurs FROM Dossier D LEFT JOIN Prescription P ON D.Niss=P.DossierID GROUP BY D.Niss,D.Nom,D.Prenom");
+       int row = 0;
+       while (res->next()) {
+           for (int col=0; col<4; col++) {
+               QString data = QString::fromStdString(res->getString(fields[col]));
+               model->setItem(row,col,new QStandardItem(data));
+           }
+           row++;
+       }
+   }
    if (ui->comboBox_Dos->currentText()=="Load"){
        std::vector<std::string> fields = {"Niss",          "Nom",  "Prenom", "Genre",
                                           "DateNaissance", "Mail", "NumTel", "PharmacienINAMI",
