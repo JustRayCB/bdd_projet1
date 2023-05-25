@@ -292,31 +292,57 @@ void MainWindow::on_boutonLoadDossier_clicked()
    QTableView *tableView = ui->tableViewDossier;
    QStandardItemModel *model = new QStandardItemModel(this);
    tableView->setModel(model);
+   if (ui->comboBox_Dos->currentText()=="query 4"){
 
-   std::vector<std::string> fields = {"Niss",          "Nom",  "Prenom", "Genre",
-                                      "DateNaissance", "Mail", "NumTel", "PharmacienINAMI",
-                                      "MedecinINAMI"};
+       QString Nom=ui->lineEdit_Med->text();
+       QString date=ui->lineEdit_date->text();
 
-   // Ajouter des en-têtes de colonne
-   model->setColumnCount(9);
-   model->setHeaderData(0, Qt::Horizontal, "NISS");
-   model->setHeaderData(1, Qt::Horizontal, "Nom");
-   model->setHeaderData(2, Qt::Horizontal, "Prenom");
-   model->setHeaderData(3, Qt::Horizontal, "Genre");
-   model->setHeaderData(4, Qt::Horizontal, "DateNaissance");
-   model->setHeaderData(5, Qt::Horizontal, "Mail");
-   model->setHeaderData(6, Qt::Horizontal, "NumTel");
-   model->setHeaderData(7, Qt::Horizontal, "PharmacienINAMI");
-   model->setHeaderData(8, Qt::Horizontal, "MedecinINAMI");
+       std::vector<std::string> fields = {"Niss", "Nom",  "Prenom", "Mail", "NumTel"};
 
-   sql::ResultSet *res = db.getResFromQuery("SELECT * FROM Dossier");
-   int row = 0;
-   while (res->next()) {
-       for (int col=0; col<9; col++) {
-           QString data = QString::fromStdString(res->getString(fields[col]));
-           model->setItem(row,col,new QStandardItem(data));
+       model->setColumnCount(5);
+       model->setHeaderData(0, Qt::Horizontal, "NISS");
+       model->setHeaderData(1, Qt::Horizontal, "Nom");
+       model->setHeaderData(2, Qt::Horizontal, "Prenom");
+       model->setHeaderData(3, Qt::Horizontal, "Mail");
+       model->setHeaderData(4, Qt::Horizontal, "NumTel");
+
+       QString query="SELECT DISTINCT d.Niss,d.Nom,d.Prenom,d.Mail,d.NumTel FROM Dossier d JOIN Prescription p ON d.Niss=p.DossierID JOIN PharmacienDelivreMedicament pdm ON p.ID=pdm.PrescriptionID WHERE p.MedicamentNom='"+Nom+"' AND pdm.DateDelivrance>'"+date+"'";
+       sql::ResultSet *res = db.getResFromQuery(query.toStdString());
+       int row = 0;
+       while (res->next()) {
+           for (int col=0; col<5; col++) {
+               QString data = QString::fromStdString(res->getString(fields[col]));
+               model->setItem(row,col,new QStandardItem(data));
+           }
+           row++;
        }
-       row++;
+   }
+   if (ui->comboBox_Dos->currentText()=="Load"){
+       std::vector<std::string> fields = {"Niss",          "Nom",  "Prenom", "Genre",
+                                          "DateNaissance", "Mail", "NumTel", "PharmacienINAMI",
+                                          "MedecinINAMI"};
+
+       // Ajouter des en-têtes de colonne
+       model->setColumnCount(9);
+       model->setHeaderData(0, Qt::Horizontal, "NISS");
+       model->setHeaderData(1, Qt::Horizontal, "Nom");
+       model->setHeaderData(2, Qt::Horizontal, "Prenom");
+       model->setHeaderData(3, Qt::Horizontal, "Genre");
+       model->setHeaderData(4, Qt::Horizontal, "DateNaissance");
+       model->setHeaderData(5, Qt::Horizontal, "Mail");
+       model->setHeaderData(6, Qt::Horizontal, "NumTel");
+       model->setHeaderData(7, Qt::Horizontal, "PharmacienINAMI");
+       model->setHeaderData(8, Qt::Horizontal, "MedecinINAMI");
+
+       sql::ResultSet *res = db.getResFromQuery("SELECT * FROM Dossier");
+       int row = 0;
+       while (res->next()) {
+           for (int col=0; col<9; col++) {
+               QString data = QString::fromStdString(res->getString(fields[col]));
+               model->setItem(row,col,new QStandardItem(data));
+           }
+           row++;
+       }
    }
 }
 

@@ -737,7 +737,7 @@ p, li { white-space: pre-wrap; }
        </property>
       </item>
      </widget>
-     <widget class="QLineEdit" name="lineEdit_2">
+     <widget class="QLineEdit" name="lineEdit_Med">
       <property name="geometry">
        <rect>
         <x>500</x>
@@ -747,7 +747,7 @@ p, li { white-space: pre-wrap; }
        </rect>
       </property>
      </widget>
-     <widget class="QLineEdit" name="lineEdit_3">
+     <widget class="QLineEdit" name="lineEdit_date">
       <property name="geometry">
        <rect>
         <x>500</x>

@@ -136,6 +136,11 @@ public:
     QPushButton *boutonLoadDossier;
     QTableView *tableViewDossier;
     QTextBrowser *textBrowser_8;
+    QComboBox *comboBox_Dos;
+    QLineEdit *lineEdit_Med;
+    QLineEdit *lineEdit_date;
+    QLabel *label_2;
+    QLabel *label_3;
     QWidget *Medicament;
     QTableView *tableViewMedicament;
     QTextBrowser *textBrowser_6;
@@ -611,6 +616,25 @@ public:
         textBrowser_8 = new QTextBrowser(Dossier);
         textBrowser_8->setObjectName(QString::fromUtf8("textBrowser_8"));
         textBrowser_8->setGeometry(QRect(20, 40, 101, 31));
+        comboBox_Dos = new QComboBox(Dossier);
+        comboBox_Dos->addItem(QString());
+        comboBox_Dos->addItem(QString());
+        comboBox_Dos->addItem(QString());
+        comboBox_Dos->addItem(QString());
+        comboBox_Dos->setObjectName(QString::fromUtf8("comboBox_Dos"));
+        comboBox_Dos->setGeometry(QRect(740, 40, 101, 31));
+        lineEdit_Med = new QLineEdit(Dossier);
+        lineEdit_Med->setObjectName(QString::fromUtf8("lineEdit_Med"));
+        lineEdit_Med->setGeometry(QRect(500, 40, 231, 31));
+        lineEdit_date = new QLineEdit(Dossier);
+        lineEdit_date->setObjectName(QString::fromUtf8("lineEdit_date"));
+        lineEdit_date->setGeometry(QRect(500, 0, 231, 31));
+        label_2 = new QLabel(Dossier);
+        label_2->setObjectName(QString::fromUtf8("label_2"));
+        label_2->setGeometry(QRect(370, 40, 141, 31));
+        label_3 = new QLabel(Dossier);
+        label_3->setObjectName(QString::fromUtf8("label_3"));
+        label_3->setGeometry(QRect(350, 0, 151, 31));
         pages->addWidget(Dossier);
         Medicament = new QWidget();
         Medicament->setObjectName(QString::fromUtf8("Medicament"));
@@ -702,7 +726,7 @@ public:
 
         retranslateUi(MainWindow);
 
-        pages->setCurrentIndex(7);
+        pages->setCurrentIndex(5);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -780,12 +804,19 @@ public:
         label_21->setText(QCoreApplication::translate("MainWindow", "Email", nullptr));
         mailPhar->setPlaceholderText(QCoreApplication::translate("MainWindow", "Email", nullptr));
         signPhar->setText(QCoreApplication::translate("MainWindow", "Inscription", nullptr));
-        boutonLoadDossier->setText(QCoreApplication::translate("MainWindow", "LOAD", nullptr));
+        boutonLoadDossier->setText(QCoreApplication::translate("MainWindow", "OK", nullptr));
         textBrowser_8->setHtml(QCoreApplication::translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'.AppleSystemUIFont'; font-size:13pt;\">Dossier</span></p></body></html>", nullptr));
+        comboBox_Dos->setItemText(0, QCoreApplication::translate("MainWindow", "Load", nullptr));
+        comboBox_Dos->setItemText(1, QCoreApplication::translate("MainWindow", "query 4", nullptr));
+        comboBox_Dos->setItemText(2, QCoreApplication::translate("MainWindow", "query 5", nullptr));
+        comboBox_Dos->setItemText(3, QCoreApplication::translate("MainWindow", "query 9", nullptr));
+
+        label_2->setText(QCoreApplication::translate("MainWindow", "Nom_com / DCI : ", nullptr));
+        label_3->setText(QCoreApplication::translate("MainWindow", "date deli / prescri : ", nullptr));
         textBrowser_6->setHtml(QCoreApplication::translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
