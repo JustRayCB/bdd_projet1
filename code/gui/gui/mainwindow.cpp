@@ -163,22 +163,26 @@ void MainWindow::on_actionM_decin_triggered()
 
 void MainWindow::on_actionDossier_triggered()
 {
-   ui->lineEdit_Med->hide();
-   ui->lineEdit_date->hide();
-   ui->labelMed->hide();
-   ui->labelDate->hide();
-   ui->labelDate_2->hide();
-   ui->lineEdit_date_2->hide();
+   if (ui->comboBox_Dos->currentIndex() == 0) {
+       ui->lineEdit_Med->hide();
+       ui->labelMedDCI->hide();
+       ui->labelDateDelivrance->hide();
+       ui->labelDatePrescription->hide();
+       ui->labelMedNom->hide();
+       ui->dateEdit->hide();
+   }
    ui->pages->setCurrentIndex(DOSSIER);
 }
 
 
 void MainWindow::on_actionM_dicament_triggered()
 {
-   ui->medicamentLabelDCI->hide();
-   ui->medicamentLineEditDCI->hide();
-   ui->medicamentlabelDate->hide();
-   ui->medicamentLineEditDate->hide();
+   if (ui->comboBox->currentIndex() == 0) {
+       ui->medicamentLabelDCI->hide();
+       ui->medicamentLineEditDCI->hide();
+       ui->medicamentlabelDate->hide();
+       ui->dateEdit2->hide();
+   }
    ui->pages->setCurrentIndex(MEDICAMENT);
 }
 
@@ -306,8 +310,7 @@ void MainWindow::on_boutonLoadDossier_clicked()
    sql::ResultSet *res;
    QString query;
    QString Nom=ui->lineEdit_Med->text();
-   QString date=ui->lineEdit_date->text();
-   QString date2=ui->lineEdit_date_2->text();
+   QString date2=ui->dateEdit->text();
 
    if (ui->comboBox_Dos->currentIndex()==1){
        // QUERY 4
@@ -352,7 +355,7 @@ void MainWindow::on_boutonLoadMedicament_clicked()
    QString query;
 
    QString DCI=ui->medicamentLineEditDCI->text();
-   QString date=ui->medicamentLineEditDate->text();
+   QString date=ui->dateEdit2->text();
    if (ui->comboBox->currentIndex()==1){
        // QUERY 1
        fields = {"Nom", "Conditionnement"};
@@ -501,35 +504,36 @@ void MainWindow::on_comboBox_Dos_activated(int index)
    if (index==0) {
        // LOAD
        ui->lineEdit_Med->hide();
-       ui->labelDate->hide();
-       ui->lineEdit_date_2->hide();
-       ui->labelDate_2->hide();
-       ui->lineEdit_date->hide();
-       ui->labelMed->hide();
+       ui->labelMedDCI->hide();
+       ui->labelDateDelivrance->hide();
+       ui->labelDatePrescription->hide();
+       ui->labelMedNom->hide();
+       ui->dateEdit->hide();
    } else if (index==1) {
        // QUERY 4
-       ui->lineEdit_date->hide();
-       ui->labelDate->hide();
-       ui->lineEdit_date_2->show();
-       ui->labelDate_2->show();
        ui->lineEdit_Med->show();
-       ui->labelMed->show();
+       ui->labelMedDCI->hide();
+       ui->labelDateDelivrance->show();
+       ui->labelDatePrescription->hide();
+       ui->labelMedNom->show();
+       ui->dateEdit->show();
    } else if (index==2) {
        // QUERY 5
-       ui->lineEdit_date->hide();
-       ui->labelDate->hide();
-       ui->lineEdit_date_2->show();
-       ui->labelDate_2->show();
        ui->lineEdit_Med->show();
-       ui->labelMed->show();
+       ui->labelMedDCI->show();
+       ui->labelDateDelivrance->hide();
+       ui->labelDatePrescription->show();
+       ui->labelMedNom->hide();
+       ui->dateEdit->show();
+
    } else if (index==3) {
        // QUERY 9
-       ui->lineEdit_date->hide();
-       ui->labelDate->hide();
-       ui->lineEdit_date_2->hide();
-       ui->labelDate_2->hide();
        ui->lineEdit_Med->hide();
-       ui->labelMed->hide();
+       ui->labelMedDCI->hide();
+       ui->labelDateDelivrance->hide();
+       ui->labelDatePrescription->hide();
+       ui->labelMedNom->hide();
+       ui->dateEdit->hide();
    }
 }
 
@@ -541,25 +545,25 @@ void MainWindow::on_comboBox_activated(int index)
        ui->medicamentLabelDCI->hide();
        ui->medicamentLineEditDCI->hide();
        ui->medicamentlabelDate->hide();
-       ui->medicamentLineEditDate->hide();
+       ui->dateEdit2->hide();
    } else if (index==1) {
        // QUERY 1
        ui->medicamentLabelDCI->show();
        ui->medicamentLineEditDCI->show();
        ui->medicamentlabelDate->hide();
-       ui->medicamentLineEditDate->hide();
+       ui->dateEdit2->hide();
    } else if (index==2) {
        // QUERY 7
        ui->medicamentLabelDCI->hide();
        ui->medicamentLineEditDCI->hide();
        ui->medicamentlabelDate->hide();
-       ui->medicamentLineEditDate->hide();
+       ui->dateEdit2->hide();
    } else if (index==3) {
        // QUERY 10
        ui->medicamentLabelDCI->hide();
        ui->medicamentLineEditDCI->hide();
        ui->medicamentlabelDate->show();
-       ui->medicamentLineEditDate->show();
+       ui->dateEdit2->show();
    }
 }
 
