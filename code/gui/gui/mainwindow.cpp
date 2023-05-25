@@ -342,6 +342,7 @@ void MainWindow::on_boutonLoadDossier_clicked()
        }
        row++;
    }
+   tableView->resizeColumnsToContents(); // Ajuster la taille des colonnes aux contenus
 }
 
 void MainWindow::on_boutonLoadMedicament_clicked()
@@ -386,6 +387,7 @@ void MainWindow::on_boutonLoadMedicament_clicked()
        }
        row++;
    }
+   tableView->resizeColumnsToContents(); // Ajuster la taille des colonnes aux contenus
 }
 
 
@@ -425,6 +427,8 @@ void MainWindow::on_boutonLoadPathologie_clicked()
        }
        row++;
    }
+
+   tableView->resizeColumnsToContents(); // Ajuster la taille des colonnes aux contenus
 }
 
 
@@ -460,6 +464,8 @@ void MainWindow::on_boutonLoadMedecin_clicked()
        }
        row++;
    }
+
+   tableView->resizeColumnsToContents(); // Ajuster la taille des colonnes aux contenus
 }
 
 
@@ -496,6 +502,7 @@ void MainWindow::on_boutonLoadSpecialite_clicked()
        }
        row++;
    }
+   tableView->resizeColumnsToContents(); // Ajuster la taille des colonnes aux contenus
 }
 
 
@@ -565,5 +572,44 @@ void MainWindow::on_comboBox_activated(int index)
        ui->medicamentlabelDate->show();
        ui->dateEdit2->show();
    }
+}
+
+
+void MainWindow::on_consult_clicked()
+{
+   QTableView *tableView = ui->tableViewPatientInfo;
+   QStandardItemModel *model = new QStandardItemModel(this);
+   tableView->setModel(model);
+   std::vector<std::string> tablefields = {};
+   std::vector<std::string> fields = {};
+   sql::ResultSet *res = nullptr;
+
+   int choosenOne = ui->infoPatient->currentIndex();
+
+   if (choosenOne){
+       tablefields = {"Nom du médicament", "Date de Prescription", "Durée de votre traitement"};
+       fields = {"MedicamentNom", "DatePrescription", "DureeTraitement"};
+       res = db.getTreatment();
+    }
+   else{
+       tablefields = {"Nom de la pathologie", "Date de diagnostique"};
+       fields = {"PathologieNom", "DateDiagnostique" };
+       res = db.getMedicalInfo();
+    }
+   int nbCol = tablefields.size();
+   model->setColumnCount(nbCol);
+   for (int idx = 0; idx<nbCol; idx++) {
+       model->setHeaderData(idx, Qt::Horizontal, QString::fromStdString(tablefields[idx]));
+   }
+   tableView->resizeColumnsToContents(); // Ajuster la taille des colonnes aux contenus
+   int row=0;
+   while (res->next()) {
+       for (int col=0; col<nbCol; col++) {
+           QString data = QString::fromStdString(res->getString(fields[col]));
+           model->setItem(row,col,new QStandardItem(data));
+       }
+       row++;
+   }
+   delete res;
 }
 

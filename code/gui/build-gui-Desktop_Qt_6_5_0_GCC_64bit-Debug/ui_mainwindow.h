@@ -63,12 +63,14 @@ public:
     QComboBox *editMP;
     QLineEdit *editMPText;
     QPushButton *submit;
-    QTableView *tableViewInfoPatient;
-    QComboBox *infoMenu;
-    QPushButton *consultInfo;
+    QTableView *tableViewPatientInfo;
+    QWidget *layoutWidget1;
+    QHBoxLayout *horizontalLayout_21;
+    QComboBox *infoPatient;
+    QPushButton *consult;
     QWidget *signPatient;
     QGroupBox *groupBox_3;
-    QWidget *layoutWidget1;
+    QWidget *layoutWidget2;
     QVBoxLayout *verticalLayout_3;
     QHBoxLayout *horizontalLayout_3;
     QLabel *label_4;
@@ -141,11 +143,11 @@ public:
     QTextBrowser *textBrowser_8;
     QComboBox *comboBox_Dos;
     QLineEdit *lineEdit_Med;
-    QLineEdit *lineEdit_date;
-    QLabel *labelMed;
-    QLabel *labelDate;
-    QLabel *labelDate_2;
-    QLineEdit *lineEdit_date_2;
+    QLabel *labelMedDCI;
+    QLabel *labelDateDelivrance;
+    QDateEdit *dateEdit;
+    QLabel *labelDatePrescription;
+    QLabel *labelMedNom;
     QWidget *Medicament;
     QTableView *tableViewMedicament;
     QTextBrowser *textBrowser_6;
@@ -153,8 +155,8 @@ public:
     QComboBox *comboBox;
     QLineEdit *medicamentLineEditDCI;
     QLabel *medicamentLabelDCI;
-    QLineEdit *medicamentLineEditDate;
     QLabel *medicamentlabelDate;
+    QDateEdit *dateEdit2;
     QWidget *Pathologie;
     QTableView *tableViewPathologie;
     QPushButton *boutonLoadPathologie;
@@ -246,7 +248,7 @@ public:
         accountPage->setObjectName("accountPage");
         groupBox_2 = new QGroupBox(accountPage);
         groupBox_2->setObjectName("groupBox_2");
-        groupBox_2->setGeometry(QRect(110, 20, 381, 121));
+        groupBox_2->setGeometry(QRect(100, 20, 381, 121));
         layoutWidget = new QWidget(groupBox_2);
         layoutWidget->setObjectName("layoutWidget");
         layoutWidget->setGeometry(QRect(10, 40, 361, 71));
@@ -284,39 +286,47 @@ public:
 
         verticalLayout_2->addWidget(submit);
 
-        tableViewInfoPatient = new QTableView(accountPage);
-        tableViewInfoPatient->setObjectName("tableViewInfoPatient");
-        tableViewInfoPatient->setGeometry(QRect(110, 160, 731, 351));
-        infoMenu = new QComboBox(accountPage);
-        infoMenu->addItem(QString());
-        infoMenu->addItem(QString());
-        infoMenu->setObjectName("infoMenu");
-        infoMenu->setGeometry(QRect(560, 130, 171, 21));
-        sizePolicy1.setHeightForWidth(infoMenu->sizePolicy().hasHeightForWidth());
-        infoMenu->setSizePolicy(sizePolicy1);
-        consultInfo = new QPushButton(accountPage);
-        consultInfo->setObjectName("consultInfo");
-        consultInfo->setGeometry(QRect(740, 130, 101, 21));
+        tableViewPatientInfo = new QTableView(accountPage);
+        tableViewPatientInfo->setObjectName("tableViewPatientInfo");
+        tableViewPatientInfo->setGeometry(QRect(100, 160, 781, 351));
+        layoutWidget1 = new QWidget(accountPage);
+        layoutWidget1->setObjectName("layoutWidget1");
+        layoutWidget1->setGeometry(QRect(610, 110, 271, 31));
+        horizontalLayout_21 = new QHBoxLayout(layoutWidget1);
+        horizontalLayout_21->setObjectName("horizontalLayout_21");
+        horizontalLayout_21->setContentsMargins(0, 0, 0, 0);
+        infoPatient = new QComboBox(layoutWidget1);
+        infoPatient->addItem(QString());
+        infoPatient->addItem(QString());
+        infoPatient->setObjectName("infoPatient");
+
+        horizontalLayout_21->addWidget(infoPatient);
+
+        consult = new QPushButton(layoutWidget1);
+        consult->setObjectName("consult");
+
+        horizontalLayout_21->addWidget(consult);
+
         pages->addWidget(accountPage);
         signPatient = new QWidget();
         signPatient->setObjectName("signPatient");
         groupBox_3 = new QGroupBox(signPatient);
         groupBox_3->setObjectName("groupBox_3");
         groupBox_3->setGeometry(QRect(310, 30, 341, 441));
-        layoutWidget1 = new QWidget(groupBox_3);
-        layoutWidget1->setObjectName("layoutWidget1");
-        layoutWidget1->setGeometry(QRect(0, 30, 341, 411));
-        verticalLayout_3 = new QVBoxLayout(layoutWidget1);
+        layoutWidget2 = new QWidget(groupBox_3);
+        layoutWidget2->setObjectName("layoutWidget2");
+        layoutWidget2->setGeometry(QRect(0, 30, 341, 411));
+        verticalLayout_3 = new QVBoxLayout(layoutWidget2);
         verticalLayout_3->setObjectName("verticalLayout_3");
         verticalLayout_3->setContentsMargins(0, 0, 0, 0);
         horizontalLayout_3 = new QHBoxLayout();
         horizontalLayout_3->setObjectName("horizontalLayout_3");
-        label_4 = new QLabel(layoutWidget1);
+        label_4 = new QLabel(layoutWidget2);
         label_4->setObjectName("label_4");
 
         horizontalLayout_3->addWidget(label_4);
 
-        nissPatient = new QLineEdit(layoutWidget1);
+        nissPatient = new QLineEdit(layoutWidget2);
         nissPatient->setObjectName("nissPatient");
 
         horizontalLayout_3->addWidget(nissPatient);
@@ -326,12 +336,12 @@ public:
 
         horizontalLayout_4 = new QHBoxLayout();
         horizontalLayout_4->setObjectName("horizontalLayout_4");
-        label_5 = new QLabel(layoutWidget1);
+        label_5 = new QLabel(layoutWidget2);
         label_5->setObjectName("label_5");
 
         horizontalLayout_4->addWidget(label_5);
 
-        namePatient = new QLineEdit(layoutWidget1);
+        namePatient = new QLineEdit(layoutWidget2);
         namePatient->setObjectName("namePatient");
 
         horizontalLayout_4->addWidget(namePatient);
@@ -341,12 +351,12 @@ public:
 
         horizontalLayout_5 = new QHBoxLayout();
         horizontalLayout_5->setObjectName("horizontalLayout_5");
-        label_6 = new QLabel(layoutWidget1);
+        label_6 = new QLabel(layoutWidget2);
         label_6->setObjectName("label_6");
 
         horizontalLayout_5->addWidget(label_6);
 
-        fnamePatient = new QLineEdit(layoutWidget1);
+        fnamePatient = new QLineEdit(layoutWidget2);
         fnamePatient->setObjectName("fnamePatient");
 
         horizontalLayout_5->addWidget(fnamePatient);
@@ -356,12 +366,12 @@ public:
 
         horizontalLayout_6 = new QHBoxLayout();
         horizontalLayout_6->setObjectName("horizontalLayout_6");
-        label_7 = new QLabel(layoutWidget1);
+        label_7 = new QLabel(layoutWidget2);
         label_7->setObjectName("label_7");
 
         horizontalLayout_6->addWidget(label_7);
 
-        genderPatient = new QComboBox(layoutWidget1);
+        genderPatient = new QComboBox(layoutWidget2);
         genderPatient->addItem(QString());
         genderPatient->addItem(QString());
         genderPatient->addItem(QString());
@@ -374,14 +384,14 @@ public:
 
         horizontalLayout_7 = new QHBoxLayout();
         horizontalLayout_7->setObjectName("horizontalLayout_7");
-        label_8 = new QLabel(layoutWidget1);
+        label_8 = new QLabel(layoutWidget2);
         label_8->setObjectName("label_8");
 
         horizontalLayout_7->addWidget(label_8);
 
-        birthPatient = new QDateEdit(layoutWidget1);
+        birthPatient = new QDateEdit(layoutWidget2);
         birthPatient->setObjectName("birthPatient");
-        birthPatient->setDateTime(QDateTime(QDate(1999, 12, 24), QTime(0, 0, 0)));
+        birthPatient->setDateTime(QDateTime(QDate(1999, 12, 23), QTime(0, 0, 0)));
         birthPatient->setMaximumDateTime(QDateTime(QDate(2023, 5, 30), QTime(23, 59, 59)));
         birthPatient->setMaximumDate(QDate(2023, 5, 30));
         birthPatient->setCurrentSection(QDateTimeEdit::MonthSection);
@@ -394,12 +404,12 @@ public:
 
         horizontalLayout_8 = new QHBoxLayout();
         horizontalLayout_8->setObjectName("horizontalLayout_8");
-        label_9 = new QLabel(layoutWidget1);
+        label_9 = new QLabel(layoutWidget2);
         label_9->setObjectName("label_9");
 
         horizontalLayout_8->addWidget(label_9);
 
-        mailPatient = new QLineEdit(layoutWidget1);
+        mailPatient = new QLineEdit(layoutWidget2);
         mailPatient->setObjectName("mailPatient");
 
         horizontalLayout_8->addWidget(mailPatient);
@@ -409,12 +419,12 @@ public:
 
         horizontalLayout_9 = new QHBoxLayout();
         horizontalLayout_9->setObjectName("horizontalLayout_9");
-        label_10 = new QLabel(layoutWidget1);
+        label_10 = new QLabel(layoutWidget2);
         label_10->setObjectName("label_10");
 
         horizontalLayout_9->addWidget(label_10);
 
-        phonePatient = new QLineEdit(layoutWidget1);
+        phonePatient = new QLineEdit(layoutWidget2);
         phonePatient->setObjectName("phonePatient");
 
         horizontalLayout_9->addWidget(phonePatient);
@@ -424,12 +434,12 @@ public:
 
         horizontalLayout_10 = new QHBoxLayout();
         horizontalLayout_10->setObjectName("horizontalLayout_10");
-        label_11 = new QLabel(layoutWidget1);
+        label_11 = new QLabel(layoutWidget2);
         label_11->setObjectName("label_11");
 
         horizontalLayout_10->addWidget(label_11);
 
-        refP = new QLineEdit(layoutWidget1);
+        refP = new QLineEdit(layoutWidget2);
         refP->setObjectName("refP");
 
         horizontalLayout_10->addWidget(refP);
@@ -439,12 +449,12 @@ public:
 
         horizontalLayout_11 = new QHBoxLayout();
         horizontalLayout_11->setObjectName("horizontalLayout_11");
-        label_12 = new QLabel(layoutWidget1);
+        label_12 = new QLabel(layoutWidget2);
         label_12->setObjectName("label_12");
 
         horizontalLayout_11->addWidget(label_12);
 
-        refM = new QLineEdit(layoutWidget1);
+        refM = new QLineEdit(layoutWidget2);
         refM->setObjectName("refM");
 
         horizontalLayout_11->addWidget(refM);
@@ -452,7 +462,7 @@ public:
 
         verticalLayout_3->addLayout(horizontalLayout_11);
 
-        signPatient_2 = new QPushButton(layoutWidget1);
+        signPatient_2 = new QPushButton(layoutWidget2);
         signPatient_2->setObjectName("signPatient_2");
 
         verticalLayout_3->addWidget(signPatient_2);
@@ -649,26 +659,30 @@ public:
         lineEdit_Med->setObjectName("lineEdit_Med");
         lineEdit_Med->setEnabled(true);
         lineEdit_Med->setGeometry(QRect(500, 40, 231, 31));
-        lineEdit_date = new QLineEdit(Dossier);
-        lineEdit_date->setObjectName("lineEdit_date");
-        lineEdit_date->setEnabled(true);
-        lineEdit_date->setGeometry(QRect(500, 40, 231, 31));
-        labelMed = new QLabel(Dossier);
-        labelMed->setObjectName("labelMed");
-        labelMed->setEnabled(true);
-        labelMed->setGeometry(QRect(360, 40, 141, 31));
-        labelDate = new QLabel(Dossier);
-        labelDate->setObjectName("labelDate");
-        labelDate->setEnabled(true);
-        labelDate->setGeometry(QRect(350, 40, 151, 31));
-        labelDate_2 = new QLabel(Dossier);
-        labelDate_2->setObjectName("labelDate_2");
-        labelDate_2->setEnabled(true);
-        labelDate_2->setGeometry(QRect(350, 10, 151, 31));
-        lineEdit_date_2 = new QLineEdit(Dossier);
-        lineEdit_date_2->setObjectName("lineEdit_date_2");
-        lineEdit_date_2->setEnabled(true);
-        lineEdit_date_2->setGeometry(QRect(500, 10, 231, 31));
+        labelMedDCI = new QLabel(Dossier);
+        labelMedDCI->setObjectName("labelMedDCI");
+        labelMedDCI->setEnabled(true);
+        labelMedDCI->setGeometry(QRect(470, 40, 31, 31));
+        labelDateDelivrance = new QLabel(Dossier);
+        labelDateDelivrance->setObjectName("labelDateDelivrance");
+        labelDateDelivrance->setEnabled(true);
+        labelDateDelivrance->setGeometry(QRect(400, 10, 101, 31));
+        dateEdit = new QDateEdit(Dossier);
+        dateEdit->setObjectName("dateEdit");
+        dateEdit->setGeometry(QRect(500, 10, 231, 32));
+        dateEdit->setDateTime(QDateTime(QDate(1999, 12, 22), QTime(0, 0, 0)));
+        dateEdit->setMaximumDateTime(QDateTime(QDate(2023, 5, 30), QTime(23, 59, 59)));
+        dateEdit->setMaximumDate(QDate(2023, 5, 30));
+        dateEdit->setCurrentSection(QDateTimeEdit::YearSection);
+        dateEdit->setCalendarPopup(true);
+        labelDatePrescription = new QLabel(Dossier);
+        labelDatePrescription->setObjectName("labelDatePrescription");
+        labelDatePrescription->setEnabled(true);
+        labelDatePrescription->setGeometry(QRect(390, 10, 111, 31));
+        labelMedNom = new QLabel(Dossier);
+        labelMedNom->setObjectName("labelMedNom");
+        labelMedNom->setEnabled(true);
+        labelMedNom->setGeometry(QRect(390, 40, 111, 31));
         pages->addWidget(Dossier);
         Medicament = new QWidget();
         Medicament->setObjectName("Medicament");
@@ -694,12 +708,17 @@ public:
         medicamentLabelDCI = new QLabel(Medicament);
         medicamentLabelDCI->setObjectName("medicamentLabelDCI");
         medicamentLabelDCI->setGeometry(QRect(450, 40, 41, 31));
-        medicamentLineEditDate = new QLineEdit(Medicament);
-        medicamentLineEditDate->setObjectName("medicamentLineEditDate");
-        medicamentLineEditDate->setGeometry(QRect(490, 40, 231, 31));
         medicamentlabelDate = new QLabel(Medicament);
         medicamentlabelDate->setObjectName("medicamentlabelDate");
         medicamentlabelDate->setGeometry(QRect(450, 40, 41, 31));
+        dateEdit2 = new QDateEdit(Medicament);
+        dateEdit2->setObjectName("dateEdit2");
+        dateEdit2->setGeometry(QRect(490, 40, 231, 32));
+        dateEdit2->setDateTime(QDateTime(QDate(1999, 12, 21), QTime(0, 0, 0)));
+        dateEdit2->setMaximumDateTime(QDateTime(QDate(2023, 5, 30), QTime(23, 59, 59)));
+        dateEdit2->setMaximumDate(QDate(2023, 5, 30));
+        dateEdit2->setCurrentSection(QDateTimeEdit::YearSection);
+        dateEdit2->setCalendarPopup(true);
         pages->addWidget(Medicament);
         Pathologie = new QWidget();
         Pathologie->setObjectName("Pathologie");
@@ -808,10 +827,10 @@ public:
 
         editMPText->setPlaceholderText(QCoreApplication::translate("MainWindow", "INAMI", nullptr));
         submit->setText(QCoreApplication::translate("MainWindow", "Soumettre", nullptr));
-        infoMenu->setItemText(0, QCoreApplication::translate("MainWindow", "Informations m\303\251dicales", nullptr));
-        infoMenu->setItemText(1, QCoreApplication::translate("MainWindow", "Traitements", nullptr));
+        infoPatient->setItemText(0, QCoreApplication::translate("MainWindow", "Informations m\303\251dicales", nullptr));
+        infoPatient->setItemText(1, QCoreApplication::translate("MainWindow", "Traitements", nullptr));
 
-        consultInfo->setText(QCoreApplication::translate("MainWindow", "Consulter", nullptr));
+        consult->setText(QCoreApplication::translate("MainWindow", "Consulter", nullptr));
         groupBox_3->setTitle(QCoreApplication::translate("MainWindow", "Inscrire un Nouveau Patient", nullptr));
         label_4->setText(QCoreApplication::translate("MainWindow", "NISS", nullptr));
         nissPatient->setPlaceholderText(QCoreApplication::translate("MainWindow", "NISS", nullptr));
@@ -875,9 +894,11 @@ public:
         comboBox_Dos->setItemText(2, QCoreApplication::translate("MainWindow", "Tous les patients ayant \303\251t\303\251 trait\303\251s par un m\303\251dicament \303\240 une date ant\303\251rieure mais qui ne le sont plus.", nullptr));
         comboBox_Dos->setItemText(3, QCoreApplication::translate("MainWindow", "Pour chaque patient, le nombre de m\303\251decin lui ayant prescrit un m\303\251dicament.", nullptr));
 
-        labelMed->setText(QCoreApplication::translate("MainWindow", "Nom_com / DCI : ", nullptr));
-        labelDate->setText(QCoreApplication::translate("MainWindow", "date deli / prescri : ", nullptr));
-        labelDate_2->setText(QCoreApplication::translate("MainWindow", "date deli / prescri : ", nullptr));
+        labelMedDCI->setText(QCoreApplication::translate("MainWindow", "DCI : ", nullptr));
+        labelDateDelivrance->setText(QCoreApplication::translate("MainWindow", "Date d\303\251livrance :", nullptr));
+        dateEdit->setDisplayFormat(QCoreApplication::translate("MainWindow", "yyyy-MM-dd", nullptr));
+        labelDatePrescription->setText(QCoreApplication::translate("MainWindow", "Date prescription :", nullptr));
+        labelMedNom->setText(QCoreApplication::translate("MainWindow", "Nom commercial :", nullptr));
         textBrowser_6->setHtml(QCoreApplication::translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
@@ -893,8 +914,8 @@ public:
         comboBox->setItemText(3, QCoreApplication::translate("MainWindow", "La liste des m\303\251dicaments n'\303\251tant plus prescrits depuis une date sp\303\251cifique.", nullptr));
 
         medicamentLabelDCI->setText(QCoreApplication::translate("MainWindow", "DCI : ", nullptr));
-        medicamentLineEditDate->setText(QString());
         medicamentlabelDate->setText(QCoreApplication::translate("MainWindow", "Date :", nullptr));
+        dateEdit2->setDisplayFormat(QCoreApplication::translate("MainWindow", "yyyy-MM-dd", nullptr));
         boutonLoadPathologie->setText(QCoreApplication::translate("MainWindow", "OK", nullptr));
         textBrowser_7->setHtml(QCoreApplication::translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"

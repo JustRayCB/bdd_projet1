@@ -52,3 +52,6 @@ GROUP BY SpecialisationNom
 ORDER BY nbPrescription DESC 
 LIMIT 1;
 
+SELECT PathologieNom, DateDiagnostique FROM 
+              DossierContientPathologie WHERE DossierID = "152275281439";
+
