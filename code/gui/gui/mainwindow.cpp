@@ -317,6 +317,30 @@ void MainWindow::on_boutonLoadDossier_clicked()
            row++;
        }
    }
+   if (ui->comboBox_Dos->currentText()=="query 5"){
+       QString DCI=ui->lineEdit_Med->text();
+       QString date=ui->lineEdit_date->text();
+
+       std::vector<std::string> fields = {"Niss", "Nom",  "Prenom", "Mail", "NumTel"};
+
+       model->setColumnCount(5);
+       model->setHeaderData(0, Qt::Horizontal, "NISS");
+       model->setHeaderData(1, Qt::Horizontal, "Nom");
+       model->setHeaderData(2, Qt::Horizontal, "Prenom");
+       model->setHeaderData(3, Qt::Horizontal, "Mail");
+       model->setHeaderData(4, Qt::Horizontal, "NumTel");
+
+       QString query="SELECT DISTINCT d.Niss,d.Nom,d.Prenom,d.Mail,d.NumTel FROM Dossier d JOIN Prescription p ON d.Niss=p.DossierID JOIN PharmacienDelivreMedicament pdm ON p.ID=pdm.PrescriptionID JOIN Medicament m ON pdm.MedicamentID=m.ID WHERE p.DatePrescription<'"+date+"' AND DATE_ADD(pdm.DateDelivrance,INTERVAL p.DureeTraitement DAY)<'"+date+"' AND m.DCI='"+DCI+"'";
+       sql::ResultSet *res = db.getResFromQuery(query.toStdString());
+       int row = 0;
+       while (res->next()) {
+           for (int col=0; col<5; col++) {
+               QString data = QString::fromStdString(res->getString(fields[col]));
+               model->setItem(row,col,new QStandardItem(data));
+           }
+           row++;
+       }
+   }
    if (ui->comboBox_Dos->currentText()=="Load"){
        std::vector<std::string> fields = {"Niss",          "Nom",  "Prenom", "Genre",
                                           "DateNaissance", "Mail", "NumTel", "PharmacienINAMI",
