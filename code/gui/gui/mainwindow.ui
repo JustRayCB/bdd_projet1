@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>Show tables</string>
+     <string>Montre les Tables</string>
     </property>
    </widget>
    <widget class="QStackedWidget" name="pages">
@@ -354,7 +354,7 @@
               <second>0</second>
               <year>1999</year>
               <month>12</month>
-              <day>23</day>
+              <day>22</day>
              </datetime>
             </property>
             <property name="maximumDateTime">
@@ -844,7 +844,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
         <second>0</second>
         <year>1999</year>
         <month>12</month>
-        <day>22</day>
+        <day>21</day>
        </datetime>
       </property>
       <property name="maximumDateTime">
@@ -1033,7 +1033,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
         <second>0</second>
         <year>1999</year>
         <month>12</month>
-        <day>21</day>
+        <day>20</day>
        </datetime>
       </property>
       <property name="maximumDateTime">
@@ -1264,6 +1264,19 @@ li.checked::marker { content: &quot;\2612&quot;; }
       </item>
      </widget>
     </widget>
+   </widget>
+   <widget class="QPushButton" name="bddinit">
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>10</y>
+      <width>131</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Initialise les donneés</string>
+    </property>
    </widget>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>

@@ -613,3 +613,9 @@ void MainWindow::on_consult_clicked()
    delete res;
 }
 
+
+void MainWindow::on_bddinit_clicked()
+{
+   db.init();
+}
+

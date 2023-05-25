@@ -75,6 +75,31 @@ void Database::init() const {
     loadPrescriptions();
 }
 
+sql::ResultSet *Database::getResFromQuery(const std::string query) const {
+    sql::PreparedStatement *stmt = con->prepareStatement(query);
+    sql::ResultSet *res = stmt->executeQuery();
+    return res;
+}
+
+sql::ResultSet *Database::getMedicalInfo() const {
+    sql::PreparedStatement *stmt =
+        con->prepareStatement("SELECT PathologieNom, DateDiagnostique FROM "
+                              "DossierContientPathologie WHERE DossierID = ?");
+    stmt->setString(1, patient.at(Niss));
+    std::cout << "Je vais exécuter la requête" << std::endl;
+    sql::ResultSet *res = stmt->executeQuery();
+    std::cout << "J'ai exécuté la requête" << std::endl;
+    return res;
+}
+
+sql::ResultSet *Database::getTreatment() const {
+    sql::PreparedStatement *stmt =
+        con->prepareStatement("SELECT MedicamentNom, DatePrescription, DureeTraitement FROM "
+                              "Prescription WHERE DossierID = ?");
+    stmt->setString(1, patient.at(Niss));
+    sql::ResultSet *res = stmt->executeQuery();
+    return res;
+}
 bool Database::connectUser(const std::string &niss) {
     std::cout << "Je suis dans connect" << std::endl;
     sql::PreparedStatement *stmt = con->prepareStatement("SELECT * FROM Dossier WHERE Niss = ?");

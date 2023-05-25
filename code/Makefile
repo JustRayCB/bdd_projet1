@@ -1,7 +1,9 @@
-CXXFLAGS+=-std=c++17 -g -Wall -Wextra -Wpedantic -D_GNU_SOURCE -Werror=all -O2 -I/opt/homebrew/Cellar/mysql-connector-c++/8.0.33/include/ -I/opt/homebrew/Cellar/pugixml/1.13/include/
+# CXXFLAGS+=-std=c++17 -g -Wall -Wextra -Wpedantic -D_GNU_SOURCE -Werror=all -O2 -I/opt/homebrew/Cellar/mysql-connector-c++/8.0.33/include/ -I/opt/homebrew/Cellar/pugixml/1.13/include/
+CXXFLAGS+=-std=c++17 -g -Wall -Wextra -Wpedantic -D_GNU_SOURCE -Werror=all -O2
 
 CXX=g++
-LDLIBS+=-L/opt/homebrew/Cellar/mysql-connector-c++/8.0.33/lib64/ -L/opt/homebrew/Cellar/pugixml/1.13/lib/ -lmysqlcppconn -lpugixml
+# LDLIBS+=-L/opt/homebrew/Cellar/mysql-connector-c++/8.0.33/lib64/ -L/opt/homebrew/Cellar/pugixml/1.13/lib/ -lmysqlcppconn -lpugixml
+LDLIBS+=-lmysqlcppconn -lpugixml
 
 OBJ_DIR=bin
 

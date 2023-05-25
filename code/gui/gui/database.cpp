@@ -170,7 +170,8 @@ void Database::loadSpecialites() const {
     std::cout << "Loading specialites.xml ..." << std::endl;
 
     std::cout << std::endl;
-    std::string specialitesPath = "../data/specialites.xml";
+    // ../../../../../data/specialites.xml
+    std::string specialitesPath = "../../../data/specialites.xml";
     pugi::xml_document doc;
     if (!doc.load_file(specialitesPath.c_str())) {
         std::cout << "Erreur lors du chargement du fichier XML." << std::endl;
@@ -254,7 +255,7 @@ void Database::insertSSS(const std::string &nomSpecialisation,
 }
 
 void Database::loadPathologies() const {
-    std::string pathologiesPath = "../data/pathologies.csv";
+    std::string pathologiesPath = "../../../data/pathologies.csv";
     std::cout << "Loading pathologies.csv ..." << std::endl;
     std::cout << std::endl;
     std::ifstream file(pathologiesPath);
@@ -299,7 +300,7 @@ void Database::loadPharmaciens() const {
     std::cout << "Loading pharmaciens.xml ..." << std::endl;
     std::cout << std::endl;
 
-    std::string specialitesPath = "../data/pharmaciens.xml";
+    std::string specialitesPath = "../../../data/pharmaciens.xml";
     pugi::xml_document doc;
     if (!doc.load_file(specialitesPath.c_str())) {
         std::cout << "Erreur lors du chargement du fichier XML." << std::endl;
@@ -395,7 +396,7 @@ void Database::loadMedecins() const {
     std::cout << "Loading medecins.xml ..." << std::endl;
     std::cout << std::endl;
 
-    std::string specialitesPath = "../data/medecins.xml";
+    std::string specialitesPath = "../../../data/medecins.xml";
     pugi::xml_document doc;
     if (!doc.load_file(specialitesPath.c_str())) {
         std::cout << "Erreur lors du chargement du fichier XML." << std::endl;
@@ -497,7 +498,7 @@ int Database::insertMedecin(const std::string &inami, const std::string &nom,
 }
 
 void Database::loadMedicaments() const {
-    std::string pathologiesPath = "../data/medicaments.csv";
+    std::string pathologiesPath = "../../../data/medicaments.csv";
     std::cout << "Loading medicaments.csv ..." << std::endl;
     std::cout << std::endl;
     std::ifstream file(pathologiesPath);
@@ -552,7 +553,7 @@ void Database::loadPatients() const {
     std::cout << "Loading patients.xml ..." << std::endl;
     std::cout << std::endl;
 
-    std::string specialitesPath = "../data/patients_corrige.xml";
+    std::string specialitesPath = "../../../data/patients_corrige.xml";
     pugi::xml_document doc;
     if (!doc.load_file(specialitesPath.c_str())) {
         std::cout << "Erreur lors du chargement du fichier XML." << std::endl;
@@ -664,7 +665,7 @@ void Database::loadDiagnostics() const {
     std::cout << "Loading diagnostiques.xml ..." << std::endl;
     std::cout << std::endl;
 
-    std::string specialitesPath = "../data/diagnostiques.xml";
+    std::string specialitesPath = "../../../data/diagnostiques.xml";
     pugi::xml_document doc;
     if (!doc.load_file(specialitesPath.c_str())) {
         std::cout << "Erreur lors du chargement du fichier XML." << std::endl;
@@ -738,7 +739,7 @@ std::string Database::transformDate(std::string date) const {
 }
 
 void Database::loadPrescriptions() const {
-    std::string prescriptionPath = "../data/dossiers_patients.csv";
+    std::string prescriptionPath = "../../../data/dossiers_patients.csv";
     std::cout << "Loading dossier_patients.csv ..." << std::endl;
     std::cout << std::endl;
     std::ifstream file(prescriptionPath);

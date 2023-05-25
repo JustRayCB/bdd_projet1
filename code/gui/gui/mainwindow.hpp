@@ -64,6 +64,8 @@ private slots:
 
     void on_consult_clicked();
 
+    void on_bddinit_clicked();
+
 private:
     Ui::MainWindow *ui;
     Database db;

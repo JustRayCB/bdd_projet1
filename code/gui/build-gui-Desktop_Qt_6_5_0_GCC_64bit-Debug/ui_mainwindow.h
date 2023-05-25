@@ -172,6 +172,7 @@ public:
     QTextBrowser *textBrowser_10;
     QTableView *tableViewSpecialite;
     QComboBox *comboBoxSpecialite;
+    QPushButton *bddinit;
     QStatusBar *statusbar;
     QMenuBar *menubar;
     QMenu *menuInscription;
@@ -391,7 +392,7 @@ public:
 
         birthPatient = new QDateEdit(layoutWidget2);
         birthPatient->setObjectName("birthPatient");
-        birthPatient->setDateTime(QDateTime(QDate(1999, 12, 23), QTime(0, 0, 0)));
+        birthPatient->setDateTime(QDateTime(QDate(1999, 12, 22), QTime(0, 0, 0)));
         birthPatient->setMaximumDateTime(QDateTime(QDate(2023, 5, 30), QTime(23, 59, 59)));
         birthPatient->setMaximumDate(QDate(2023, 5, 30));
         birthPatient->setCurrentSection(QDateTimeEdit::MonthSection);
@@ -670,7 +671,7 @@ public:
         dateEdit = new QDateEdit(Dossier);
         dateEdit->setObjectName("dateEdit");
         dateEdit->setGeometry(QRect(500, 10, 231, 32));
-        dateEdit->setDateTime(QDateTime(QDate(1999, 12, 22), QTime(0, 0, 0)));
+        dateEdit->setDateTime(QDateTime(QDate(1999, 12, 21), QTime(0, 0, 0)));
         dateEdit->setMaximumDateTime(QDateTime(QDate(2023, 5, 30), QTime(23, 59, 59)));
         dateEdit->setMaximumDate(QDate(2023, 5, 30));
         dateEdit->setCurrentSection(QDateTimeEdit::YearSection);
@@ -714,7 +715,7 @@ public:
         dateEdit2 = new QDateEdit(Medicament);
         dateEdit2->setObjectName("dateEdit2");
         dateEdit2->setGeometry(QRect(490, 40, 231, 32));
-        dateEdit2->setDateTime(QDateTime(QDate(1999, 12, 21), QTime(0, 0, 0)));
+        dateEdit2->setDateTime(QDateTime(QDate(1999, 12, 20), QTime(0, 0, 0)));
         dateEdit2->setMaximumDateTime(QDateTime(QDate(2023, 5, 30), QTime(23, 59, 59)));
         dateEdit2->setMaximumDate(QDate(2023, 5, 30));
         dateEdit2->setCurrentSection(QDateTimeEdit::YearSection);
@@ -772,6 +773,9 @@ public:
         comboBoxSpecialite->setObjectName("comboBoxSpecialite");
         comboBoxSpecialite->setGeometry(QRect(740, 40, 101, 31));
         pages->addWidget(Specialite);
+        bddinit = new QPushButton(centralwidget);
+        bddinit->setObjectName("bddinit");
+        bddinit->setGeometry(QRect(150, 10, 131, 41));
         MainWindow->setCentralWidget(centralwidget);
         statusbar = new QStatusBar(MainWindow);
         statusbar->setObjectName("statusbar");
@@ -815,7 +819,7 @@ public:
         actionPathologie->setText(QCoreApplication::translate("MainWindow", "pathologie", nullptr));
         actionM_decin->setText(QCoreApplication::translate("MainWindow", "medecin", nullptr));
         actionSp_cialit->setText(QCoreApplication::translate("MainWindow", "specialite", nullptr));
-        pushButton->setText(QCoreApplication::translate("MainWindow", "Show tables", nullptr));
+        pushButton->setText(QCoreApplication::translate("MainWindow", "Montre les Tables", nullptr));
         loginPic->setText(QString());
         groupBox->setTitle(QCoreApplication::translate("MainWindow", "Connectez-vous", nullptr));
         nissLabel->setText(QCoreApplication::translate("MainWindow", "NISS", nullptr));
@@ -953,6 +957,7 @@ public:
         comboBoxSpecialite->setItemText(0, QCoreApplication::translate("MainWindow", "Load", nullptr));
         comboBoxSpecialite->setItemText(1, QCoreApplication::translate("MainWindow", "La sp\303\251cialit\303\251 de m\303\251decins pour laquelle les m\303\251decins prescrivent le plus de m\303\251dicaments.", nullptr));
 
+        bddinit->setText(QCoreApplication::translate("MainWindow", "Initialise les donne\303\251s", nullptr));
         menuInscription->setTitle(QCoreApplication::translate("MainWindow", "Inscription", nullptr));
         menuTables->setTitle(QCoreApplication::translate("MainWindow", "Tables", nullptr));
     } // retranslateUi
