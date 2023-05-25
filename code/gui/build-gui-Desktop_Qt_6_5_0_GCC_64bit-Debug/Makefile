@@ -1179,6 +1179,27 @@ moc_mainwindow.cpp: ../gui/mainwindow.hpp \
 		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtGui/QTransform \
 		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtCore/qnativeinterface.h \
 		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qtabwidget.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtGui/QStandardItemModel \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtGui/qstandarditemmodel.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtCore/qabstractitemmodel.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtGui/QStandardItem \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/QTableView \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qtableview.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qabstractitemview.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qframe.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtCore/qitemselectionmodel.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qstyleoption.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtCore/qlocale.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qabstractspinbox.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtGui/qvalidator.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtCore/qregularexpression.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qslider.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qabstractslider.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qstyle.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qtabbar.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qrubberband.h \
 		../gui/database.hpp \
 		moc_predefs.h \
 		/home/cbr/dev/Qt/6.5.0/gcc_64/libexec/moc
@@ -1367,6 +1388,27 @@ main.o: ../gui/main.cpp ../gui/mainwindow.hpp \
 		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtGui/QTransform \
 		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtCore/qnativeinterface.h \
 		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qtabwidget.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtGui/QStandardItemModel \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtGui/qstandarditemmodel.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtCore/qabstractitemmodel.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtGui/QStandardItem \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/QTableView \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qtableview.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qabstractitemview.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qframe.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtCore/qitemselectionmodel.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qstyleoption.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtCore/qlocale.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qabstractspinbox.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtGui/qvalidator.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtCore/qregularexpression.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qslider.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qabstractslider.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qstyle.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qtabbar.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qrubberband.h \
 		../gui/database.hpp \
 		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/QApplication \
 		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qapplication.h \
@@ -1388,7 +1430,6 @@ main.o: ../gui/main.cpp ../gui/mainwindow.hpp \
 		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtCore/qpromise.h \
 		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtGui/qguiapplication.h \
 		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtGui/qinputmethod.h \
-		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtCore/qlocale.h \
 		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtGui/qguiapplication_platform.h \
 		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtCore/QDir \
 		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtCore/qdir.h \
@@ -1559,12 +1600,32 @@ mainwindow.o: ../gui/mainwindow.cpp ../gui/mainwindow.hpp \
 		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtGui/QTransform \
 		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtCore/qnativeinterface.h \
 		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qtabwidget.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtGui/QStandardItemModel \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtGui/qstandarditemmodel.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtCore/qabstractitemmodel.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtGui/QStandardItem \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/QTableView \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qtableview.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qabstractitemview.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qframe.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtCore/qitemselectionmodel.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qstyleoption.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtCore/qlocale.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qabstractspinbox.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtGui/qvalidator.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtCore/qregularexpression.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qslider.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qabstractslider.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qstyle.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qtabbar.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qrubberband.h \
 		../gui/database.hpp \
 		ui_mainwindow.h \
 		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtCore/QDate \
 		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtCore/qdatetime.h \
 		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtCore/qcalendar.h \
-		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtCore/qlocale.h \
 		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtCore/QVariant \
 		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtGui/QAction \
 		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/QApplication \
@@ -1590,18 +1651,6 @@ mainwindow.o: ../gui/mainwindow.cpp ../gui/mainwindow.hpp \
 		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtGui/qguiapplication_platform.h \
 		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/QComboBox \
 		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qcombobox.h \
-		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
-		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qstyleoption.h \
-		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qabstractspinbox.h \
-		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtGui/qvalidator.h \
-		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtCore/qregularexpression.h \
-		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qslider.h \
-		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qabstractslider.h \
-		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qstyle.h \
-		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qtabbar.h \
-		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qrubberband.h \
-		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qframe.h \
-		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtCore/qabstractitemmodel.h \
 		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/QDateEdit \
 		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qdatetimeedit.h \
 		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/QGroupBox \
@@ -1611,6 +1660,8 @@ mainwindow.o: ../gui/mainwindow.cpp ../gui/mainwindow.hpp \
 		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qlayout.h \
 		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qlayoutitem.h \
 		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qgridlayout.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/QHeaderView \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qheaderview.h \
 		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/QLabel \
 		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qlabel.h \
 		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtGui/qpicture.h \
@@ -1635,14 +1686,19 @@ mainwindow.o: ../gui/mainwindow.cpp ../gui/mainwindow.hpp \
 		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/QTextBrowser \
 		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qtextbrowser.h \
 		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qtextedit.h \
-		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qabstractscrollarea.h \
 		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/QVBoxLayout \
 		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/QWidget \
 		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtGui/QPixmap \
 		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtCore/QDebug \
 		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/QMessageBox \
 		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qmessagebox.h \
-		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qdialog.h
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtWidgets/qdialog.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtSql/QSqlQuery \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtSql/qsqlquery.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtSql/qtsqlglobal.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtSql/qtsql-config.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtSql/qtsqlexports.h \
+		/home/cbr/dev/Qt/6.5.0/gcc_64/include/QtSql/qsqldatabase.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../gui/mainwindow.cpp
 
 moc_mainwindow.o: moc_mainwindow.cpp 

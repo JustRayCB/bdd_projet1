@@ -17,6 +17,7 @@
 #include <QtWidgets/QDateEdit>
 #include <QtWidgets/QGroupBox>
 #include <QtWidgets/QHBoxLayout>
+#include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
@@ -25,6 +26,7 @@
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QStackedWidget>
 #include <QtWidgets/QStatusBar>
+#include <QtWidgets/QTableView>
 #include <QtWidgets/QTextBrowser>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
@@ -61,6 +63,9 @@ public:
     QComboBox *editMP;
     QLineEdit *editMPText;
     QPushButton *submit;
+    QTableView *tableViewInfoPatient;
+    QComboBox *infoMenu;
+    QPushButton *consultInfo;
     QWidget *signPatient;
     QGroupBox *groupBox_3;
     QWidget *layoutWidget1;
@@ -131,15 +136,40 @@ public:
     QLineEdit *mailPhar;
     QPushButton *signPhar;
     QWidget *Dossier;
-    QTextBrowser *textBrowser;
+    QPushButton *boutonLoadDossier;
+    QTableView *tableViewDossier;
+    QTextBrowser *textBrowser_8;
+    QComboBox *comboBox_Dos;
+    QLineEdit *lineEdit_Med;
+    QLineEdit *lineEdit_date;
+    QLabel *labelMed;
+    QLabel *labelDate;
+    QLabel *labelDate_2;
+    QLineEdit *lineEdit_date_2;
     QWidget *Medicament;
-    QTextBrowser *textBrowser_2;
+    QTableView *tableViewMedicament;
+    QTextBrowser *textBrowser_6;
+    QPushButton *boutonLoadMedicament;
+    QComboBox *comboBox;
+    QLineEdit *medicamentLineEditDCI;
+    QLabel *medicamentLabelDCI;
+    QLineEdit *medicamentLineEditDate;
+    QLabel *medicamentlabelDate;
     QWidget *Pathologie;
-    QTextBrowser *textBrowser_3;
+    QTableView *tableViewPathologie;
+    QPushButton *boutonLoadPathologie;
+    QTextBrowser *textBrowser_7;
+    QComboBox *comboBox_2;
     QWidget *Medecin;
-    QTextBrowser *textBrowser_4;
+    QTableView *tableViewMedecin;
+    QPushButton *boutonLoadMedecin;
+    QTextBrowser *textBrowser_9;
+    QComboBox *comboBoxMedecin;
     QWidget *Specialite;
-    QTextBrowser *textBrowser_5;
+    QPushButton *boutonLoadSpecialite;
+    QTextBrowser *textBrowser_10;
+    QTableView *tableViewSpecialite;
+    QComboBox *comboBoxSpecialite;
     QStatusBar *statusbar;
     QMenuBar *menubar;
     QMenu *menuInscription;
@@ -216,7 +246,7 @@ public:
         accountPage->setObjectName("accountPage");
         groupBox_2 = new QGroupBox(accountPage);
         groupBox_2->setObjectName("groupBox_2");
-        groupBox_2->setGeometry(QRect(0, 30, 381, 121));
+        groupBox_2->setGeometry(QRect(110, 20, 381, 121));
         layoutWidget = new QWidget(groupBox_2);
         layoutWidget->setObjectName("layoutWidget");
         layoutWidget->setGeometry(QRect(10, 40, 361, 71));
@@ -254,6 +284,19 @@ public:
 
         verticalLayout_2->addWidget(submit);
 
+        tableViewInfoPatient = new QTableView(accountPage);
+        tableViewInfoPatient->setObjectName("tableViewInfoPatient");
+        tableViewInfoPatient->setGeometry(QRect(110, 160, 731, 351));
+        infoMenu = new QComboBox(accountPage);
+        infoMenu->addItem(QString());
+        infoMenu->addItem(QString());
+        infoMenu->setObjectName("infoMenu");
+        infoMenu->setGeometry(QRect(560, 130, 171, 21));
+        sizePolicy1.setHeightForWidth(infoMenu->sizePolicy().hasHeightForWidth());
+        infoMenu->setSizePolicy(sizePolicy1);
+        consultInfo = new QPushButton(accountPage);
+        consultInfo->setObjectName("consultInfo");
+        consultInfo->setGeometry(QRect(740, 130, 101, 21));
         pages->addWidget(accountPage);
         signPatient = new QWidget();
         signPatient->setObjectName("signPatient");
@@ -338,7 +381,7 @@ public:
 
         birthPatient = new QDateEdit(layoutWidget1);
         birthPatient->setObjectName("birthPatient");
-        birthPatient->setDateTime(QDateTime(QDate(1999, 12, 27), QTime(0, 0, 0)));
+        birthPatient->setDateTime(QDateTime(QDate(1999, 12, 24), QTime(0, 0, 0)));
         birthPatient->setMaximumDateTime(QDateTime(QDate(2023, 5, 30), QTime(23, 59, 59)));
         birthPatient->setMaximumDate(QDate(2023, 5, 30));
         birthPatient->setCurrentSection(QDateTimeEdit::MonthSection);
@@ -586,33 +629,129 @@ public:
         pages->addWidget(signPharmacien);
         Dossier = new QWidget();
         Dossier->setObjectName("Dossier");
-        textBrowser = new QTextBrowser(Dossier);
-        textBrowser->setObjectName("textBrowser");
-        textBrowser->setGeometry(QRect(430, 170, 71, 31));
+        boutonLoadDossier = new QPushButton(Dossier);
+        boutonLoadDossier->setObjectName("boutonLoadDossier");
+        boutonLoadDossier->setGeometry(QRect(860, 40, 100, 32));
+        tableViewDossier = new QTableView(Dossier);
+        tableViewDossier->setObjectName("tableViewDossier");
+        tableViewDossier->setGeometry(QRect(20, 80, 941, 411));
+        textBrowser_8 = new QTextBrowser(Dossier);
+        textBrowser_8->setObjectName("textBrowser_8");
+        textBrowser_8->setGeometry(QRect(20, 40, 101, 31));
+        comboBox_Dos = new QComboBox(Dossier);
+        comboBox_Dos->addItem(QString());
+        comboBox_Dos->addItem(QString());
+        comboBox_Dos->addItem(QString());
+        comboBox_Dos->addItem(QString());
+        comboBox_Dos->setObjectName("comboBox_Dos");
+        comboBox_Dos->setGeometry(QRect(740, 40, 101, 31));
+        lineEdit_Med = new QLineEdit(Dossier);
+        lineEdit_Med->setObjectName("lineEdit_Med");
+        lineEdit_Med->setEnabled(true);
+        lineEdit_Med->setGeometry(QRect(500, 40, 231, 31));
+        lineEdit_date = new QLineEdit(Dossier);
+        lineEdit_date->setObjectName("lineEdit_date");
+        lineEdit_date->setEnabled(true);
+        lineEdit_date->setGeometry(QRect(500, 40, 231, 31));
+        labelMed = new QLabel(Dossier);
+        labelMed->setObjectName("labelMed");
+        labelMed->setEnabled(true);
+        labelMed->setGeometry(QRect(360, 40, 141, 31));
+        labelDate = new QLabel(Dossier);
+        labelDate->setObjectName("labelDate");
+        labelDate->setEnabled(true);
+        labelDate->setGeometry(QRect(350, 40, 151, 31));
+        labelDate_2 = new QLabel(Dossier);
+        labelDate_2->setObjectName("labelDate_2");
+        labelDate_2->setEnabled(true);
+        labelDate_2->setGeometry(QRect(350, 10, 151, 31));
+        lineEdit_date_2 = new QLineEdit(Dossier);
+        lineEdit_date_2->setObjectName("lineEdit_date_2");
+        lineEdit_date_2->setEnabled(true);
+        lineEdit_date_2->setGeometry(QRect(500, 10, 231, 31));
         pages->addWidget(Dossier);
         Medicament = new QWidget();
         Medicament->setObjectName("Medicament");
-        textBrowser_2 = new QTextBrowser(Medicament);
-        textBrowser_2->setObjectName("textBrowser_2");
-        textBrowser_2->setGeometry(QRect(430, 200, 231, 31));
+        tableViewMedicament = new QTableView(Medicament);
+        tableViewMedicament->setObjectName("tableViewMedicament");
+        tableViewMedicament->setGeometry(QRect(20, 80, 941, 411));
+        textBrowser_6 = new QTextBrowser(Medicament);
+        textBrowser_6->setObjectName("textBrowser_6");
+        textBrowser_6->setGeometry(QRect(20, 40, 101, 31));
+        boutonLoadMedicament = new QPushButton(Medicament);
+        boutonLoadMedicament->setObjectName("boutonLoadMedicament");
+        boutonLoadMedicament->setGeometry(QRect(860, 40, 100, 32));
+        comboBox = new QComboBox(Medicament);
+        comboBox->addItem(QString());
+        comboBox->addItem(QString());
+        comboBox->addItem(QString());
+        comboBox->addItem(QString());
+        comboBox->setObjectName("comboBox");
+        comboBox->setGeometry(QRect(740, 40, 101, 31));
+        medicamentLineEditDCI = new QLineEdit(Medicament);
+        medicamentLineEditDCI->setObjectName("medicamentLineEditDCI");
+        medicamentLineEditDCI->setGeometry(QRect(490, 40, 231, 31));
+        medicamentLabelDCI = new QLabel(Medicament);
+        medicamentLabelDCI->setObjectName("medicamentLabelDCI");
+        medicamentLabelDCI->setGeometry(QRect(450, 40, 41, 31));
+        medicamentLineEditDate = new QLineEdit(Medicament);
+        medicamentLineEditDate->setObjectName("medicamentLineEditDate");
+        medicamentLineEditDate->setGeometry(QRect(490, 40, 231, 31));
+        medicamentlabelDate = new QLabel(Medicament);
+        medicamentlabelDate->setObjectName("medicamentlabelDate");
+        medicamentlabelDate->setGeometry(QRect(450, 40, 41, 31));
         pages->addWidget(Medicament);
         Pathologie = new QWidget();
         Pathologie->setObjectName("Pathologie");
-        textBrowser_3 = new QTextBrowser(Pathologie);
-        textBrowser_3->setObjectName("textBrowser_3");
-        textBrowser_3->setGeometry(QRect(360, 180, 271, 51));
+        tableViewPathologie = new QTableView(Pathologie);
+        tableViewPathologie->setObjectName("tableViewPathologie");
+        tableViewPathologie->setGeometry(QRect(20, 80, 941, 411));
+        boutonLoadPathologie = new QPushButton(Pathologie);
+        boutonLoadPathologie->setObjectName("boutonLoadPathologie");
+        boutonLoadPathologie->setGeometry(QRect(860, 40, 100, 32));
+        textBrowser_7 = new QTextBrowser(Pathologie);
+        textBrowser_7->setObjectName("textBrowser_7");
+        textBrowser_7->setGeometry(QRect(20, 40, 101, 31));
+        comboBox_2 = new QComboBox(Pathologie);
+        comboBox_2->addItem(QString());
+        comboBox_2->addItem(QString());
+        comboBox_2->addItem(QString());
+        comboBox_2->setObjectName("comboBox_2");
+        comboBox_2->setGeometry(QRect(740, 40, 101, 31));
         pages->addWidget(Pathologie);
         Medecin = new QWidget();
         Medecin->setObjectName("Medecin");
-        textBrowser_4 = new QTextBrowser(Medecin);
-        textBrowser_4->setObjectName("textBrowser_4");
-        textBrowser_4->setGeometry(QRect(450, 200, 71, 31));
+        tableViewMedecin = new QTableView(Medecin);
+        tableViewMedecin->setObjectName("tableViewMedecin");
+        tableViewMedecin->setGeometry(QRect(20, 80, 941, 411));
+        boutonLoadMedecin = new QPushButton(Medecin);
+        boutonLoadMedecin->setObjectName("boutonLoadMedecin");
+        boutonLoadMedecin->setGeometry(QRect(860, 40, 100, 32));
+        textBrowser_9 = new QTextBrowser(Medecin);
+        textBrowser_9->setObjectName("textBrowser_9");
+        textBrowser_9->setGeometry(QRect(20, 40, 101, 31));
+        comboBoxMedecin = new QComboBox(Medecin);
+        comboBoxMedecin->addItem(QString());
+        comboBoxMedecin->addItem(QString());
+        comboBoxMedecin->setObjectName("comboBoxMedecin");
+        comboBoxMedecin->setGeometry(QRect(740, 40, 101, 31));
         pages->addWidget(Medecin);
         Specialite = new QWidget();
         Specialite->setObjectName("Specialite");
-        textBrowser_5 = new QTextBrowser(Specialite);
-        textBrowser_5->setObjectName("textBrowser_5");
-        textBrowser_5->setGeometry(QRect(450, 190, 71, 31));
+        boutonLoadSpecialite = new QPushButton(Specialite);
+        boutonLoadSpecialite->setObjectName("boutonLoadSpecialite");
+        boutonLoadSpecialite->setGeometry(QRect(860, 40, 100, 32));
+        textBrowser_10 = new QTextBrowser(Specialite);
+        textBrowser_10->setObjectName("textBrowser_10");
+        textBrowser_10->setGeometry(QRect(20, 40, 101, 31));
+        tableViewSpecialite = new QTableView(Specialite);
+        tableViewSpecialite->setObjectName("tableViewSpecialite");
+        tableViewSpecialite->setGeometry(QRect(20, 80, 941, 411));
+        comboBoxSpecialite = new QComboBox(Specialite);
+        comboBoxSpecialite->addItem(QString());
+        comboBoxSpecialite->addItem(QString());
+        comboBoxSpecialite->setObjectName("comboBoxSpecialite");
+        comboBoxSpecialite->setGeometry(QRect(740, 40, 101, 31));
         pages->addWidget(Specialite);
         MainWindow->setCentralWidget(centralwidget);
         statusbar = new QStatusBar(MainWindow);
@@ -640,7 +779,7 @@ public:
 
         retranslateUi(MainWindow);
 
-        pages->setCurrentIndex(2);
+        pages->setCurrentIndex(1);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -669,6 +808,10 @@ public:
 
         editMPText->setPlaceholderText(QCoreApplication::translate("MainWindow", "INAMI", nullptr));
         submit->setText(QCoreApplication::translate("MainWindow", "Soumettre", nullptr));
+        infoMenu->setItemText(0, QCoreApplication::translate("MainWindow", "Informations m\303\251dicales", nullptr));
+        infoMenu->setItemText(1, QCoreApplication::translate("MainWindow", "Traitements", nullptr));
+
+        consultInfo->setText(QCoreApplication::translate("MainWindow", "Consulter", nullptr));
         groupBox_3->setTitle(QCoreApplication::translate("MainWindow", "Inscrire un Nouveau Patient", nullptr));
         label_4->setText(QCoreApplication::translate("MainWindow", "NISS", nullptr));
         nissPatient->setPlaceholderText(QCoreApplication::translate("MainWindow", "NISS", nullptr));
@@ -718,7 +861,8 @@ public:
         label_21->setText(QCoreApplication::translate("MainWindow", "Email", nullptr));
         mailPhar->setPlaceholderText(QCoreApplication::translate("MainWindow", "Email", nullptr));
         signPhar->setText(QCoreApplication::translate("MainWindow", "Inscription", nullptr));
-        textBrowser->setHtml(QCoreApplication::translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+        boutonLoadDossier->setText(QCoreApplication::translate("MainWindow", "OK", nullptr));
+        textBrowser_8->setHtml(QCoreApplication::translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "hr { height: 1px; border-width: 0; }\n"
@@ -726,7 +870,15 @@ public:
 "li.checked::marker { content: \"\\2612\"; }\n"
 "</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'.AppleSystemUIFont'; font-size:13pt;\">Dossier</span></p></body></html>", nullptr));
-        textBrowser_2->setHtml(QCoreApplication::translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+        comboBox_Dos->setItemText(0, QCoreApplication::translate("MainWindow", "Load", nullptr));
+        comboBox_Dos->setItemText(1, QCoreApplication::translate("MainWindow", "Tous les utilisateurs ayant consomm\303\251 un m\303\251dicament sp\303\251cifique, apr\303\250s une date donn\303\251e.", nullptr));
+        comboBox_Dos->setItemText(2, QCoreApplication::translate("MainWindow", "Tous les patients ayant \303\251t\303\251 trait\303\251s par un m\303\251dicament \303\240 une date ant\303\251rieure mais qui ne le sont plus.", nullptr));
+        comboBox_Dos->setItemText(3, QCoreApplication::translate("MainWindow", "Pour chaque patient, le nombre de m\303\251decin lui ayant prescrit un m\303\251dicament.", nullptr));
+
+        labelMed->setText(QCoreApplication::translate("MainWindow", "Nom_com / DCI : ", nullptr));
+        labelDate->setText(QCoreApplication::translate("MainWindow", "date deli / prescri : ", nullptr));
+        labelDate_2->setText(QCoreApplication::translate("MainWindow", "date deli / prescri : ", nullptr));
+        textBrowser_6->setHtml(QCoreApplication::translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "hr { height: 1px; border-width: 0; }\n"
@@ -734,16 +886,30 @@ public:
 "li.checked::marker { content: \"\\2612\"; }\n"
 "</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'.AppleSystemUIFont'; font-size:13pt;\">M\303\251dicament</span></p></body></html>", nullptr));
-        textBrowser_3->setHtml(QCoreApplication::translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+        boutonLoadMedicament->setText(QCoreApplication::translate("MainWindow", "OK", nullptr));
+        comboBox->setItemText(0, QCoreApplication::translate("MainWindow", "Load", nullptr));
+        comboBox->setItemText(1, QCoreApplication::translate("MainWindow", "La liste des nom commerciaux de m\303\251dicaments correspondant \303\240 un nom en DCI, class\303\251s par ordre alphab\303\251tique et taille de conditionnement.", nullptr));
+        comboBox->setItemText(2, QCoreApplication::translate("MainWindow", "Pour chaque d\303\251cennie entre 1950 et 2020, le m\303\251dicament le plus consomm\303\251 par des patients n\303\251s durant cette d\303\251cennie.", nullptr));
+        comboBox->setItemText(3, QCoreApplication::translate("MainWindow", "La liste des m\303\251dicaments n'\303\251tant plus prescrits depuis une date sp\303\251cifique.", nullptr));
+
+        medicamentLabelDCI->setText(QCoreApplication::translate("MainWindow", "DCI : ", nullptr));
+        medicamentLineEditDate->setText(QString());
+        medicamentlabelDate->setText(QCoreApplication::translate("MainWindow", "Date :", nullptr));
+        boutonLoadPathologie->setText(QCoreApplication::translate("MainWindow", "OK", nullptr));
+        textBrowser_7->setHtml(QCoreApplication::translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "hr { height: 1px; border-width: 0; }\n"
 "li.unchecked::marker { content: \"\\2610\"; }\n"
 "li.checked::marker { content: \"\\2612\"; }\n"
 "</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'.AppleSystemUIFont'; font-size:13pt;\">pathologie</span></p>\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'.AppleSystemUIFont'; font-size:13pt;\"><br /></p></body></html>", nullptr));
-        textBrowser_4->setHtml(QCoreApplication::translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'.AppleSystemUIFont'; font-size:13pt;\">Pathologie</span></p></body></html>", nullptr));
+        comboBox_2->setItemText(0, QCoreApplication::translate("MainWindow", "Load", nullptr));
+        comboBox_2->setItemText(1, QCoreApplication::translate("MainWindow", "La liste des pathologies qui peuvent \303\252tre prise en charge par un seul type de sp\303\251cialistes.", nullptr));
+        comboBox_2->setItemText(2, QCoreApplication::translate("MainWindow", "La pathologie la plus diagnostiqu\303\251e.", nullptr));
+
+        boutonLoadMedecin->setText(QCoreApplication::translate("MainWindow", "LOAD", nullptr));
+        textBrowser_9->setHtml(QCoreApplication::translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "hr { height: 1px; border-width: 0; }\n"
@@ -751,7 +917,11 @@ public:
 "li.checked::marker { content: \"\\2612\"; }\n"
 "</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'.AppleSystemUIFont'; font-size:13pt;\">M\303\251decin</span></p></body></html>", nullptr));
-        textBrowser_5->setHtml(QCoreApplication::translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+        comboBoxMedecin->setItemText(0, QCoreApplication::translate("MainWindow", "Load", nullptr));
+        comboBoxMedecin->setItemText(1, QCoreApplication::translate("MainWindow", "La liste des m\303\251decins ayant prescrit des m\303\251dicaments ne relevant pas de leur sp\303\251cialit\303\251.", nullptr));
+
+        boutonLoadSpecialite->setText(QCoreApplication::translate("MainWindow", "LOAD", nullptr));
+        textBrowser_10->setHtml(QCoreApplication::translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "hr { height: 1px; border-width: 0; }\n"
@@ -759,6 +929,9 @@ public:
 "li.checked::marker { content: \"\\2612\"; }\n"
 "</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'.AppleSystemUIFont'; font-size:13pt;\">Sp\303\251cialit\303\251</span></p></body></html>", nullptr));
+        comboBoxSpecialite->setItemText(0, QCoreApplication::translate("MainWindow", "Load", nullptr));
+        comboBoxSpecialite->setItemText(1, QCoreApplication::translate("MainWindow", "La sp\303\251cialit\303\251 de m\303\251decins pour laquelle les m\303\251decins prescrivent le plus de m\303\251dicaments.", nullptr));
+
         menuInscription->setTitle(QCoreApplication::translate("MainWindow", "Inscription", nullptr));
         menuTables->setTitle(QCoreApplication::translate("MainWindow", "Tables", nullptr));
     } // retranslateUi
