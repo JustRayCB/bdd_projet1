@@ -48,7 +48,15 @@ private slots:
 
     void on_signPhar_clicked();
 
-    void on_pushBoutonLoadTable_clicked();
+    void on_boutonLoadDossier_clicked();
+
+    void on_boutonLoadMedicament_clicked();
+
+    void on_boutonLoadPathologie_clicked();
+
+    void on_boutonLoadMedecin_clicked();
+
+    void on_boutonLoadSpecialite_clicked();
 
 private:
     Ui::MainWindow *ui;

@@ -287,7 +287,7 @@ void MainWindow::on_signPhar_clicked()
 }
 
 
-void MainWindow::on_pushBoutonLoadTable_clicked()
+void MainWindow::on_boutonLoadDossier_clicked()
 {
    QTableView *tableView = ui->tableViewDossier;
    QStandardItemModel *model = new QStandardItemModel(this);
@@ -311,11 +311,8 @@ void MainWindow::on_pushBoutonLoadTable_clicked()
 
    sql::ResultSet *res = db.getResFromQuery("SELECT * FROM DOSSIER");
    int row = 0;
-   std::cout << "HERE" << std::endl;
    while (res->next()) {
-       std::cout << "IN HERE" << std::endl;
        for (int col=0; col<9; col++) {
-           std::cout << "IN IN HERE" << std::endl;
            QString data = QString::fromStdString(res->getString(fields[col]));
            model->setItem(row,col,new QStandardItem(data));
        }
@@ -323,4 +320,108 @@ void MainWindow::on_pushBoutonLoadTable_clicked()
    }
 }
 
+void MainWindow::on_boutonLoadMedicament_clicked()
+{
+   QTableView *tableView = ui->tableViewMedicament;
+   QStandardItemModel *model = new QStandardItemModel(this);
+   tableView->setModel(model);
+
+   std::vector<std::string> fields = {"ID", "DCI",  "Nom", "Conditionnement", "SystemeAnatomiqueNom"};
+
+   // Ajouter des en-têtes de colonne
+   model->setColumnCount(5);
+   model->setHeaderData(0, Qt::Horizontal, "ID");
+   model->setHeaderData(1, Qt::Horizontal, "DCI");
+   model->setHeaderData(2, Qt::Horizontal, "Nom");
+   model->setHeaderData(3, Qt::Horizontal, "Coonditionnement");
+   model->setHeaderData(4, Qt::Horizontal, "SystemeAnatomiqueNom");
+
+   sql::ResultSet *res = db.getResFromQuery("SELECT * FROM MEDICAMENT");
+   int row = 0;
+   while (res->next()) {
+       for (int col=0; col<5; col++) {
+           QString data = QString::fromStdString(res->getString(fields[col]));
+           model->setItem(row,col,new QStandardItem(data));
+       }
+       row++;
+   }
+}
+
+
+void MainWindow::on_boutonLoadPathologie_clicked()
+{
+   QTableView *tableView = ui->tableViewPathologie;
+   QStandardItemModel *model = new QStandardItemModel(this);
+   tableView->setModel(model);
+
+   std::vector<std::string> fields = {"Nom", "SpecialisationNom"};
+
+   // Ajouter des en-têtes de colonne
+   model->setColumnCount(2);
+   model->setHeaderData(0, Qt::Horizontal, "Nom");
+   model->setHeaderData(1, Qt::Horizontal, "SpecialisationNom");
+
+   sql::ResultSet *res = db.getResFromQuery("SELECT * FROM PATHOLOGIE");
+   int row = 0;
+   while (res->next()) {
+       for (int col=0; col<2; col++) {
+           QString data = QString::fromStdString(res->getString(fields[col]));
+           model->setItem(row,col,new QStandardItem(data));
+       }
+       row++;
+   }
+}
+
+
+void MainWindow::on_boutonLoadMedecin_clicked()
+{
+   QTableView *tableView = ui->tableViewMedecin;
+   QStandardItemModel *model = new QStandardItemModel(this);
+   tableView->setModel(model);
+
+   std::vector<std::string> fields = {"INAMI", "Nom", "NumTel", "Mail", "SpecialisationNom"};
+
+   // Ajouter des en-têtes de colonne
+   model->setColumnCount(5);
+   model->setHeaderData(0, Qt::Horizontal, "INAMI");
+   model->setHeaderData(1, Qt::Horizontal, "Nom");
+   model->setHeaderData(2, Qt::Horizontal, "NumTel");
+   model->setHeaderData(3, Qt::Horizontal, "Mail");
+   model->setHeaderData(4, Qt::Horizontal, "SpecialisationNom");
+
+   sql::ResultSet *res = db.getResFromQuery("SELECT * FROM MEDECIN");
+   int row = 0;
+   while (res->next()) {
+       for (int col=0; col<5; col++) {
+           QString data = QString::fromStdString(res->getString(fields[col]));
+           model->setItem(row,col,new QStandardItem(data));
+       }
+       row++;
+   }
+}
+
+
+
+void MainWindow::on_boutonLoadSpecialite_clicked()
+{
+   QTableView *tableView = ui->tableViewSpecialite;
+   QStandardItemModel *model = new QStandardItemModel(this);
+   tableView->setModel(model);
+
+   std::vector<std::string> fields = {"Nom"};
+
+   // Ajouter des en-têtes de colonne
+   model->setColumnCount(1);
+   model->setHeaderData(0, Qt::Horizontal, "Nom");
+
+   sql::ResultSet *res = db.getResFromQuery("SELECT * FROM SPECIALISATION");
+   int row = 0;
+   while (res->next()) {
+       for (int col=0; col<1; col++) {
+           QString data = QString::fromStdString(res->getString(fields[col]));
+           model->setItem(row,col,new QStandardItem(data));
+       }
+       row++;
+   }
+}
 
