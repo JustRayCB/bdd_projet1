@@ -112,7 +112,7 @@ void MainWindow::on_signPatient_2_clicked()
 
    int res = db.insertPatient(niss, name, fname, gender, birth, mail, phone, pharmacien, medecin);
    // int res = 0;
-   qDebug() << "Voici la date : " << birth;
+   //qDebug() << "Voici la date : " << birth;
    std::string error;
 
    if (res ==  -1){
@@ -322,28 +322,48 @@ void MainWindow::on_boutonLoadDossier_clicked()
 
 void MainWindow::on_boutonLoadMedicament_clicked()
 {
-   QTableView *tableView = ui->tableViewMedicament;
-   QStandardItemModel *model = new QStandardItemModel(this);
-   tableView->setModel(model);
+    QTableView *tableView = ui->tableViewMedicament;
+    QStandardItemModel *model = new QStandardItemModel(this);
+    tableView->setModel(model);
 
-   std::vector<std::string> fields = {"ID", "DCI",  "Nom", "Conditionnement", "SystemeAnatomiqueNom"};
+    QString DCI=ui->lineEdit->text();
+   if (ui->comboBox->currentText()=="query 1"){
+       std::vector<std::string> fields = {"Nom", "Conditionnement"};
 
-   // Ajouter des en-têtes de colonne
-   model->setColumnCount(5);
-   model->setHeaderData(0, Qt::Horizontal, "ID");
-   model->setHeaderData(1, Qt::Horizontal, "DCI");
-   model->setHeaderData(2, Qt::Horizontal, "Nom");
-   model->setHeaderData(3, Qt::Horizontal, "Coonditionnement");
-   model->setHeaderData(4, Qt::Horizontal, "SystemeAnatomiqueNom");
-
-   sql::ResultSet *res = db.getResFromQuery("SELECT * FROM Medicament");
-   int row = 0;
-   while (res->next()) {
-       for (int col=0; col<5; col++) {
-           QString data = QString::fromStdString(res->getString(fields[col]));
-           model->setItem(row,col,new QStandardItem(data));
+       model->setColumnCount(2);
+       model->setHeaderData(0, Qt::Horizontal, "Nom");
+       model->setHeaderData(1, Qt::Horizontal, "Conitionnement");
+       QString query="SELECT distinct m.Nom, m.Conditionnement FROM Medicament AS m WHERE m.DCI='"+DCI+"' AND m.NOM IS NOT NULL ORDER BY m.NOM,m.Conditionnement ";
+       sql::ResultSet *res = db.getResFromQuery(query.toStdString());
+       int row = 0;
+       while (res->next()) {
+           for (int col=0; col<2; col++) {
+               QString data = QString::fromStdString(res->getString(fields[col]));
+               model->setItem(row,col,new QStandardItem(data));
+           }
+           row++;
        }
-       row++;
+   } else {
+
+       std::vector<std::string> fields = {"ID", "DCI",  "Nom", "Conditionnement", "SystemeAnatomiqueNom"};
+
+       // Ajouter des en-têtes de colonne
+       model->setColumnCount(5);
+       model->setHeaderData(0, Qt::Horizontal, "ID");
+       model->setHeaderData(1, Qt::Horizontal, "DCI");
+       model->setHeaderData(2, Qt::Horizontal, "Nom");
+       model->setHeaderData(3, Qt::Horizontal, "Coonditionnement");
+       model->setHeaderData(4, Qt::Horizontal, "SystemeAnatomiqueNom");
+
+       sql::ResultSet *res = db.getResFromQuery("SELECT * FROM Medicament");
+       int row = 0;
+       while (res->next()) {
+           for (int col=0; col<5; col++) {
+               QString data = QString::fromStdString(res->getString(fields[col]));
+               model->setItem(row,col,new QStandardItem(data));
+           }
+           row++;
+       }
    }
 }
 
