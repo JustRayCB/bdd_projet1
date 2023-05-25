@@ -373,22 +373,38 @@ void MainWindow::on_boutonLoadPathologie_clicked()
    QTableView *tableView = ui->tableViewPathologie;
    QStandardItemModel *model = new QStandardItemModel(this);
    tableView->setModel(model);
+   if (ui->comboBox_2->currentText()=="query 2"){
+       std::vector<std::string> fields = {"Nom"};
 
-   std::vector<std::string> fields = {"Nom", "SpecialisationNom"};
+       model->setColumnCount(1);
+       model->setHeaderData(0, Qt::Horizontal, "Nom");
 
-   // Ajouter des en-têtes de colonne
-   model->setColumnCount(2);
-   model->setHeaderData(0, Qt::Horizontal, "Nom");
-   model->setHeaderData(1, Qt::Horizontal, "SpecialisationNom");
-
-   sql::ResultSet *res = db.getResFromQuery("SELECT * FROM Pathologie");
-   int row = 0;
-   while (res->next()) {
-       for (int col=0; col<2; col++) {
-           QString data = QString::fromStdString(res->getString(fields[col]));
-           model->setItem(row,col,new QStandardItem(data));
+       sql::ResultSet *res = db.getResFromQuery("SELECT p.Nom FROM Pathologie p GROUP BY p.Nom HAVING COUNT(DISTINCT p.SpecialisationNom)=1");
+       int row = 0;
+       while (res->next()) {
+           for (int col=0; col<1; col++) {
+               QString data = QString::fromStdString(res->getString(fields[col]));
+               model->setItem(row,col,new QStandardItem(data));
+           }
+           row++;
        }
-       row++;
+   } else {
+       std::vector<std::string> fields = {"Nom", "SpecialisationNom"};
+
+       // Ajouter des en-têtes de colonne
+       model->setColumnCount(2);
+       model->setHeaderData(0, Qt::Horizontal, "Nom");
+       model->setHeaderData(1, Qt::Horizontal, "SpecialisationNom");
+
+       sql::ResultSet *res = db.getResFromQuery("SELECT * FROM Pathologie");
+       int row = 0;
+       while (res->next()) {
+           for (int col=0; col<2; col++) {
+               QString data = QString::fromStdString(res->getString(fields[col]));
+               model->setItem(row,col,new QStandardItem(data));
+           }
+           row++;
+       }
    }
 }
 

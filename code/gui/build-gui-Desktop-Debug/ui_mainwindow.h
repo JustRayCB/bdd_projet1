@@ -147,6 +147,7 @@ public:
     QTableView *tableViewPathologie;
     QPushButton *boutonLoadPathologie;
     QTextBrowser *textBrowser_7;
+    QComboBox *comboBox_2;
     QWidget *Medecin;
     QTableView *tableViewMedecin;
     QPushButton *boutonLoadMedecin;
@@ -645,6 +646,11 @@ public:
         textBrowser_7 = new QTextBrowser(Pathologie);
         textBrowser_7->setObjectName(QString::fromUtf8("textBrowser_7"));
         textBrowser_7->setGeometry(QRect(20, 40, 101, 31));
+        comboBox_2 = new QComboBox(Pathologie);
+        comboBox_2->addItem(QString());
+        comboBox_2->addItem(QString());
+        comboBox_2->setObjectName(QString::fromUtf8("comboBox_2"));
+        comboBox_2->setGeometry(QRect(740, 40, 101, 31));
         pages->addWidget(Pathologie);
         Medecin = new QWidget();
         Medecin->setObjectName(QString::fromUtf8("Medecin"));
@@ -696,7 +702,7 @@ public:
 
         retranslateUi(MainWindow);
 
-        pages->setCurrentIndex(6);
+        pages->setCurrentIndex(7);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -790,12 +796,15 @@ public:
         comboBox->setItemText(1, QCoreApplication::translate("MainWindow", "Load", nullptr));
 
         label->setText(QCoreApplication::translate("MainWindow", "DCI : ", nullptr));
-        boutonLoadPathologie->setText(QCoreApplication::translate("MainWindow", "LOAD", nullptr));
+        boutonLoadPathologie->setText(QCoreApplication::translate("MainWindow", "OK", nullptr));
         textBrowser_7->setHtml(QCoreApplication::translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'.AppleSystemUIFont'; font-size:13pt;\">Pathologie</span></p></body></html>", nullptr));
+        comboBox_2->setItemText(0, QCoreApplication::translate("MainWindow", "Load", nullptr));
+        comboBox_2->setItemText(1, QCoreApplication::translate("MainWindow", "query 2", nullptr));
+
         boutonLoadMedecin->setText(QCoreApplication::translate("MainWindow", "LOAD", nullptr));
         textBrowser_9->setHtml(QCoreApplication::translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
