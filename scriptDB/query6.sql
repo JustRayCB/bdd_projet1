@@ -1,4 +1,4 @@
-SELECT M.INAMI, M.Nom, M.NumTel, M.Mail, M.SpecialisationNom
+SELECT M.INAMI, M.Nom
 FROM Medecin M
 INNER JOIN Prescription P ON M.INAMI = P.MedecinINAMI
 INNER JOIN Medicament Med ON P.MedicamentNom = Med.Nom

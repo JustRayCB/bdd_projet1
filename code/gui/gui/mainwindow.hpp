@@ -58,6 +58,10 @@ private slots:
 
     void on_boutonLoadSpecialite_clicked();
 
+    void on_comboBox_Dos_activated(int index);
+
+    void on_comboBox_activated(int index);
+
 private:
     Ui::MainWindow *ui;
     Database db;
