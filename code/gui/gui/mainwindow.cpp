@@ -309,7 +309,7 @@ void MainWindow::on_boutonLoadDossier_clicked()
    model->setHeaderData(7, Qt::Horizontal, "PharmacienINAMI");
    model->setHeaderData(8, Qt::Horizontal, "MedecinINAMI");
 
-   sql::ResultSet *res = db.getResFromQuery("SELECT * FROM DOSSIER");
+   sql::ResultSet *res = db.getResFromQuery("SELECT * FROM Dossier");
    int row = 0;
    while (res->next()) {
        for (int col=0; col<9; col++) {
@@ -336,7 +336,7 @@ void MainWindow::on_boutonLoadMedicament_clicked()
    model->setHeaderData(3, Qt::Horizontal, "Coonditionnement");
    model->setHeaderData(4, Qt::Horizontal, "SystemeAnatomiqueNom");
 
-   sql::ResultSet *res = db.getResFromQuery("SELECT * FROM MEDICAMENT");
+   sql::ResultSet *res = db.getResFromQuery("SELECT * FROM Medicament");
    int row = 0;
    while (res->next()) {
        for (int col=0; col<5; col++) {
@@ -361,7 +361,7 @@ void MainWindow::on_boutonLoadPathologie_clicked()
    model->setHeaderData(0, Qt::Horizontal, "Nom");
    model->setHeaderData(1, Qt::Horizontal, "SpecialisationNom");
 
-   sql::ResultSet *res = db.getResFromQuery("SELECT * FROM PATHOLOGIE");
+   sql::ResultSet *res = db.getResFromQuery("SELECT * FROM Pathologie");
    int row = 0;
    while (res->next()) {
        for (int col=0; col<2; col++) {
@@ -389,7 +389,7 @@ void MainWindow::on_boutonLoadMedecin_clicked()
    model->setHeaderData(3, Qt::Horizontal, "Mail");
    model->setHeaderData(4, Qt::Horizontal, "SpecialisationNom");
 
-   sql::ResultSet *res = db.getResFromQuery("SELECT * FROM MEDECIN");
+   sql::ResultSet *res = db.getResFromQuery("SELECT * FROM Medecin");
    int row = 0;
    while (res->next()) {
        for (int col=0; col<5; col++) {
@@ -414,7 +414,7 @@ void MainWindow::on_boutonLoadSpecialite_clicked()
    model->setColumnCount(1);
    model->setHeaderData(0, Qt::Horizontal, "Nom");
 
-   sql::ResultSet *res = db.getResFromQuery("SELECT * FROM SPECIALISATION");
+   sql::ResultSet *res = db.getResFromQuery("SELECT * FROM Specialisation");
    int row = 0;
    while (res->next()) {
        for (int col=0; col<1; col++) {
