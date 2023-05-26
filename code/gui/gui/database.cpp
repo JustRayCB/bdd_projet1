@@ -1,5 +1,6 @@
 #include "database.hpp"
 #include <bit>
+#include <cctype>
 #include <ctime>
 #include <fstream>
 #include <iostream>
@@ -100,6 +101,7 @@ sql::ResultSet *Database::getTreatment() const {
     sql::ResultSet *res = stmt->executeQuery();
     return res;
 }
+
 bool Database::connectUser(const std::string &niss) {
     std::cout << "Je suis dans connect" << std::endl;
     sql::PreparedStatement *stmt = con->prepareStatement("SELECT * FROM Dossier WHERE Niss = ?");
@@ -170,7 +172,6 @@ void Database::loadSpecialites() const {
     std::cout << "Loading specialites.xml ..." << std::endl;
 
     std::cout << std::endl;
-    // ../../../../../data/specialites.xml
     std::string specialitesPath = "../../../data/specialites.xml";
     pugi::xml_document doc;
     if (!doc.load_file(specialitesPath.c_str())) {
@@ -244,6 +245,7 @@ void Database::insertSSS(const std::string &nomSpecialisation,
         return;
     }
     if (nomSpecialisation == "None" or nomSystemeAnatomique == "None") { return; }
+    if (nomSpecialisation == "" or nomSystemeAnatomique == "") { return; }
     std::cout << "Insert SSS" << std::endl;
     sql::PreparedStatement *stmt = con->prepareStatement(
         "INSERT INTO SpecialisationSpecialiseSysAnatomique (SpecialisationNom , "
@@ -271,7 +273,7 @@ void Database::loadPathologies() const {
         //           << std::endl;
         strip(nomPathologie);
         strip(nomSpecialisation);
-        insertSpecialisation(nomSpecialisation);
+        // insertSpecialisation(nomSpecialisation);
         insertPathologie(nomPathologie, nomSpecialisation);
         i++;
     }
@@ -286,7 +288,14 @@ void Database::insertPathologie(const std::string &nom, const std::string &speci
                   << " Inside Pathologie" << std::endl;
         return;
     }
+    if (!checkIfExists("Specialisation", "Nom", specialisation)) {
+        std::cout << specialisation << " does not exist "
+                  << " Inside Specialisation" << std::endl;
+        return;
+    };
     if (nom == "None" or nom == "") { return; }
+    if (specialisation == "None" or specialisation == "") { return; }
+
     // std::cout << "Insert pathologie" << std::endl;
     sql::PreparedStatement *stmt =
         con->prepareStatement("INSERT INTO Pathologie (Nom, SpecialisationNom) VALUES (?, ?)");
@@ -358,7 +367,7 @@ int Database::insertPharmacien(const std::string &inami, const std::string &nom,
     }
     if (inami == "None" or inami == "") { return -3; }
     for (size_t i = 0; i < args.size(); i++) {
-        if (i == 2 or i == 3) {
+        if (i == 3) {
         } else if (args[i] == "None" or args[i].empty()) {
             std::cout << "Missing argument " << i << std::endl;
             return -3;
@@ -381,7 +390,7 @@ int Database::insertPharmacien(const std::string &inami, const std::string &nom,
         "INSERT INTO Pharmacien (INAMI, Nom, NumTel, Mail) VALUES (?, ?, ?, ?)");
 
     for (size_t i = 0; i < args.size(); i++) {
-        if (i == 3 and email == "") { // email
+        if (i == 3 and (email == "" or email == "None")) { // email
             stmt->setNull(i + 1, sql::DataType::VARCHAR);
         } else {
             stmt->setString(i + 1, args[i]);
@@ -437,7 +446,7 @@ void Database::loadMedecins() const {
         }
         std::cout << "Inami: " << inami << " Name: " << name << " Mail: " << mail << " Tel: " << tel
                   << " Specialite : " << specialite << std::endl;
-        insertSpecialisation(specialite);
+        // insertSpecialisation(specialite);
         insertMedecin(inami, name, mail, tel, specialite);
     }
 
@@ -463,7 +472,7 @@ int Database::insertMedecin(const std::string &inami, const std::string &nom,
     if (not checkIfExists("Specialisation", "Nom", specilisation)) { return -7; }
 
     for (size_t i = 0; i < args.size(); i++) {
-        if (i == 2 or i == 3) {
+        if (i == 3) {
         } else if (args[i] == "None" or args[i] == "") {
             std::cout << "The " << i << "th argument is empty" << std::endl;
             return -3;
@@ -486,7 +495,7 @@ int Database::insertMedecin(const std::string &inami, const std::string &nom,
     sql::PreparedStatement *stmt = con->prepareStatement(
         "INSERT INTO Medecin (INAMI, Nom, NumTel, Mail, SpecialisationNom) VALUES (?, ?, ?, ?, ?)");
     for (size_t i = 0; i < args.size(); i++) {
-        if (i == 3 and email == "") { // email
+        if (i == 3 and (email == "" or email == "None")) { // email
             stmt->setNull(i + 1, sql::DataType::VARCHAR);
         } else {
             stmt->setString(i + 1, args[i]);
@@ -529,7 +538,8 @@ void Database::loadMedicaments() const {
 void Database::insertMedicament(const std::string &dci, const std::string &nom,
                                 const std::string &sysa, const std::string &conditionnement) const {
     std::vector<std::string> args = {dci, nom, conditionnement, sysa};
-    if (std::stoi(conditionnement) <= 0) {
+    if ((std::stoi(conditionnement) <= 0) or
+        (conditionnement != "" and not std::isdigit(conditionnement.at(0)))) {
         std::cout << "Conditionnement is negative or null number" << std::endl;
         return;
     }
@@ -538,8 +548,17 @@ void Database::insertMedicament(const std::string &dci, const std::string &nom,
                   << " Inside Medicament" << std::endl;
         return;
     }
-    if (not checkIfExists("SystemeAnatomique", "Nom", sysa)) { insertSystemeAnatomique(sysa); }
-    if (dci == "None" or dci == "") { return; }
+    if (not checkIfExists("SystemeAnatomique", "Nom", sysa)) {
+        std::cout << "The systeme anatomique doesn't exist" << std::endl;
+        return;
+    }
+    // if (dci == "None" or dci == "") { return; }
+    for (size_t i = 0; i < args.size(); i++) {
+        if (args[i] == "None" or args[i] == "") {
+            std::cout << "The " << i << "th argument is empty" << std::endl;
+            return;
+        }
+    }
     // std::cout << "Insert medicament" << std::endl;
     sql::PreparedStatement *stmt =
         con->prepareStatement("INSERT INTO Medicament (DCI, Nom, Conditionnement, "
@@ -709,8 +728,12 @@ void Database::insertDiagnostic(const std::string &niss, const std::string &path
                   << " Inside DossierContientPathologie" << std::endl;
         return;
     }
-    if (niss == "None" or niss == "") { return; }
-    if (pathologie == "None" or pathologie == "") { return; }
+    for (size_t i = 0; i < args.size(); i++) {
+        if (args[i] == "None" or args[i] == "") {
+            std::cout << "Argument " << i << " is None" << std::endl;
+            return;
+        }
+    }
     if (not isDate1MoreRecent(date, birth)) {
         std::cout << "Diagnostic birth is more recent than date" << std::endl;
         return;
@@ -719,8 +742,14 @@ void Database::insertDiagnostic(const std::string &niss, const std::string &path
         std::cout << "Dossier does not exist " << std::endl;
         return;
     }
-    insertSpecialisation(specialite);
-    insertPathologie(pathologie, specialite);
+    if (not checkIfExists("Pathologie", "Nom", pathologie)) {
+        std::cout << "Pathologie does not exist " << std::endl;
+        return;
+    }
+    if (not checkIfExists("Specialisation", "Nom", specialite)) {
+        std::cout << "Specialite does not exist " << std::endl;
+        return;
+    }
 
     sql::PreparedStatement *stmt = con->prepareStatement(
         "INSERT INTO DossierContientPathologie (DossierID, PathologieNom, DateDiagnostique) "
@@ -769,12 +798,6 @@ void Database::loadPrescriptions() const {
                 std::getline(iss, args[i], ',');
                 strip(args[i]);
             }
-            // std::cout << "NISS: " << args[NISS] << " Medecin: " << args[MEDECIN]
-            //           << " Inami Medecin: " << args[INAMI_MEDECIN]
-            //           << " Pharmacien: " << args[PHARMACIEN]
-            //           << " Inami Pharmacien: " << args[INAMI_PHARMACIEN]
-            //           << " Medicament: " << args[MEDICAMENT] << " DCI: " << args[DCI]
-            //           << " Date: " << args[DATE] << " Duree: " << args[DUREE] << std::endl;
             int prescriptionId =
                 insertPrescription(args[INAMI_MEDECIN], args[NISS], args[PHARMACIEN], args[MEDECIN],
                                    args[MEDICAMENT], args[DATE], args[DUREE]);
@@ -850,6 +873,12 @@ int Database::insertPrescription(const std::string &medecinINAMI, const std::str
     if (not checkIfExists("Medicament", "Nom", medicament)) {
         std::cout << "Medicament does not exist " << std::endl;
         return -1;
+    }
+    for (size_t i = 0; i < args.size(); i++) {
+        if (args[i] == "None" or args[i] == "") {
+            std::cout << "Argument " << i << " is None" << std::endl;
+            return -1;
+        }
     }
     sql::PreparedStatement *stmt = con->prepareStatement(
         "INSERT INTO Prescription (MedecinINAMI, DossierID, PharmacienNom, MedecinNom, "
