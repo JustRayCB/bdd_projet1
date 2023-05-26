@@ -20,3 +20,5 @@ ULB INFO-H-303 course project
 6. Exécutez le jeu avec la flèche verte `Run`
 
 
+## Requêtes SQL 
+Toutes les requêtes demandée se trouvent dans le dossier `./scriptDB/`
