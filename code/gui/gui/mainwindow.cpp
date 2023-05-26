@@ -342,6 +342,7 @@ void MainWindow::on_boutonLoadDossier_clicked()
        }
        row++;
    }
+   delete res;
    tableView->resizeColumnsToContents(); // Ajuster la taille des colonnes aux contenus
 }
 
@@ -387,6 +388,7 @@ void MainWindow::on_boutonLoadMedicament_clicked()
        }
        row++;
    }
+   delete res;
    tableView->resizeColumnsToContents(); // Ajuster la taille des colonnes aux contenus
 }
 
@@ -427,6 +429,7 @@ void MainWindow::on_boutonLoadPathologie_clicked()
        }
        row++;
    }
+   delete res;
 
    tableView->resizeColumnsToContents(); // Ajuster la taille des colonnes aux contenus
 }
@@ -465,6 +468,7 @@ void MainWindow::on_boutonLoadMedecin_clicked()
        row++;
    }
 
+   delete res;
    tableView->resizeColumnsToContents(); // Ajuster la taille des colonnes aux contenus
 }
 
@@ -502,6 +506,7 @@ void MainWindow::on_boutonLoadSpecialite_clicked()
        }
        row++;
    }
+   delete res;
    tableView->resizeColumnsToContents(); // Ajuster la taille des colonnes aux contenus
 }
 
@@ -601,7 +606,6 @@ void MainWindow::on_consult_clicked()
    for (int idx = 0; idx<nbCol; idx++) {
        model->setHeaderData(idx, Qt::Horizontal, QString::fromStdString(tablefields[idx]));
    }
-   tableView->resizeColumnsToContents(); // Ajuster la taille des colonnes aux contenus
    int row=0;
    while (res->next()) {
        for (int col=0; col<nbCol; col++) {
@@ -611,6 +615,7 @@ void MainWindow::on_consult_clicked()
        row++;
    }
    delete res;
+   tableView->resizeColumnsToContents(); // Ajuster la taille des colonnes aux contenus
 }
 
 
