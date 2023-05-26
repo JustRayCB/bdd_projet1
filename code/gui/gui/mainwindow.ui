@@ -37,7 +37,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="loginPage">
      <widget class="QLabel" name="loginPic">
@@ -354,7 +354,7 @@
               <second>0</second>
               <year>1999</year>
               <month>12</month>
-              <day>22</day>
+              <day>20</day>
              </datetime>
             </property>
             <property name="maximumDateTime">
@@ -844,7 +844,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
         <second>0</second>
         <year>1999</year>
         <month>12</month>
-        <day>21</day>
+        <day>19</day>
        </datetime>
       </property>
       <property name="maximumDateTime">
@@ -923,7 +923,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
        <rect>
         <x>20</x>
         <y>40</y>
-        <width>101</width>
+        <width>131</width>
         <height>31</height>
        </rect>
       </property>
@@ -1033,7 +1033,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
         <second>0</second>
         <year>1999</year>
         <month>12</month>
-        <day>20</day>
+        <day>18</day>
        </datetime>
       </property>
       <property name="maximumDateTime">
@@ -1155,7 +1155,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
        </rect>
       </property>
       <property name="text">
-       <string>LOAD</string>
+       <string>OK</string>
       </property>
      </widget>
      <widget class="QTextBrowser" name="textBrowser_9">
@@ -1210,7 +1210,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
        </rect>
       </property>
       <property name="text">
-       <string>LOAD</string>
+       <string>OK</string>
       </property>
      </widget>
      <widget class="QTextBrowser" name="textBrowser_10">

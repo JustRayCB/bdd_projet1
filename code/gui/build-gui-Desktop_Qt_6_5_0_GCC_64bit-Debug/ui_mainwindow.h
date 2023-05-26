@@ -392,7 +392,7 @@ public:
 
         birthPatient = new QDateEdit(layoutWidget2);
         birthPatient->setObjectName("birthPatient");
-        birthPatient->setDateTime(QDateTime(QDate(1999, 12, 22), QTime(0, 0, 0)));
+        birthPatient->setDateTime(QDateTime(QDate(1999, 12, 20), QTime(0, 0, 0)));
         birthPatient->setMaximumDateTime(QDateTime(QDate(2023, 5, 30), QTime(23, 59, 59)));
         birthPatient->setMaximumDate(QDate(2023, 5, 30));
         birthPatient->setCurrentSection(QDateTimeEdit::MonthSection);
@@ -671,7 +671,7 @@ public:
         dateEdit = new QDateEdit(Dossier);
         dateEdit->setObjectName("dateEdit");
         dateEdit->setGeometry(QRect(500, 10, 231, 32));
-        dateEdit->setDateTime(QDateTime(QDate(1999, 12, 21), QTime(0, 0, 0)));
+        dateEdit->setDateTime(QDateTime(QDate(1999, 12, 19), QTime(0, 0, 0)));
         dateEdit->setMaximumDateTime(QDateTime(QDate(2023, 5, 30), QTime(23, 59, 59)));
         dateEdit->setMaximumDate(QDate(2023, 5, 30));
         dateEdit->setCurrentSection(QDateTimeEdit::YearSection);
@@ -692,7 +692,7 @@ public:
         tableViewMedicament->setGeometry(QRect(20, 80, 941, 411));
         textBrowser_6 = new QTextBrowser(Medicament);
         textBrowser_6->setObjectName("textBrowser_6");
-        textBrowser_6->setGeometry(QRect(20, 40, 101, 31));
+        textBrowser_6->setGeometry(QRect(20, 40, 131, 31));
         boutonLoadMedicament = new QPushButton(Medicament);
         boutonLoadMedicament->setObjectName("boutonLoadMedicament");
         boutonLoadMedicament->setGeometry(QRect(860, 40, 100, 32));
@@ -715,7 +715,7 @@ public:
         dateEdit2 = new QDateEdit(Medicament);
         dateEdit2->setObjectName("dateEdit2");
         dateEdit2->setGeometry(QRect(490, 40, 231, 32));
-        dateEdit2->setDateTime(QDateTime(QDate(1999, 12, 20), QTime(0, 0, 0)));
+        dateEdit2->setDateTime(QDateTime(QDate(1999, 12, 18), QTime(0, 0, 0)));
         dateEdit2->setMaximumDateTime(QDateTime(QDate(2023, 5, 30), QTime(23, 59, 59)));
         dateEdit2->setMaximumDate(QDate(2023, 5, 30));
         dateEdit2->setCurrentSection(QDateTimeEdit::YearSection);
@@ -802,7 +802,7 @@ public:
 
         retranslateUi(MainWindow);
 
-        pages->setCurrentIndex(1);
+        pages->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -933,7 +933,7 @@ public:
         comboBox_2->setItemText(1, QCoreApplication::translate("MainWindow", "La liste des pathologies qui peuvent \303\252tre prise en charge par un seul type de sp\303\251cialistes.", nullptr));
         comboBox_2->setItemText(2, QCoreApplication::translate("MainWindow", "La pathologie la plus diagnostiqu\303\251e.", nullptr));
 
-        boutonLoadMedecin->setText(QCoreApplication::translate("MainWindow", "LOAD", nullptr));
+        boutonLoadMedecin->setText(QCoreApplication::translate("MainWindow", "OK", nullptr));
         textBrowser_9->setHtml(QCoreApplication::translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
@@ -945,7 +945,7 @@ public:
         comboBoxMedecin->setItemText(0, QCoreApplication::translate("MainWindow", "Load", nullptr));
         comboBoxMedecin->setItemText(1, QCoreApplication::translate("MainWindow", "La liste des m\303\251decins ayant prescrit des m\303\251dicaments ne relevant pas de leur sp\303\251cialit\303\251.", nullptr));
 
-        boutonLoadSpecialite->setText(QCoreApplication::translate("MainWindow", "LOAD", nullptr));
+        boutonLoadSpecialite->setText(QCoreApplication::translate("MainWindow", "OK", nullptr));
         textBrowser_10->setHtml(QCoreApplication::translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
