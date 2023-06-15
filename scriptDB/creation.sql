@@ -73,8 +73,6 @@ CREATE TABLE Dossier (
     FOREIGN KEY (MedecinINAMI) REFERENCES Medecin(INAMI) ON DELETE SET NULL
 );
 
--- TODO: Il manque MedecinPrescritPrescription, PharmacienDelivreMedicament, Prescription
--- Tous ceci avec le dernier fichier dossier_patient.csv
 
 -- NOTE: Prescription à besoin de Médecin, Medicament et Dossier
 CREATE TABLE Prescription (
